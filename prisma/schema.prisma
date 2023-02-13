@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id    Int     @default(autoincrement()) @id
+  email String  @unique
+  name  String?
+  // posts Post[]
+}
+
+// model Desastre {}
+
+// model Agente {}
+
+// model Afetado {}
+
+// model InstalacaoPublica {}
+
+// Talvez usar ao invés de pergunta e respostas em afetados criar tabelas de perguntas e respostas
