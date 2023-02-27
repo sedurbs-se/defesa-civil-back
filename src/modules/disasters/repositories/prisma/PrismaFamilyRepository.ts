@@ -1,5 +1,5 @@
 import { Family } from "src/modules/disasters/domain/family/family";
-import { FamilyRepository } from "../../../../repositories/IFamilyRepository";
+import { FamilyRepository } from "../IFamilyRepository";
 
 class PrismaFamilyRepository implements FamilyRepository {
     save(family: Family): Promise<void> {

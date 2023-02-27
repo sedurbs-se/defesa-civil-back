@@ -1,5 +1,5 @@
 import { HousingUnit } from "src/modules/disasters/domain/housingUnit/housing-unit";
-import { HousingUnitRepository } from "../../../../repositories/IHousingUnitRepository";
+import { HousingUnitRepository } from "../IHousingUnitRepository";
 
 class PrismaHousingUnitRepository implements HousingUnitRepository {
     save(housingUnit: HousingUnit): Promise<void> {

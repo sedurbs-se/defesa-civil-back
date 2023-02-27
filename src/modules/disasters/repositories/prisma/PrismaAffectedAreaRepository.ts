@@ -1,5 +1,5 @@
 import { AffectedArea } from "src/modules/disasters/domain/affectedArea/affected-area";
-import { AffectedAreaRepository } from "../../../../repositories/IAffectedAreaRepository";
+import { AffectedAreaRepository } from "../IAffectedAreaRepository";
 
 class PrismaAffectedAreaRepository implements AffectedAreaRepository {
     async save(affectedArea: AffectedArea): Promise<void> {

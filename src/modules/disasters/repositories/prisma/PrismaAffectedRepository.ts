@@ -1,5 +1,5 @@
 import { Affected } from "src/modules/disasters/domain/affected/affected";
-import { AffectedRepository } from "../../../../repositories/IAffectedRepository";
+import { AffectedRepository } from "../IAffectedRepository";
 
 class PrismaAffectedRepository implements AffectedRepository {
     updateMany(affecteds: Affected[], field: any): Promise<void> {

@@ -1,5 +1,5 @@
 import { Disaster } from "src/modules/disasters/domain/disaster/disaster";
-import { DisasterRepository } from "../../../../repositories/IDisasterRepository";
+import { DisasterRepository } from "../IDisasterRepository";
 
 class PrismaDisasterRepository implements DisasterRepository {
     save(disaster: Disaster): Promise<void> {
