@@ -1,26 +1,24 @@
 import { Injectable } from "@nestjs/common";
-import { v4 as uuidv4 } from "uuid";
 import { AffectedArea } from "../../domain/affectedArea/affected-area";
 import { AffectedAreaRepository } from "../../repositories/IAffectedAreaRepository";
+import { AppError } from "src/core/logic/error";
+import { CreateAffectedAreaDTO } from "../../dtos/CreateAffectedAreaDTO";
 
-interface CreateAffectedAreaRequest {
-    coordinates: number[];
-    disasterId: string;
-    name: string;
-    address: string;
-}
 
 @Injectable()
 class CreateAffectedArea {
     constructor(private affectedAreaRepository: AffectedAreaRepository) {}
 
-    async execute(request: CreateAffectedAreaRequest): Promise<AffectedArea> {
+    async execute(request: CreateAffectedAreaDTO): Promise<AffectedArea> {
+
+        const existDisaster = await this.affectedAreaRepository.find(request.disasterId);
+
+        if (!existDisaster) throw new AppError("Disaster not found");
+
         const affectedArea = new AffectedArea({
-            id: uuidv4(),
-            coordinates: request.coordinates,
             disasterId: request.disasterId,
             name: request.name,
-            address: request.address,
+            order: request.order
         });
 
         await this.affectedAreaRepository.save(affectedArea);
@@ -30,6 +28,5 @@ class CreateAffectedArea {
 }
 
 export {
-    CreateAffectedArea,
-    CreateAffectedAreaRequest
+    CreateAffectedArea
 }

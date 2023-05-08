@@ -1,18 +1,37 @@
-import { AffectedArea } from "src/modules/disasters/domain/affectedArea/affected-area";
-import { AffectedAreaRepository } from "../IAffectedAreaRepository";
+import { PrismaService } from 'src/prisma.service';
+import { AffectedAreaRepository } from '../IAffectedAreaRepository';
+import { Injectable } from '@nestjs/common';
+import { AffectedArea } from '../../domain/affectedArea/affected-area';
+import { AffectedAreaMapper } from '../../mappers/AffectedAreaMapper';
 
-class PrismaAffectedAreaRepository implements AffectedAreaRepository {
-    async save(affectedArea: AffectedArea): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    async find(id: string): Promise<AffectedArea> {
-        throw new Error("Method not implemented.");
-    }
-    async findAll(): Promise<AffectedArea[]> {
-        throw new Error("Method not implemented.");
-    }
-}
+@Injectable()
+export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
+  constructor(readonly prisma: PrismaService) {}
 
-export {
-    PrismaAffectedAreaRepository
+  async save(affectedArea: AffectedArea): Promise<void> {
+    const a = AffectedAreaMapper.toPersistence(affectedArea);
+
+    await this.prisma.areaAfetada.create({
+      data: {
+        ...a,
+      },
+    });
+  }
+  async find(id: string): Promise<AffectedArea> {
+    const area = await this.prisma.areaAfetada.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        unidadesHabitacionais: true,
+      },
+    });
+
+    return AffectedAreaMapper.toDomain(area);
+  }
+  async findAll(): Promise<AffectedArea[]> {
+    const areas = await this.prisma.areaAfetada.findMany({});
+
+    return areas.map(AffectedAreaMapper.toDomain);
+  }
 }

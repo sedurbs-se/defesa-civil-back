@@ -1,28 +1,26 @@
-import { v4 as uuidv4 } from "uuid";
-import { HousingUnit } from "../../domain/housingUnit/housing-unit";
-import { HousingUnitRepository } from "../../repositories/IHousingUnitRepository";
+import { HousingUnit } from '../../domain/housingUnit/housing-unit';
+import { HousingUnitRepository } from '../../repositories/IHousingUnitRepository';
 
 interface CreateHousingUnitRequest {
-    affectedAreaId: string;
+  affectedAreaId: string;
+  address: string;
+  coordinates: number[];
 }
-
 
 class CreateHousingUnit {
-    constructor(private housingUnitRepository: HousingUnitRepository) {}
+  constructor(private housingUnitRepository: HousingUnitRepository) {}
 
-    async execute(request: CreateHousingUnitRequest): Promise<HousingUnit> {
-        const housingUnit = new HousingUnit({
-            id: uuidv4(),
-            affectedAreaId: request.affectedAreaId,
-        });
+  async execute(request: CreateHousingUnitRequest): Promise<HousingUnit> {
+    const housingUnit = new HousingUnit({
+      address: request.address,
+      coordinates: request.coordinates,
+      affectedAreaId: request.affectedAreaId,
+    });
 
-        await this.housingUnitRepository.save(housingUnit);
+    await this.housingUnitRepository.save(housingUnit);
 
-        return housingUnit;
-    }
+    return housingUnit;
+  }
 }
 
-export {
-    CreateHousingUnit,
-    CreateHousingUnitRequest
-}
+export { CreateHousingUnit, CreateHousingUnitRequest };

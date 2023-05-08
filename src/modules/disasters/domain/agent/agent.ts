@@ -1,8 +1,8 @@
 interface AgentProps {
     id: string;
-    name: string;
     function: string;
     contact: string;
+    fl_lider_equipe: boolean;
 }
 
 
@@ -17,10 +17,6 @@ class Agent {
         return this.props.id;
     }
 
-    get name() {
-        return this.props.name;
-    }
-
     get function() {
         return this.props.function;
     }
@@ -29,8 +25,8 @@ class Agent {
         return this.props.contact;
     }
 
-    set name(name: string) {
-        this.props.name = name;
+    get fl_lider_equipe() {
+        return this.props.fl_lider_equipe;
     }
 
     set function(func: string) {
@@ -40,8 +36,11 @@ class Agent {
     set contact(contact: string) {
         this.props.contact = contact;
     }
-}
 
+    set fl_lider_equipe(fl_lider_equipe: boolean) {
+        this.props.fl_lider_equipe = fl_lider_equipe;
+    }
+}
 export {
     AgentProps,
     Agent

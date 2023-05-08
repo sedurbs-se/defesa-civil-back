@@ -10,17 +10,15 @@ datasource db {
 model Municipio {
   id        String     @id @default(uuid())
   nome      String
-  estado    String
   desastres Desastre[]
 }
 
 model Desastre {
   id          String        @id @default(uuid())
+  data        DateTime
   municipioId String        @map("municipio_id")
   municipio   Municipio     @relation(fields: [municipioId], references: [id])
   areas       AreaAfetada[]
-  Agente      Agente?       @relation(fields: [agenteId], references: [id])
-  agenteId    String?
 }
 
 model AreaAfetada {
@@ -122,7 +120,6 @@ model Agente {
   id        String     @id @default(uuid())
   funcao    String
   contato   String
-  desastres Desastre[]
   usuarioId String     @unique @map("usuario_id")
   user      Usuario?   @relation(fields: [usuarioId], references: [id])
 

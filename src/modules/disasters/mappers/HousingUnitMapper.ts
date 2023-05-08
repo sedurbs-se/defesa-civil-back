@@ -5,6 +5,8 @@ export class HousingUnitMapper {
     static toDomain(raw: PersistenceHousingUnit) {
         return new HousingUnit({
             id: raw.id,
+            address: raw.endereco,
+            coordinates: raw.coordenadas.split(',').map(Number),
             affectedAreaId: raw.areaAfetadaId,
         });
     }
