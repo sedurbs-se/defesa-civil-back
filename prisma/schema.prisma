@@ -7,79 +7,150 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
-  id     String   @id @default(uuid())
-  email  String   @unique
-  nome   String
-  senha  String
-  agente  Agente?  
+model Municipio {
+  id        String     @id @default(uuid())
+  nome      String
+  estado    String
+  desastres Desastre[]
 }
 
 model Desastre {
-  id        String        @id @default(uuid())
-  endereco  String
-  municipio String
-  evento    String
-  data      DateTime
-  agenteId  String        @map("agente_id")
-  agente    Agente        @relation(fields: [agenteId], references: [id])
-  areas     AreaAfetada[]
+  id          String        @id @default(uuid())
+  municipioId String        @map("municipio_id")
+  municipio   Municipio     @relation(fields: [municipioId], references: [id])
+  areas       AreaAfetada[]
+  Agente      Agente?       @relation(fields: [agenteId], references: [id])
+  agenteId    String?
 }
 
 model AreaAfetada {
   id                    String                @id @default(uuid())
-  coordenadas           String
-  desastreId            String                @map("desastre_id")
-  desastre              Desastre              @relation(fields: [desastreId], references: [id])
-  endereco              String
+  ORDEM                 Int                   @unique
   nome                  String
   unidadesHabitacionais UnidadeHabitacional[]
+  Desastre              Desastre?             @relation(fields: [desastreId], references: [id])
+  desastreId            String?
 }
 
 model UnidadeHabitacional {
-  id            String      @id @default(uuid())
+  id            String        @id @default(uuid())
+  ORDEM         Int           @unique
+  endereco      String
+  coordenadas   String
   areaAfetadaId String
-  areaAfetada   AreaAfetada @relation(fields: [areaAfetadaId], references: [id])
-  familia      Familia[] 
+  areaAfetada   AreaAfetada   @relation(fields: [areaAfetadaId], references: [id])
+  fotos         FotoUnidade[]
+  danosHumanos  DanosHumanos[]
+  danosMateriais DanosMateriais[]
+  acoes         Acao[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  fl_sos        Boolean?
+  dt_finalizado DateTime?
+}
+
+model DanosHumanos {
+  id            String        @id @default(uuid())
+  unidadeHabitacionalId String
+  unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
+
+
+  qtd_familas    Int
+  qtd_pessoas    Int
+  qtd_idosos     Int
+  qtd_criancas   Int
+  qtd_adulto    Int
+  qtd_adolescente Int
+  qtd_homens     Int
+  qtd_mulheres   Int
+}
+
+model DanosMateriais {
+  id            String        @id @default(uuid())
+  unidadeHabitacionalId String
+  unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
+
+  fl_resistente  Boolean
+  fl_danificado  Boolean
+  fl_destroido   Boolean
+  fl_resiliente  Boolean
+  fl_desabrigado Boolean
+  fl_desalojado  Boolean
+}
+
+model TipoAcao {
+  id          String        @id @default(uuid())
+  nome        String
+
+  acoes       Acao[]
+}
+
+model Acao {
+  id          String        @id @default(uuid())
+
+  tipoAcaoId  String
+  tipoAcao    TipoAcao      @relation(fields: [tipoAcaoId], references: [id])
+  unidadeHabitacionalId String
+  unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
+
+  afetado_cpf String
+  afetado_contato String
+  afetado_nome String
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model FotoUnidade {
+  id                    String              @id @default(uuid())
+  unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
+  unidadeHabitacionalId String
+  url                   String
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+}
+
+model Usuario {
+  id     String  @id @default(uuid())
+  cpf    String  @unique
+  nome   String
+  agente Agente?
 }
 
 model Agente {
   id        String     @id @default(uuid())
-  nome      String
   funcao    String
   contato   String
   desastres Desastre[]
-  usuarioId String     @map("usuario_id") @unique
+  usuarioId String     @unique @map("usuario_id")
   user      Usuario?   @relation(fields: [usuarioId], references: [id])
+
+  fl_lider_equipe Boolean?
+  equipeAgente    EquipeAgente[]
 }
 
-model Familia {
-  id        String @id @default(uuid())
-  afetados   Afetado[] 
-  unidadeHabitacionalId String @map("unidade_habitacional_id")
-  unidadeHabitacional UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
+model Equipe {
+  id      String @id @default(uuid())
+  nome    String
+  funcao  String
+  contato String
+
+  areaAfetadaId String
+
+  equipeAgente EquipeAgente[]
 }
 
-model Afetado {
-  id                      String              @id @default(uuid())
-  familiaId               String              @map("familia_id")
-  familia                 Familia             @relation(fields: [familiaId], references: [id])
-  nome                    String
-  idade                   Int
-  sexo                    String
-  cpf                     String
-  contato                 String
-  temAguaPotavel          Boolean
-  temEletricidade         Boolean
-  podeCozinhar            Boolean
-  EmParenteOuCasaDeAmigos Boolean
-  EmAbrigoPublico         Boolean
-  exAguaPotavel           String
-  exEletricidade          String
-  exParenteOuCasaDeAmigos String
-  exAbrigoPublico         String
+model EquipeAgente {
+  agenteId  String
+  agente    Agente   @relation(fields: [agenteId], references: [id])
+  equipeId  String
+  equipe    Equipe   @relation(fields: [equipeId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([agenteId, equipeId])
 }
 
-// model InstalacaoPublica {}
 
-// Talvez usar ao invés de pergunta e respostas em afetados criar tabelas de perguntas e respostas
+
