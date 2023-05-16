@@ -1,8 +1,14 @@
+import { Team } from "../agentTeam/team";
+import { User } from "../user/user";
+
 interface AgentProps {
-    id: string;
+    id?: string;
     function: string;
     contact: string;
-    fl_lider_equipe: boolean;
+    fl_lider_equipe?: boolean;
+    user_id: string;
+    user?: User;
+    teams?: Team[];
 }
 
 
@@ -15,6 +21,10 @@ class Agent {
 
     get id() {
         return this.props.id;
+    }
+    
+    get user_id() {
+        return this.props.user_id;
     }
 
     get function() {

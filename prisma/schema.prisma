@@ -28,44 +28,44 @@ model AreaAfetada {
   unidadesHabitacionais UnidadeHabitacional[]
   Desastre              Desastre?             @relation(fields: [desastreId], references: [id])
   desastreId            String?
+  team                  Equipe[]
 }
 
 model UnidadeHabitacional {
-  id            String        @id @default(uuid())
-  ORDEM         Int           @unique
-  endereco      String
-  coordenadas   String
-  areaAfetadaId String
-  areaAfetada   AreaAfetada   @relation(fields: [areaAfetadaId], references: [id])
-  fotos         FotoUnidade[]
-  danosHumanos  DanosHumanos[]
+  id             String           @id @default(uuid())
+  ORDEM          Int              @unique
+  endereco       String
+  coordenadas    String
+  areaAfetadaId  String
+  areaAfetada    AreaAfetada      @relation(fields: [areaAfetadaId], references: [id])
+  fotos          FotoUnidade[]
+  danosHumanos   DanosHumanos[]
   danosMateriais DanosMateriais[]
-  acoes         Acao[]
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  acoes          Acao[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
 
   fl_sos        Boolean?
   dt_finalizado DateTime?
 }
 
 model DanosHumanos {
-  id            String        @id @default(uuid())
+  id                    String              @id @default(uuid())
   unidadeHabitacionalId String
   unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
 
-
-  qtd_familas    Int
-  qtd_pessoas    Int
-  qtd_idosos     Int
-  qtd_criancas   Int
-  qtd_adulto    Int
+  qtd_familas     Int
+  qtd_pessoas     Int
+  qtd_idosos      Int
+  qtd_criancas    Int
+  qtd_adulto      Int
   qtd_adolescente Int
-  qtd_homens     Int
-  qtd_mulheres   Int
+  qtd_homens      Int
+  qtd_mulheres    Int
 }
 
 model DanosMateriais {
-  id            String        @id @default(uuid())
+  id                    String              @id @default(uuid())
   unidadeHabitacionalId String
   unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
 
@@ -78,26 +78,26 @@ model DanosMateriais {
 }
 
 model TipoAcao {
-  id          String        @id @default(uuid())
-  nome        String
+  id   String @id @default(uuid())
+  nome String
 
-  acoes       Acao[]
+  acoes Acao[]
 }
 
 model Acao {
-  id          String        @id @default(uuid())
+  id String @id @default(uuid())
 
-  tipoAcaoId  String
-  tipoAcao    TipoAcao      @relation(fields: [tipoAcaoId], references: [id])
+  tipoAcaoId            String
+  tipoAcao              TipoAcao            @relation(fields: [tipoAcaoId], references: [id])
   unidadeHabitacionalId String
   unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
 
-  afetado_cpf String
+  afetado_cpf     String
   afetado_contato String
-  afetado_nome String
+  afetado_nome    String
 
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model FotoUnidade {
@@ -117,25 +117,23 @@ model Usuario {
 }
 
 model Agente {
-  id        String     @id @default(uuid())
+  id        String   @id @default(uuid())
   funcao    String
   contato   String
-  usuarioId String     @unique @map("usuario_id")
-  user      Usuario?   @relation(fields: [usuarioId], references: [id])
+  usuarioId String   @unique @map("usuario_id")
+  user      Usuario? @relation(fields: [usuarioId], references: [id])
 
-  fl_lider_equipe Boolean?
   equipeAgente    EquipeAgente[]
 }
 
 model Equipe {
-  id      String @id @default(uuid())
-  nome    String
-  funcao  String
-  contato String
-
-  areaAfetadaId String
-
-  equipeAgente EquipeAgente[]
+  id            String         @id @default(uuid())
+  nome          String
+  funcao        String
+  contato       String
+  areaAfetadaId String         @map("area_afetada_id")
+  areaAfetada   AreaAfetada    @relation(fields: [areaAfetadaId], references: [id])
+  equipeAgente  EquipeAgente[]
 }
 
 model EquipeAgente {
@@ -145,9 +143,7 @@ model EquipeAgente {
   equipe    Equipe   @relation(fields: [equipeId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  fl_lider_equipe Boolean?
 
   @@id([agenteId, equipeId])
 }
-
-
-

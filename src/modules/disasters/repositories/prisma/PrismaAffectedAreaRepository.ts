@@ -17,6 +17,20 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
       },
     });
   }
+
+  async update(affectedArea: AffectedArea): Promise<void> {
+    const a = AffectedAreaMapper.toPersistence(affectedArea);
+
+    await this.prisma.areaAfetada.update({
+      where: {
+        id: a.id,
+      },
+      data: {
+        ...a,
+      },
+    });
+  }
+
   async find(id: string): Promise<AffectedArea> {
     const area = await this.prisma.areaAfetada.findUnique({
       where: {
@@ -27,8 +41,25 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
       },
     });
 
+    if (!area) return null;
+
     return AffectedAreaMapper.toDomain(area);
   }
+  async findByOrder(order: number): Promise<AffectedArea> {
+    const area = await this.prisma.areaAfetada.findUnique({
+      where: {
+        ORDEM: order,
+      },
+      include: {
+        unidadesHabitacionais: true,
+      },
+    });
+
+    if (!area) return null;
+
+    return AffectedAreaMapper.toDomain(area);
+  }
+
   async findAll(): Promise<AffectedArea[]> {
     const areas = await this.prisma.areaAfetada.findMany({});
 

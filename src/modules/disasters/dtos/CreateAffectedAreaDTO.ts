@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsNotEmpty, IsNumber, IsNumberString, IsOptional } from 'class-validator';
 
 export abstract class CreateAffectedAreaDTO {
   @IsOptional()
@@ -8,6 +9,7 @@ export abstract class CreateAffectedAreaDTO {
   disasterId: string;
 
   @IsNotEmpty({ message: 'O campo de ordem não pode ser vazio!' })
+  @IsNumber()
   order: number;
   
   @IsNotEmpty({ message: 'O campo de nome não pode ser vazio!' })

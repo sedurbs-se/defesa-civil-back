@@ -1,28 +1,40 @@
-import { Injectable } from "@nestjs/common";
-import { OptionalExceptFor } from "src/core/logic/OptionalExceptFor";
-import { AffectedArea } from "../../domain/affectedArea/affected-area";
-import { AffectedAreaRepository } from "../../repositories/IAffectedAreaRepository";
+import { Injectable } from '@nestjs/common';
+import { OptionalExceptFor } from 'src/core/logic/OptionalExceptFor';
+import { AffectedArea } from '../../domain/affectedArea/affected-area';
+import { AffectedAreaRepository } from '../../repositories/IAffectedAreaRepository';
+import { DisasterRepository } from '../../repositories/IDisasterRepository';
+import { AppError } from 'src/core/logic/error';
 
-type EditAffectedAreaRequest = OptionalExceptFor<AffectedArea, 'id'>
+type EditAffectedAreaRequest = OptionalExceptFor<AffectedArea, 'id'>;
 
 @Injectable()
 export class EditAffectedArea {
-    constructor(private affectedAreaRepository: AffectedAreaRepository) {}
+  constructor(private affectedAreaRepository: AffectedAreaRepository,
+    private disasterRepository: DisasterRepository
+    ) {}
 
-    async execute(request: EditAffectedAreaRequest): Promise<AffectedArea> {
+  async execute(request: EditAffectedAreaRequest): Promise<AffectedArea> {
+    const existDisaster = await this.disasterRepository.find(request.disasterId);
 
-        const affectedArea = await this.affectedAreaRepository.find(request.id);
+    if (!existDisaster) throw new AppError("Disaster not found");
 
-        if (!affectedArea) {
-            throw new Error('Affected Area not found');
-        }
+    const existAffectedArea = await this.affectedAreaRepository.find(request.id);
 
-        const mergedAffectedArea = { ...affectedArea, ...request };
+    if (!existAffectedArea) throw new AppError("Affected Area not found");
 
-        const updatedAffectedArea = new AffectedArea(mergedAffectedArea as AffectedArea)
+    const existAffectedAreaOrder = await this.affectedAreaRepository.findByOrder(request.order);
 
-        await this.affectedAreaRepository.save(updatedAffectedArea);
+    if (existAffectedAreaOrder && existAffectedAreaOrder.id !== request.id) throw new AppError("Affected Area with selected order already exists");
 
-        return updatedAffectedArea;
-    }
+    const updatedAffectedArea = new AffectedArea({
+      disasterId: request.disasterId,
+      name: request.name,
+      order: request.order,
+      id: request.id,
+    });
+
+    await this.affectedAreaRepository.update(updatedAffectedArea);
+
+    return updatedAffectedArea;
+  }
 }
