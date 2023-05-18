@@ -32,6 +32,8 @@ import { ITeamRepository } from './repositories/ITeamRepository';
 import { PrismaTeamRepository } from './repositories/prisma/PrismaTeamRepository';
 import { ListTeamBtAffectedArea } from './useCases/ListTeamByAffectedArea/ListTeamBtAffectedArea';
 import { ListTeamBtAffectedAreaController } from './useCases/ListTeamByAffectedArea/ListTeamBtAffectedAreaController';
+import { ListTeamAgentsController } from './useCases/ListTeamAgents/ListTeamAgentsController';
+import { ListTeamAgents } from './useCases/ListTeamAgents/ListTeamAgents';
 
 @Module({
   imports: [],
@@ -44,7 +46,8 @@ import { ListTeamBtAffectedAreaController } from './useCases/ListTeamByAffectedA
     EditAreaController,
     RegisterAgentController,
     LoginUserController,
-    RegisterTeamForAffectedAreaController
+    RegisterTeamForAffectedAreaController,
+    ListTeamAgentsController
   ],
   providers: [
     {
@@ -88,6 +91,7 @@ import { ListTeamBtAffectedAreaController } from './useCases/ListTeamByAffectedA
     ListTeamBtAffectedArea,
     ListDisasters,
     LoginUser,
+    ListTeamAgents
   ],
 })
 export class DesastreModule {}

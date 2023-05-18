@@ -33,12 +33,18 @@ export class PrismaTeamRepository implements ITeamRepository {
         id,
       },
       include: {
-        equipeAgente: true,
+        equipeAgente: {
+          include: {
+            agente: true
+          }
+        }
       },
     });
     if (!team) {
       return null;
     }
+
+    console.log(team)
 
     return TeamMapper.toDomain(team);
   }
