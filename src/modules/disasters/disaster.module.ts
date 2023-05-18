@@ -34,6 +34,10 @@ import { ListTeamBtAffectedArea } from './useCases/ListTeamByAffectedArea/ListTe
 import { ListTeamBtAffectedAreaController } from './useCases/ListTeamByAffectedArea/ListTeamBtAffectedAreaController';
 import { ListTeamAgentsController } from './useCases/ListTeamAgents/ListTeamAgentsController';
 import { ListTeamAgents } from './useCases/ListTeamAgents/ListTeamAgents';
+import { RegisterHousingController } from './useCases/RegisterHousingUnit/RegisterHousingController';
+import { RegisterHousing } from './useCases/RegisterHousingUnit/RegisterHousingUnit';
+import { HousingUnitRepository } from './repositories/IHousingUnitRepository';
+import { PrismaHousingUnitRepository } from './repositories/prisma/PrismaHousingUnitRepository';
 
 @Module({
   imports: [],
@@ -47,7 +51,8 @@ import { ListTeamAgents } from './useCases/ListTeamAgents/ListTeamAgents';
     RegisterAgentController,
     LoginUserController,
     RegisterTeamForAffectedAreaController,
-    ListTeamAgentsController
+    ListTeamAgentsController,
+    RegisterHousingController
   ],
   providers: [
     {
@@ -74,6 +79,10 @@ import { ListTeamAgents } from './useCases/ListTeamAgents/ListTeamAgents';
       provide: ITeamRepository,
       useClass: PrismaTeamRepository,
     },
+    {
+      provide: HousingUnitRepository,
+      useClass: PrismaHousingUnitRepository,
+    },
 
     {
       provide: APP_INTERCEPTOR,
@@ -85,6 +94,7 @@ import { ListTeamAgents } from './useCases/ListTeamAgents/ListTeamAgents';
     RegisterDisaster,
     RegisterAgent,
     RegisterTeamForAffectedArea,
+    RegisterHousing,
     CreateAffectedArea,
     EditAffectedArea,
     ListCities,
