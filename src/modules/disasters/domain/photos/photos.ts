@@ -6,13 +6,17 @@ interface PhotosProps {
   unidadeHabitacionalId: string;
   unidadeHabitacional?: HousingUnit;
   url: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export class Photos extends Entity<PhotosProps> {
     constructor(props: PhotosProps) {
-        super(props, props.id);
+        super({
+            ...props,
+            createdAt: props.createdAt || new Date(),
+            updatedAt: props.updatedAt || new Date(),
+        }, props.id);
     }
 
     get unidadeHabitacionalId() {

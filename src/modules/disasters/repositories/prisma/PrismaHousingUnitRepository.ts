@@ -46,10 +46,13 @@ export class PrismaHousingUnitRepository implements HousingUnitRepository {
 
     return HousingUnitMapper.toDomain(housingUnit);
   }
-  async findAll(): Promise<HousingUnit[]> {
+  async findAll(area_id: string): Promise<HousingUnit[]> {
     const housingUnits = await this.prisma.unidadeHabitacional.findMany({
       include: {
         fotos: true,
+      },
+      where: {
+        areaAfetadaId: area_id,
       },
     });
 

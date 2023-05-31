@@ -1,5 +1,6 @@
 import { Entity } from 'src/core/logic/Entity';
 import { Disaster } from '../disaster/disaster';
+import { HousingUnit } from '../housingUnit/housing-unit';
 
 interface AffectedAreaProps {
   id?: string;
@@ -8,7 +9,7 @@ interface AffectedAreaProps {
   name: string;
 
   disaster?: Disaster;
-  housingUnits?: any[];
+  housingUnits?: HousingUnit[];
 }
 
 class AffectedArea extends Entity<AffectedAreaProps> {
@@ -30,6 +31,10 @@ class AffectedArea extends Entity<AffectedAreaProps> {
 
   get order() {
     return this.props.order;
+  }
+
+  get housingUnits() {
+    return this.props.housingUnits;
   }
 
 }

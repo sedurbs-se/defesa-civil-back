@@ -37,13 +37,17 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
         id,
       },
       include: {
-        unidadesHabitacionais: true,
+        unidadesHabitacionais: {
+          include: {
+            fotos: true
+          }
+        }
       },
     });
 
     if (!area) return null;
 
-    return AffectedAreaMapper.toDomain(area);
+    return AffectedAreaMapper.toDomainWithDetails(area);
   }
   async findByOrder(order: number): Promise<AffectedArea> {
     const area = await this.prisma.areaAfetada.findUnique({
@@ -51,17 +55,25 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
         ORDEM: order,
       },
       include: {
-        unidadesHabitacionais: true,
+        unidadesHabitacionais: {
+          include: {
+            fotos: true
+          }
+        }
       },
     });
 
     if (!area) return null;
 
-    return AffectedAreaMapper.toDomain(area);
+    return AffectedAreaMapper.toDomainWithDetails(area);
   }
 
-  async findAll(): Promise<AffectedArea[]> {
-    const areas = await this.prisma.areaAfetada.findMany({});
+  async findAll(disaster_id:string): Promise<AffectedArea[]> {
+    const areas = await this.prisma.areaAfetada.findMany({
+      where: {
+        desastreId: disaster_id,
+      }
+    });
 
     return areas.map(AffectedAreaMapper.toDomain);
   }

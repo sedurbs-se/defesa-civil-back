@@ -38,6 +38,17 @@ import { RegisterHousingController } from './useCases/RegisterHousingUnit/Regist
 import { RegisterHousing } from './useCases/RegisterHousingUnit/RegisterHousingUnit';
 import { HousingUnitRepository } from './repositories/IHousingUnitRepository';
 import { PrismaHousingUnitRepository } from './repositories/prisma/PrismaHousingUnitRepository';
+import { GetDisaster } from './useCases/GetDisaster/GetDisaster';
+import { GetDisasterController } from './useCases/GetDisaster/GetDisasterController';
+import { GetAreaController } from './useCases/GetArea/GetAreaController';
+import { GetArea } from './useCases/GetArea/GetArea';
+import { GetHousingUnit } from './useCases/GetHousingUnit/GetHousingUnit';
+import { GetHousingUnitController } from './useCases/GetHousingUnit/GetHousingUnitController';
+import { CreatePhotoController } from './useCases/CreatePhoto/CreatePhotoController';
+import { CreatePhoto } from './useCases/CreatePhoto/CreatePhoto';
+import { PhotosRepository } from './repositories/IPhotosRepository';
+import { PrismaPhotoRepository } from './repositories/prisma/PrismaPhotoRepository';
+import { GetPhotoController } from './useCases/GetPhoto/GetPhotoController';
 
 @Module({
   imports: [],
@@ -52,7 +63,12 @@ import { PrismaHousingUnitRepository } from './repositories/prisma/PrismaHousing
     LoginUserController,
     RegisterTeamForAffectedAreaController,
     ListTeamAgentsController,
-    RegisterHousingController
+    RegisterHousingController,
+    GetDisasterController,
+    GetAreaController,
+    GetHousingUnitController,
+    CreatePhotoController,
+    GetPhotoController
   ],
   providers: [
     {
@@ -83,6 +99,10 @@ import { PrismaHousingUnitRepository } from './repositories/prisma/PrismaHousing
       provide: HousingUnitRepository,
       useClass: PrismaHousingUnitRepository,
     },
+    {
+      provide: PhotosRepository,
+      useClass: PrismaPhotoRepository,
+    },
 
     {
       provide: APP_INTERCEPTOR,
@@ -101,7 +121,11 @@ import { PrismaHousingUnitRepository } from './repositories/prisma/PrismaHousing
     ListTeamBtAffectedArea,
     ListDisasters,
     LoginUser,
-    ListTeamAgents
+    ListTeamAgents,
+    GetDisaster,
+    GetArea,
+    GetHousingUnit,
+    CreatePhoto
   ],
 })
 export class DesastreModule {}
