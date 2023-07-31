@@ -64,18 +64,10 @@ model UnidadeHabitacional {
   fl_desalojado  Boolean
 }
 
-model TipoAcao {
-  id   String @id @default(uuid())
-  nome String
-
-  acoes Acao[]
-}
-
 model Acao {
   id String @id @default(uuid())
 
-  tipoAcaoId            String
-  tipoAcao              TipoAcao            @relation(fields: [tipoAcaoId], references: [id])
+  tipo             String
   unidadeHabitacionalId String
   unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
 

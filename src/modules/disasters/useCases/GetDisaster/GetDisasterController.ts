@@ -11,6 +11,7 @@ export class GetDisasterController {
     return {
       id: disaster.id,
       date: disaster.date,
+      cityId: disaster.cityId,
       city: {
         id: disaster.city.id,
         name: disaster.city.name,

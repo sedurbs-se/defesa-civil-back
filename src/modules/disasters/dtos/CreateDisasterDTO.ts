@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsOptional } from 'class-validator';
 
 export abstract class CreateDisasterDTO {
   @IsOptional()
@@ -8,5 +8,6 @@ export abstract class CreateDisasterDTO {
   cityId: string;
 
   @IsNotEmpty({ message: 'O campo de data não pode ser vazio!' })
+  @IsDateString()
   date: Date;
 }

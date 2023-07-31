@@ -11,6 +11,7 @@ export class ListDisastersController {
     return disasters.map((d) => ({
         id: d.id,
         date: d.date,
+        cityId: d.cityId,
         city: {
             id: d.city.id,
             name: d.city.name,

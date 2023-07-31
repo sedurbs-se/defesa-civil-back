@@ -17,6 +17,18 @@ class PrismaDisasterRepository implements DisasterRepository {
     });
   }
 
+  async update(disaster: Disaster): Promise<void> {
+    const m = DisasterMapper.toPersistence(disaster);
+    await this.prisma.desastre.update({
+      where: {
+        id: m.id,
+      },
+      data: {
+        ...m,
+      },
+    });
+  }
+
   async find(id: string): Promise<Disaster> {
     const desastre = await this.prisma.desastre.findUnique({
       where: {
@@ -33,7 +45,7 @@ class PrismaDisasterRepository implements DisasterRepository {
     return DisasterMapper.toDomainWithDetails(desastre);
   }
 
-  async findAll(select_areas=false): Promise<Disaster[]> {
+  async findAll(select_areas = false): Promise<Disaster[]> {
     const desastres = await this.prisma.desastre.findMany({
       include: {
         municipio: true,

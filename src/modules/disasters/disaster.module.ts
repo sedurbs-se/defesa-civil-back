@@ -49,6 +49,8 @@ import { CreatePhoto } from './useCases/CreatePhoto/CreatePhoto';
 import { PhotosRepository } from './repositories/IPhotosRepository';
 import { PrismaPhotoRepository } from './repositories/prisma/PrismaPhotoRepository';
 import { GetPhotoController } from './useCases/GetPhoto/GetPhotoController';
+import { EditDisaster } from './useCases/EditDisaster/EditDisaster';
+import { EditDisasterController } from './useCases/EditDisaster/EditDisasterController';
 
 @Module({
   imports: [],
@@ -68,7 +70,9 @@ import { GetPhotoController } from './useCases/GetPhoto/GetPhotoController';
     GetAreaController,
     GetHousingUnitController,
     CreatePhotoController,
-    GetPhotoController
+    GetPhotoController,
+
+    EditDisasterController,
   ],
   providers: [
     {
@@ -110,7 +114,7 @@ import { GetPhotoController } from './useCases/GetPhoto/GetPhotoController';
     },
 
     PrismaService,
-
+    EditDisaster,
     RegisterDisaster,
     RegisterAgent,
     RegisterTeamForAffectedArea,
@@ -125,7 +129,7 @@ import { GetPhotoController } from './useCases/GetPhoto/GetPhotoController';
     GetDisaster,
     GetArea,
     GetHousingUnit,
-    CreatePhoto
+    CreatePhoto,
   ],
 })
 export class DesastreModule {}

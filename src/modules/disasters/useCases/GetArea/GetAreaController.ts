@@ -12,6 +12,16 @@ export class GetAreaController {
       id: areas.id,
       name: areas.name,
       order: areas.order,
+      disasterId: areas.disasterId,
+      disaster: {
+        id: areas.disaster.id,
+        date: areas.disaster.date,
+        cityId: areas.disaster.cityId,
+        city: {
+          id: areas.disaster.city.id,
+          name: areas.disaster.city.name,
+        },
+      },
       housingUnits: areas.housingUnits.map((h) => ({
         id: h.id,
         order: h.order,

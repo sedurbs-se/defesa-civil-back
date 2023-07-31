@@ -6,23 +6,28 @@ import { AppError } from 'src/core/logic/error';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class RegisterDisaster {
+export class EditDisaster {
   constructor(
     private disasterRepository: DisasterRepository,
     private cityRepository: CityRepository,
   ) {}
 
-  async execute(request: CreateDisasterDTO): Promise<Disaster> {
+  async execute(request: CreateDisasterDTO, id: string): Promise<Disaster> {
+    const existDisaster = await this.disasterRepository.find(id);
+
+    if (!existDisaster) throw new AppError('Desastre não encontrado!', 404);
+
     const city = await this.cityRepository.find(request.cityId);
 
     if (!city) throw new AppError('Município não encontrado!', 400);
 
     const disaster = new Disaster({
+      id: existDisaster.id,
       cityId: request.cityId,
       date: new Date(request.date),
     });
 
-    await this.disasterRepository.save(disaster);
+    await this.disasterRepository.update(disaster);
 
     return disaster;
   }
