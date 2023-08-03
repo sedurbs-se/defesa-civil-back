@@ -1,13 +1,18 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { GetArea } from './GetArea';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller()
 export class GetAreaController {
   constructor(private readonly getArea: GetArea) {}
 
+  @ApiResponse({ status: 200, description: 'A área foi encontrada'})
+  @ApiResponse({ status: 404, description: 'A área não foi encontrada. Não existe uma area com o id informado'})
+  @ApiResponse({ status: 500, description: 'Erro interno do servidor'})
   @Get('/area/:area_id')
   async execute(@Param('area_id') area_id: string) {
     const areas = await this.getArea.execute(area_id);
+    console.log(areas)
     return {
       id: areas.id,
       name: areas.name,
