@@ -41,6 +41,11 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
           include: {
             fotos: true
           }
+        },
+        Desastre: {
+          include: {
+            municipio: true
+          }
         }
       },
     });
@@ -58,6 +63,11 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
         unidadesHabitacionais: {
           include: {
             fotos: true
+          }
+        },
+        Desastre:{
+          include: {
+            municipio: true
           }
         }
       },

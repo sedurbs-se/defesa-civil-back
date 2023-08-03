@@ -4,6 +4,7 @@ import { CreateDisasterDTO } from '../../dtos/CreateDisasterDTO';
 import { CityRepository } from '../../repositories/ICityRepository';
 import { AppError } from 'src/core/logic/error';
 import { Injectable } from '@nestjs/common';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class RegisterDisaster {
@@ -18,6 +19,7 @@ export class RegisterDisaster {
     if (!city) throw new AppError('Município não encontrado!', 400);
 
     const disaster = new Disaster({
+      id: uuidv4(),
       cityId: request.cityId,
       date: new Date(request.date),
     });

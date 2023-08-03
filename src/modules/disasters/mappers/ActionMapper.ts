@@ -1,5 +1,7 @@
-import { Acao } from '@prisma/client';
+import { Acao, Prisma } from '@prisma/client';
 import { Action } from '../domain/action/action';
+
+
 
 export class ActionMapper {
   static toDomain(raw: Acao) {
