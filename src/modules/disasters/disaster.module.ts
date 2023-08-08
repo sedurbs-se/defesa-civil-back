@@ -51,6 +51,8 @@ import { PrismaPhotoRepository } from './repositories/prisma/PrismaPhotoReposito
 import { GetPhotoController } from './useCases/GetPhoto/GetPhotoController';
 import { EditDisaster } from './useCases/EditDisaster/EditDisaster';
 import { EditDisasterController } from './useCases/EditDisaster/EditDisasterController';
+import { ListAgentsController } from './useCases/ListAgents/ListAgentsController';
+import { ListAgents } from './useCases/ListAgents/ListAgents';
 
 @Module({
   imports: [],
@@ -71,8 +73,8 @@ import { EditDisasterController } from './useCases/EditDisaster/EditDisasterCont
     GetHousingUnitController,
     CreatePhotoController,
     GetPhotoController,
-
     EditDisasterController,
+    ListAgentsController,
   ],
   providers: [
     {
@@ -130,6 +132,7 @@ import { EditDisasterController } from './useCases/EditDisaster/EditDisasterCont
     GetArea,
     GetHousingUnit,
     CreatePhoto,
+    ListAgents
   ],
 })
 export class DesastreModule {}
