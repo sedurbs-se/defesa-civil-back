@@ -7,6 +7,35 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class PrismaAgentRepository implements IAgentRepository {
   constructor(private readonly prisma: PrismaService) {}
+  findPage(page: number, limit: number): Promise<Agent[]> {
+    throw new Error('Method not implemented.');
+  }
+  async find(): Promise<Agent[]> {
+    const agents = await this.prisma.agente.findMany({
+      include: {
+        user: true
+      }
+    });
+    return agents.map((agent) => AgentMapper.toDomainWithUser(agent));
+  }
+  async findByCpf(cpf: string): Promise<Agent | null> {
+    const agent = await this.prisma.agente.findFirst({
+      where: {
+        user: {
+           cpf: {
+            startsWith: cpf,
+           }
+        }
+      },
+      include: {
+        user: true
+      }
+    });
+
+    if (!agent) return null;
+
+    return AgentMapper.toDomainWithUser(agent);
+  }
 
   async getById(id: string): Promise<Agent> {
     const agent = await this.prisma.agente.findUnique({

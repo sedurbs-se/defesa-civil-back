@@ -27,6 +27,10 @@ class Agent {
         return this.props.user_id;
     }
 
+    get user() {
+        return this.props.user;
+    }
+
     get function() {
         return this.props.function;
     }
