@@ -19,8 +19,6 @@ export class TeamMapper {
     return new Team({
       id: raw.id,
       name: raw.nome,
-      contact: raw.contato,
-      function: raw.funcao,
       affected_area_id: raw.areaAfetadaId,
       lider_id: raw.equipeAgente.find((e) => e.fl_lider_equipe).agenteId,
       agents: raw.equipeAgente.map((ea) => {
@@ -39,8 +37,6 @@ export class TeamMapper {
     return {
       id: Team.id,
       nome: Team.name,
-      contato: Team.contact,
-      funcao: Team.function,
       areaAfetadaId: Team.affected_area_id,
       agentes: Team.agents.map((e) => ({
         fl_lider_equipe: Team.lider_id === e.id,

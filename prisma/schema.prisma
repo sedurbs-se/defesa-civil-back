@@ -108,8 +108,6 @@ model Agente {
 model Equipe {
   id            String         @id @default(uuid())
   nome          String
-  funcao        String
-  contato       String
   areaAfetadaId String         @map("area_afetada_id")
   areaAfetada   AreaAfetada    @relation(fields: [areaAfetadaId], references: [id])
   equipeAgente  EquipeAgente[]
