@@ -1,5 +1,5 @@
 import { FotoUnidade as PersistencePhotos } from '@prisma/client';
-import { Photos } from '../domain/Photos/Photos';
+import { Photos } from '../domain/photos/photos';
 import { PhotoType } from '../photoEnum';
 
 export class PhotosMapper {

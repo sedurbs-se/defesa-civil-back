@@ -1,5 +1,5 @@
 import { Agente as PersistenceAgent, Prisma } from '@prisma/client';
-import { Agent } from '../domain/Agent/Agent';
+import { Agent } from '../domain/agent/agent';
 import { User } from '../domain/user/user';
 
 const agentQueryWithUser = Prisma.validator<Prisma.AgenteArgs>()({
