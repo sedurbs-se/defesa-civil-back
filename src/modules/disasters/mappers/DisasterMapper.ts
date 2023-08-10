@@ -9,13 +9,17 @@ const disasterWithAreaCity = Prisma.validator<Prisma.DesastreArgs>()({
   include: { areas: true, municipio: true },
 });
 
-type DisasterWithAreaCity = Prisma.DesastreGetPayload<typeof disasterWithAreaCity>;
+type DisasterWithAreaCity = Prisma.DesastreGetPayload<
+  typeof disasterWithAreaCity
+>;
 
 const disasterWithAreaAndCity = Prisma.validator<Prisma.DesastreArgs>()({
   include: { areas: true, municipio: true },
 });
 
-type DisasterWithAreaAndCity = Prisma.DesastreGetPayload<typeof disasterWithAreaAndCity>;
+type DisasterWithAreaAndCity = Prisma.DesastreGetPayload<
+  typeof disasterWithAreaAndCity
+>;
 
 export class DisasterMapper {
   static toDomain(raw: DisasterWithAreaCity) {

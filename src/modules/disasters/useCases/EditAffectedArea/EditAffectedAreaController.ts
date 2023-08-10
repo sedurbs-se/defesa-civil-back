@@ -9,8 +9,8 @@ export class EditAreaController {
   @Put('/area/:id')
   async execute(@Body() body: CreateAffectedAreaDTO, @Param('id') id: string) {
     const affectedArea = await this.createAffectedArea.execute({
-        ...body,
-        id
+      ...body,
+      id,
     });
 
     return {

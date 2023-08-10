@@ -9,17 +9,17 @@ export class ListDisastersController {
   async execute() {
     const disasters = await this.listDisasters.execute();
     return disasters.map((d) => ({
-        id: d.id,
-        date: d.date,
-        cityId: d.cityId,
-        city: {
-            id: d.city.id,
-            name: d.city.name,
-        },
-        // areas: d.affectedAreas.map((a) => ({
-        //     id: a.id,
-        //     name: a.name,
-        // }))
+      id: d.id,
+      date: d.date,
+      cityId: d.cityId,
+      city: {
+        id: d.city.id,
+        name: d.city.name,
+      },
+      // areas: d.affectedAreas.map((a) => ({
+      //     id: a.id,
+      //     name: a.name,
+      // }))
     }));
   }
 }

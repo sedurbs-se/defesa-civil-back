@@ -5,9 +5,7 @@
     At the end, we have a type that has all properties of T as optional, except for the ones in K
 */
 
-type OptionalExceptFor<T, K extends keyof T> = Partial<T> & Required<Pick<T, K>>;
-
-
-
+type OptionalExceptFor<T, K extends keyof T> = Partial<T> &
+  Required<Pick<T, K>>;
 
 export { OptionalExceptFor };

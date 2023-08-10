@@ -1,7 +1,6 @@
 import { Municipio as PersistenceCity } from '@prisma/client';
 import { City } from '../domain/city/city';
 
-
 export class CityMapper {
   static toDomain(raw: PersistenceCity) {
     return new City({

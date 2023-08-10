@@ -4,7 +4,6 @@
 // import { AffectedArea } from '../../domain/affectedArea/affected-area';
 // import { AffectedAreaMapper } from '../../mappers/AffectedAreaMapper';
 
-
 // export class InMemoryAffectedAreaRepository implements AffectedAreaRepository {
 //   constructor(private db: AffectedArea[] = []) {};
 
@@ -22,8 +21,6 @@
 
 //   async update(affectedArea: AffectedArea): Promise<void> {
 //     const a = AffectedAreaMapper.toPersistence(affectedArea);
-
-
 
 //     await this.prisma.areaAfetada.update({
 //       where: {

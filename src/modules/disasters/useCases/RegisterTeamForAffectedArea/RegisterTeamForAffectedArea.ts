@@ -35,7 +35,7 @@ export class RegisterTeamForAffectedArea {
       newAgents.push(agentExists);
     }
 
-    if(!newAgents.find((e) => e.id === data.leaderId)) {
+    if (!newAgents.find((e) => e.id === data.leaderId)) {
       throw new AppError('Leader not found');
     }
 
@@ -44,7 +44,7 @@ export class RegisterTeamForAffectedArea {
       affected_area_id: data.affectedAreaId,
       lider_id: data.leaderId,
       agents: newAgents,
-    })
+    });
 
     await this.teamRepository.save(team);
   }

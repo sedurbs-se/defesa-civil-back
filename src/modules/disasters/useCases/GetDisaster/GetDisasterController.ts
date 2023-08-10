@@ -21,6 +21,6 @@ export class GetDisasterController {
         name: a.name,
         order: a.order,
       })),
-    }
+    };
   }
 }

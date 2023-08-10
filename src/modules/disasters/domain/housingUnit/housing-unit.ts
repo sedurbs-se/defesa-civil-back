@@ -37,7 +37,7 @@ class HousingUnit extends Entity<HousingUnitProps> {
     super(props, props.id);
   }
 
- get order() {
+  get order() {
     return this.props.order;
   }
 
@@ -64,8 +64,6 @@ class HousingUnit extends Entity<HousingUnitProps> {
   get fl_sos() {
     return this.props.fl_sos;
   }
-
-
 
   get qtd_familias() {
     return this.props.qtd_familias;

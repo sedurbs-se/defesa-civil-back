@@ -36,7 +36,6 @@ class AffectedArea extends Entity<AffectedAreaProps> {
   get housingUnits() {
     return this.props.housingUnits;
   }
-
 }
 
 export { AffectedArea, AffectedAreaProps };

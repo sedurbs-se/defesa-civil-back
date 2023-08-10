@@ -17,7 +17,7 @@ export class CreatePhoto {
     if (!housing) {
       throw new AppError('Housing not found');
     }
-    
+
     const photo = new Photos({
       unidadeHabitacionalId: unidade_habitacional_id,
       url: link,
