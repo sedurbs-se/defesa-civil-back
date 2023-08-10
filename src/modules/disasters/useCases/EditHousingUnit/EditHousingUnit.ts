@@ -1,9 +1,10 @@
 import { OptionalExceptFor } from "src/core/logic/OptionalExceptFor";
 import { HousingUnit, HousingUnitProps } from "../../domain/housingUnit/housing-unit";
 import { HousingUnitRepository } from "../../repositories/IHousingUnitRepository";
+import { Injectable } from "@nestjs/common";
 
 type EditHousingUnitRequest = OptionalExceptFor<HousingUnitProps, 'id'>
-
+@Injectable()
 class EditHousingUnit {
     constructor(private housingUnitRepository: HousingUnitRepository) {}
 
@@ -19,7 +20,7 @@ class EditHousingUnit {
 
         const updatedHousingUnit = new HousingUnit(mergedHousingUnit as HousingUnitProps)
 
-        await this.housingUnitRepository.save(updatedHousingUnit);
+        await this.housingUnitRepository.update(updatedHousingUnit);
 
         return updatedHousingUnit;
     }

@@ -8,11 +8,14 @@ import { PhotosMapper } from '../../mappers/PhotoMapper';
 export class PrismaPhotoRepository implements PhotosRepository {
   constructor(private prisma: PrismaService) {}
 
-  async save(photo: Photos): Promise<void> {
-    const p = PhotosMapper.toPersistence(photo);
+  async save(photos: Photos[]): Promise<void> {
+    // const p = PhotosMapper.toPersistence(photo);
 
-    await this.prisma.fotoUnidade.create({
-      data: p,
+    // await this.prisma.fotoUnidade.create({
+    //   data: p,
+    // });
+    await this.prisma.fotoUnidade.createMany({
+      data: photos.map((p) => PhotosMapper.toPersistence(p)),
     });
   }
 

@@ -15,14 +15,12 @@ export class ListTeamBtAffectedAreaController {
         return teams.map(t => ({
             id: t.id,
             name: t.name,
-            contact: t.contact,
-            function: t.function,
             affected_area_id: t.affected_area_id,
-            // agents: t.agents.map(a => ({
-            //     id: a.id,
-            //     contact: a.contact,
-            //     function: a.function,
-            // }))
+            agents: t.agents.map(a => ({
+                id: a.id,
+                contact: a.contact,
+                function: a.function,
+            }))
                         
         }))
     }

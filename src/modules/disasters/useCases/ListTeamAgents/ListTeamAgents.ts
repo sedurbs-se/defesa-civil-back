@@ -23,8 +23,6 @@ export class ListTeamAgents {
             team: {
                 id: team.id,
                 name: team.name,
-                contact: team.contact,
-                function: team.function,
                 affected_area_id: team.affected_area_id,
                 lider_id: team.lider_id,
             },

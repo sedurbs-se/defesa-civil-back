@@ -14,8 +14,11 @@ export class GetPhotoController {
 
   @Get('/photo/:link')
   async execute(@Param('link') link: string) {
+    console.log(link)
 
     const file = join(process.env.TMP_FOLDER, link);
+
+
 
     if (!existsSync(file)) {
         throw new AppError('Arquivo não encontrado', 404);

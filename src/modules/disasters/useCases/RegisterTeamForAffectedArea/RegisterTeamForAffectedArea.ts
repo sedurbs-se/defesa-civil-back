@@ -41,8 +41,6 @@ export class RegisterTeamForAffectedArea {
 
     const team = new Team({
       name: data.name,
-      contact: data.contact,
-      function: data.function,
       affected_area_id: data.affectedAreaId,
       lider_id: data.leaderId,
       agents: newAgents,

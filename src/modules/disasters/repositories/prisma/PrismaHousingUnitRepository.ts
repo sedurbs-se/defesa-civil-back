@@ -19,6 +19,24 @@ export class PrismaHousingUnitRepository implements HousingUnitRepository {
       },
     });
   }
+
+
+  async update(housingUnit: HousingUnit): Promise<void> {
+    const { ...data } = HousingUnitMapper.toPersistence(housingUnit);
+
+    await this.prisma.unidadeHabitacional.update({
+      where: {
+        id: housingUnit.id,
+      },
+      data: {
+        ...data,
+        fotos: {
+          create: data.fotos,
+        },
+      },
+    });
+  }
+
   async find(id: string): Promise<HousingUnit> {
     const housingUnit = await this.prisma.unidadeHabitacional.findUnique({
       where: {

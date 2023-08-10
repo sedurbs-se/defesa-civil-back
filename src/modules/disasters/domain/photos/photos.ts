@@ -1,11 +1,13 @@
 import { Entity } from 'src/core/logic/Entity';
 import { HousingUnit } from '../housingUnit/housing-unit';
+import { PhotoType } from '../../photoEnum';
 
 interface PhotosProps {
   id?: string;
   unidadeHabitacionalId: string;
   unidadeHabitacional?: HousingUnit;
   url: string;
+  type:PhotoType;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -25,6 +27,10 @@ export class Photos extends Entity<PhotosProps> {
 
     get url() {
         return this.props.url;
+    }
+
+    get type() {
+        return this.props.type;
     }
 
     get createdAt() {

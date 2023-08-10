@@ -6,13 +6,16 @@ import { ApiResponse } from '@nestjs/swagger';
 export class GetAreaController {
   constructor(private readonly getArea: GetArea) {}
 
-  @ApiResponse({ status: 200, description: 'A área foi encontrada'})
-  @ApiResponse({ status: 404, description: 'A área não foi encontrada. Não existe uma area com o id informado'})
-  @ApiResponse({ status: 500, description: 'Erro interno do servidor'})
+  @ApiResponse({ status: 200, description: 'A área foi encontrada' })
+  @ApiResponse({
+    status: 404,
+    description:
+      'A área não foi encontrada. Não existe uma area com o id informado',
+  })
+  @ApiResponse({ status: 500, description: 'Erro interno do servidor' })
   @Get('/area/:area_id')
   async execute(@Param('area_id') area_id: string) {
     const areas = await this.getArea.execute(area_id);
-    console.log(areas)
     return {
       id: areas.id,
       name: areas.name,
@@ -30,7 +33,9 @@ export class GetAreaController {
       housingUnits: areas.housingUnits.map((h) => ({
         id: h.id,
         order: h.order,
+        address: h.address,
+        coordinates: h.coordinates,
       })),
-    }
+    };
   }
 }

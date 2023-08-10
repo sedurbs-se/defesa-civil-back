@@ -1,5 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { GetHousingUnit } from './GetHousingUnit';
+import { PhotoType } from '../../photoEnum';
 
 @Controller()
 export class GetHousingUnitController {
@@ -9,16 +10,21 @@ export class GetHousingUnitController {
   async execute(@Param('unit_id') unit_id: string) {
     const housing = await this.getHousingUnit.execute(unit_id);
 
+    const fotos = housing.photos
+      .filter((p) => p.type === PhotoType.FOTO)
+      .map((p) => ({ id: p.id, type: p.type, url: p.url }));
+
+    const planilha = housing.photos.find((p) => p.type === PhotoType.PLANILHA);
     return {
       id: housing.id,
       order: housing.order,
       areaAfetadaId: housing.affectedAreaId,
-      endereco: housing.address,
-      coordenadas: housing.coordinates,
-      fotos: housing.photos.map((p) => ({
-        id: p.id,
-        url: p.url,
-      })),
+      address: housing.address,
+      coordinates: housing.coordinates,
+      fotos,
+      planilha: planilha
+        ? { id: planilha.id, type: planilha.type, url: planilha.url }
+        : null,
       fl_sos: housing.fl_sos,
       qtd_familias: housing.qtd_familias,
       qtd_adultos: housing.qtd_adultos,

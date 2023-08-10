@@ -54,8 +54,6 @@ export class PrismaTeamRepository implements ITeamRepository {
       data: {
         id: t.id,
         nome: t.nome,
-        contato: t.contato,
-        funcao: t.funcao,
         areaAfetadaId: t.areaAfetadaId,
       },
     });
@@ -73,8 +71,6 @@ export class PrismaTeamRepository implements ITeamRepository {
       data: {
         id: t.id,
         nome: t.nome,
-        contato: t.contato,
-        funcao: t.funcao,
         areaAfetadaId: t.areaAfetadaId,
         equipeAgente: {
           create: t.agentes,

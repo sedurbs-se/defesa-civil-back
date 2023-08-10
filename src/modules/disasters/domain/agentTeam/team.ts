@@ -4,8 +4,6 @@ import { Agent } from "../agent/agent";
 interface TeamProps  {
     id?: string;
     name: string;
-    function: string;
-    contact: string;
     affected_area_id: string;
     lider_id?: string;
     lider?: Agent;
@@ -19,14 +17,6 @@ export class Team  extends Entity<TeamProps> {
 
     get name() {
         return this.props.name;
-    }
-
-    get function() {
-        return this.props.function;
-    }
-
-    get contact() {
-        return this.props.contact;
     }
 
     get affected_area_id() {

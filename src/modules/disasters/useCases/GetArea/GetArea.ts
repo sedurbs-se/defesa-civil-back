@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { HousingUnit } from "../../domain/housingUnit/housing-unit";
 import { AffectedAreaRepository } from "../../repositories/IAffectedAreaRepository";
 import { AffectedArea } from "../../domain/affectedArea/affected-area";
 

@@ -44,13 +44,17 @@ import { GetAreaController } from './useCases/GetArea/GetAreaController';
 import { GetArea } from './useCases/GetArea/GetArea';
 import { GetHousingUnit } from './useCases/GetHousingUnit/GetHousingUnit';
 import { GetHousingUnitController } from './useCases/GetHousingUnit/GetHousingUnitController';
-import { CreatePhotoController } from './useCases/CreatePhoto/CreatePhotoController';
-import { CreatePhoto } from './useCases/CreatePhoto/CreatePhoto';
+import { CreatePhotosController } from './useCases/CreatePhotos/CreatePhotosController';
+import { CreatePhotos } from './useCases/CreatePhotos/CreatePhotos';
 import { PhotosRepository } from './repositories/IPhotosRepository';
 import { PrismaPhotoRepository } from './repositories/prisma/PrismaPhotoRepository';
 import { GetPhotoController } from './useCases/GetPhoto/GetPhotoController';
 import { EditDisaster } from './useCases/EditDisaster/EditDisaster';
 import { EditDisasterController } from './useCases/EditDisaster/EditDisasterController';
+import { ListAgentsController } from './useCases/ListAgents/ListAgentsController';
+import { ListAgents } from './useCases/ListAgents/ListAgents';
+import { EditHousingUnit } from './useCases/EditHousingUnit/EditHousingUnit';
+import { EditHousingUnitController } from './useCases/EditHousingUnit/EditHousingUnitController';
 
 @Module({
   imports: [],
@@ -69,10 +73,12 @@ import { EditDisasterController } from './useCases/EditDisaster/EditDisasterCont
     GetDisasterController,
     GetAreaController,
     GetHousingUnitController,
-    CreatePhotoController,
+    CreatePhotosController,
     GetPhotoController,
-
     EditDisasterController,
+    ListAgentsController,
+
+    EditHousingUnitController,
   ],
   providers: [
     {
@@ -129,7 +135,9 @@ import { EditDisasterController } from './useCases/EditDisaster/EditDisasterCont
     GetDisaster,
     GetArea,
     GetHousingUnit,
-    CreatePhoto,
+    CreatePhotos,
+    ListAgents,
+    EditHousingUnit,
   ],
 })
 export class DesastreModule {}

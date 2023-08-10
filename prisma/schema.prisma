@@ -84,6 +84,7 @@ model FotoUnidade {
   unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
   unidadeHabitacionalId String
   url                   String
+  type                  String
   createdAt             DateTime            @default(now())
   updatedAt             DateTime            @updatedAt
 }
@@ -108,8 +109,6 @@ model Agente {
 model Equipe {
   id            String         @id @default(uuid())
   nome          String
-  funcao        String
-  contato       String
   areaAfetadaId String         @map("area_afetada_id")
   areaAfetada   AreaAfetada    @relation(fields: [areaAfetadaId], references: [id])
   equipeAgente  EquipeAgente[]
