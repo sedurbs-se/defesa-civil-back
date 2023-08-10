@@ -1,50 +1,14 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { RegisterDisaster } from './RegisterDisaster';
-
-interface RegisterDisasterDTO {
-    endereco: string,
-    municipio: string,
-    evento: string,
-    data: Date,
-    agenteId: string,
-    areasAfetadas?: {
-        nome: string,
-        coordenadas: number[],
-        endereco: string,
-        unidadesHabitacionais?: {
-            familias: {
-                unidadeHabitacionalId: string,
-                afetados: {
-                    nome: string,
-                    cpf: string,
-                    idade: number,
-                    sexo: string,
-                    contato: string,
-                    temAguaPotavel: boolean,
-                    temEletricidade: boolean,
-                    podeCozinhar: boolean,
-                    EmParenteOuCasaDeAmigos: boolean,
-                    EmAbrigoPublico: boolean,
-                    exAguaPotavel: string,
-                    exEletricidade: string,
-                    exParenteOuCasaDeAmigos: string,
-                    exAbrigoPublico: string
-                }[]
-            }[]
-        }[]
-    }[]
-}
-    
-
+import { CreateDisasterDTO } from '../../dtos/CreateDisasterDTO';
+import { Disaster } from '../../domain/disaster/disaster';
 
 @Controller()
-export class AppController {
+export class RegisterDisasterController {
   constructor(private readonly registerDisaster: RegisterDisaster) {}
 
   @Post('/disaster')
-  async execute(
-    @Body() registerDisasterDTO: RegisterDisasterDTO,
-  ): Promise<UserModel> {
-    return this.registerDisaster.execute({});
+  async execute(@Body() body: CreateDisasterDTO): Promise<Disaster> {
+    return await this.registerDisaster.execute(body);
   }
 }

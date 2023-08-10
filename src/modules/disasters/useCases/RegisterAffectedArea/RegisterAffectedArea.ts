@@ -1,35 +1,40 @@
-import { Injectable } from "@nestjs/common";
-import { v4 as uuidv4 } from "uuid";
-import { AffectedArea } from "../../domain/affectedArea/affected-area";
-import { AffectedAreaRepository } from "../../repositories/IAffectedAreaRepository";
-
-interface CreateAffectedAreaRequest {
-    coordinates: number[];
-    disasterId: string;
-    name: string;
-    address: string;
-}
+import { Injectable } from '@nestjs/common';
+import { AffectedArea } from '../../domain/affectedArea/affected-area';
+import { AffectedAreaRepository } from '../../repositories/IAffectedAreaRepository';
+import { AppError } from 'src/core/logic/error';
+import { CreateAffectedAreaDTO } from '../../dtos/CreateAffectedAreaDTO';
+import { DisasterRepository } from '../../repositories/IDisasterRepository';
 
 @Injectable()
 class CreateAffectedArea {
-    constructor(private affectedAreaRepository: AffectedAreaRepository) {}
+  constructor(
+    private affectedAreaRepository: AffectedAreaRepository,
+    private disasterRepository: DisasterRepository,
+  ) {}
 
-    async execute(request: CreateAffectedAreaRequest): Promise<AffectedArea> {
-        const affectedArea = new AffectedArea({
-            id: uuidv4(),
-            coordinates: request.coordinates,
-            disasterId: request.disasterId,
-            name: request.name,
-            address: request.address,
-        });
+  async execute(request: CreateAffectedAreaDTO): Promise<AffectedArea> {
+    const existDisaster = await this.disasterRepository.find(
+      request.disasterId,
+    );
 
-        await this.affectedAreaRepository.save(affectedArea);
+    if (!existDisaster) throw new AppError('Disaster not found');
 
-        return affectedArea;
-    }
+    const existAffectedArea = await this.affectedAreaRepository.findByOrder(
+      request.order,
+    );
+
+    if (existAffectedArea) throw new AppError('Affected Area already exists');
+
+    const affectedArea = new AffectedArea({
+      disasterId: request.disasterId,
+      name: request.name,
+      order: request.order,
+    });
+
+    await this.affectedAreaRepository.save(affectedArea);
+
+    return affectedArea;
+  }
 }
 
-export {
-    CreateAffectedArea,
-    CreateAffectedAreaRequest
-}
+export { CreateAffectedArea };

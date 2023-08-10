@@ -1,28 +1,29 @@
-import { v4 as uuidv4 } from "uuid";
-import { HousingUnit } from "../../domain/housingUnit/housing-unit";
-import { HousingUnitRepository } from "../../repositories/IHousingUnitRepository";
+import { AppError } from 'src/core/logic/error';
+import { HousingUnit } from '../../domain/housingUnit/housing-unit';
+import { CreateHousingUnitDTO } from '../../dtos/CreateHousingUnitDTO';
+import { HousingUnitRepository } from '../../repositories/IHousingUnitRepository';
+import { Injectable } from '@nestjs/common';
 
-interface CreateHousingUnitRequest {
-    affectedAreaId: string;
-}
+@Injectable()
+class RegisterHousing {
+  constructor(private housingUnitRepository: HousingUnitRepository) {}
 
-
-class CreateHousingUnit {
-    constructor(private housingUnitRepository: HousingUnitRepository) {}
-
-    async execute(request: CreateHousingUnitRequest): Promise<HousingUnit> {
-        const housingUnit = new HousingUnit({
-            id: uuidv4(),
-            affectedAreaId: request.affectedAreaId,
-        });
-
-        await this.housingUnitRepository.save(housingUnit);
-
-        return housingUnit;
+  async execute(data: CreateHousingUnitDTO): Promise<HousingUnit> {
+    const existWithOrder = await this.housingUnitRepository.findByOrdem(
+      data.order,
+    );
+    if (existWithOrder) {
+      throw new AppError('Já existe uma unidade habitacional com essa ordem');
     }
+
+    const housingUnit = new HousingUnit({
+      ...data,
+    });
+
+    await this.housingUnitRepository.save(housingUnit);
+
+    return housingUnit;
+  }
 }
 
-export {
-    CreateHousingUnit,
-    CreateHousingUnitRequest
-}
+export { RegisterHousing };
