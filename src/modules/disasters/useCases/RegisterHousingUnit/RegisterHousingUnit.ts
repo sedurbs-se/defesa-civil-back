@@ -9,8 +9,9 @@ class RegisterHousing {
   constructor(private housingUnitRepository: HousingUnitRepository) {}
 
   async execute(data: CreateHousingUnitDTO): Promise<HousingUnit> {
-
-    const existWithOrder = await this.housingUnitRepository.findByOrdem(data.order);
+    const existWithOrder = await this.housingUnitRepository.findByOrdem(
+      data.order,
+    );
     if (existWithOrder) {
       throw new AppError('Já existe uma unidade habitacional com essa ordem');
     }
@@ -18,8 +19,6 @@ class RegisterHousing {
     const housingUnit = new HousingUnit({
       ...data,
     });
-    
-    console.log(housingUnit)
 
     await this.housingUnitRepository.save(housingUnit);
 

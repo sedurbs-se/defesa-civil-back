@@ -17,12 +17,10 @@ export class PrismaTeamRepository implements ITeamRepository {
         equipeAgente: {
           include: {
             agente: true,
-          }
-        }
+          },
+        },
       },
     });
-
-
 
     return teams.map((e) => TeamMapper.toDomain(e));
   }
@@ -35,16 +33,14 @@ export class PrismaTeamRepository implements ITeamRepository {
       include: {
         equipeAgente: {
           include: {
-            agente: true
-          }
-        }
+            agente: true,
+          },
+        },
       },
     });
     if (!team) {
       return null;
     }
-
-    console.log(team)
 
     return TeamMapper.toDomain(team);
   }
@@ -72,10 +68,17 @@ export class PrismaTeamRepository implements ITeamRepository {
         id: t.id,
         nome: t.nome,
         areaAfetadaId: t.areaAfetadaId,
-        equipeAgente: {
-          create: t.agentes,
-        },
       },
+    });
+
+    await this.prisma.equipeAgente.deleteMany({
+      where: {
+        equipeId: t.id,
+      },
+    });
+
+    await this.prisma.equipeAgente.createMany({
+      data: t.agentes,
     });
   }
 }

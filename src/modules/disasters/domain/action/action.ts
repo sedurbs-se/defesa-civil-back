@@ -54,5 +54,4 @@ class Action extends Entity<ActionProps> {
   }
 }
 
-
 export { Action, ActionProps };

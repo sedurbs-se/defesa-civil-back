@@ -2,14 +2,11 @@ import { Agente as PersistenceAgent, Prisma } from '@prisma/client';
 import { Agent } from '../domain/Agent/Agent';
 import { User } from '../domain/user/user';
 
-const agentQueryWithUser =
-  Prisma.validator<Prisma.AgenteArgs>()({
-    include: { user: true },
-  });
+const agentQueryWithUser = Prisma.validator<Prisma.AgenteArgs>()({
+  include: { user: true },
+});
 
-type AgentWithUser = Prisma.AgenteGetPayload<
-  typeof agentQueryWithUser
->;
+type AgentWithUser = Prisma.AgenteGetPayload<typeof agentQueryWithUser>;
 
 export class AgentMapper {
   static toDomain(raw: PersistenceAgent) {
@@ -21,7 +18,7 @@ export class AgentMapper {
     });
   }
 
-  static toDomainWithUser(raw:AgentWithUser ) {
+  static toDomainWithUser(raw: AgentWithUser) {
     return new Agent({
       id: raw.id,
       function: raw.funcao,
@@ -31,7 +28,7 @@ export class AgentMapper {
         id: raw.user.id,
         name: raw.user.nome,
         cpf: raw.user.cpf,
-      })
+      }),
     });
   }
 

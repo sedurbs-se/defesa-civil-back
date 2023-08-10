@@ -8,7 +8,6 @@ export class RegisterAreaController {
 
   @Post('/area')
   async execute(@Body() body: CreateAffectedAreaDTO) {
-
     const affectedArea = await this.createAffectedArea.execute(body);
 
     return {
@@ -16,6 +15,6 @@ export class RegisterAreaController {
       name: affectedArea.name,
       order: affectedArea.order,
       disasterId: affectedArea.disasterId,
-    }
+    };
   }
 }

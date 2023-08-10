@@ -5,12 +5,12 @@ import { Injectable } from "@nestjs/common";
 
 type EditHousingUnitRequest = OptionalExceptFor<HousingUnitProps, 'id'>
 @Injectable()
-class EditHousingUnit {
-    constructor(private housingUnitRepository: HousingUnitRepository) {}
 
-    async execute(request: EditHousingUnitRequest): Promise<HousingUnit> {
-        
-        const housingUnit = await this.housingUnitRepository.find(request.id);
+class EditHousingUnit {
+  constructor(private housingUnitRepository: HousingUnitRepository) {}
+
+  async execute(request: EditHousingUnitRequest): Promise<HousingUnit> {
+    const housingUnit = await this.housingUnitRepository.find(request.id);
 
         if (!housingUnit) {
             throw new Error('Housing Unit not found');
@@ -23,10 +23,8 @@ class EditHousingUnit {
         await this.housingUnitRepository.update(updatedHousingUnit);
 
         return updatedHousingUnit;
-    }
+
+  }
 }
 
-export {
-    EditHousingUnit,
-    EditHousingUnitRequest
-}
+export { EditHousingUnit, EditHousingUnitRequest };

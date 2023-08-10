@@ -5,5 +5,5 @@ export abstract class HousingUnitRepository {
   abstract update(housingUnit: HousingUnit): Promise<void>;
   abstract find(id: string): Promise<HousingUnit>;
   abstract findByOrdem(ordem: number): Promise<HousingUnit>;
-  abstract findAll(area_id:string): Promise<HousingUnit[]>;
+  abstract findAll(area_id: string): Promise<HousingUnit[]>;
 }

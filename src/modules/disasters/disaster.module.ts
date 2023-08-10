@@ -55,6 +55,8 @@ import { ListAgentsController } from './useCases/ListAgents/ListAgentsController
 import { ListAgents } from './useCases/ListAgents/ListAgents';
 import { EditHousingUnit } from './useCases/EditHousingUnit/EditHousingUnit';
 import { EditHousingUnitController } from './useCases/EditHousingUnit/EditHousingUnitController';
+import { EditTeamController } from './useCases/EditTeam/EditTeamController';
+import { EditTeam } from './useCases/EditTeam/EditTeam';
 
 @Module({
   imports: [],
@@ -77,8 +79,8 @@ import { EditHousingUnitController } from './useCases/EditHousingUnit/EditHousin
     GetPhotoController,
     EditDisasterController,
     ListAgentsController,
-
     EditHousingUnitController,
+    EditTeamController,
   ],
   providers: [
     {
@@ -138,6 +140,7 @@ import { EditHousingUnitController } from './useCases/EditHousingUnit/EditHousin
     CreatePhotos,
     ListAgents,
     EditHousingUnit,
+    EditTeam,
   ],
 })
 export class DesastreModule {}

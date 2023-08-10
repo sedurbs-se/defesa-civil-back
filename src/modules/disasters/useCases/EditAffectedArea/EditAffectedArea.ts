@@ -9,22 +9,29 @@ type EditAffectedAreaRequest = OptionalExceptFor<AffectedArea, 'id'>;
 
 @Injectable()
 export class EditAffectedArea {
-  constructor(private affectedAreaRepository: AffectedAreaRepository,
-    private disasterRepository: DisasterRepository
-    ) {}
+  constructor(
+    private affectedAreaRepository: AffectedAreaRepository,
+    private disasterRepository: DisasterRepository,
+  ) {}
 
   async execute(request: EditAffectedAreaRequest): Promise<AffectedArea> {
-    const existDisaster = await this.disasterRepository.find(request.disasterId);
+    const existDisaster = await this.disasterRepository.find(
+      request.disasterId,
+    );
 
-    if (!existDisaster) throw new AppError("Disaster not found");
+    if (!existDisaster) throw new AppError('Disaster not found');
 
-    const existAffectedArea = await this.affectedAreaRepository.find(request.id);
+    const existAffectedArea = await this.affectedAreaRepository.find(
+      request.id,
+    );
 
-    if (!existAffectedArea) throw new AppError("Affected Area not found");
+    if (!existAffectedArea) throw new AppError('Affected Area not found');
 
-    const existAffectedAreaOrder = await this.affectedAreaRepository.findByOrder(request.order);
+    const existAffectedAreaOrder =
+      await this.affectedAreaRepository.findByOrder(request.order);
 
-    if (existAffectedAreaOrder && existAffectedAreaOrder.id !== request.id) throw new AppError("Affected Area with selected order already exists");
+    if (existAffectedAreaOrder && existAffectedAreaOrder.id !== request.id)
+      throw new AppError('Affected Area with selected order already exists');
 
     const updatedAffectedArea = new AffectedArea({
       disasterId: request.disasterId,

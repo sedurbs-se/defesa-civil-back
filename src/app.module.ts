@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { DesastreModule } from './modules/disasters/disaster.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { HttpModule } from './infra/http/Http.module';

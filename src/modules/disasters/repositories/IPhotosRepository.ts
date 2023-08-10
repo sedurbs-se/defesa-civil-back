@@ -1,4 +1,4 @@
-import { Photos } from "../domain/photos/photos";
+import { Photos } from '../domain/photos/photos';
 
 export abstract class PhotosRepository {
     abstract save(photos:Photos[]): Promise<void>;

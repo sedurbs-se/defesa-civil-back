@@ -13,8 +13,8 @@ export class PrismaAgentRepository implements IAgentRepository {
   async find(): Promise<Agent[]> {
     const agents = await this.prisma.agente.findMany({
       include: {
-        user: true
-      }
+        user: true,
+      },
     });
     return agents.map((agent) => AgentMapper.toDomainWithUser(agent));
   }
@@ -22,14 +22,14 @@ export class PrismaAgentRepository implements IAgentRepository {
     const agent = await this.prisma.agente.findFirst({
       where: {
         user: {
-           cpf: {
+          cpf: {
             startsWith: cpf,
-           }
-        }
+          },
+        },
       },
       include: {
-        user: true
-      }
+        user: true,
+      },
     });
 
     if (!agent) return null;

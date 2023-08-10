@@ -54,7 +54,7 @@ export abstract class CreateHousingUnitDTO {
 
   @IsNotEmpty({ message: 'O campo flag desabrigado é obrigatório' })
   fl_desabrigado: boolean;
-  
+
   @IsNotEmpty({ message: 'O campo flag desalojado é obrigatório' })
   fl_desalojado: boolean;
 }

@@ -13,21 +13,24 @@ interface PhotosProps {
 }
 
 export class Photos extends Entity<PhotosProps> {
-    constructor(props: PhotosProps) {
-        super({
-            ...props,
-            createdAt: props.createdAt || new Date(),
-            updatedAt: props.updatedAt || new Date(),
-        }, props.id);
-    }
+  constructor(props: PhotosProps) {
+    super(
+      {
+        ...props,
+        createdAt: props.createdAt || new Date(),
+        updatedAt: props.updatedAt || new Date(),
+      },
+      props.id,
+    );
+  }
 
-    get unidadeHabitacionalId() {
-        return this.props.unidadeHabitacionalId;
-    }
+  get unidadeHabitacionalId() {
+    return this.props.unidadeHabitacionalId;
+  }
 
-    get url() {
-        return this.props.url;
-    }
+  get url() {
+    return this.props.url;
+  }
 
     get type() {
         return this.props.type;

@@ -1,5 +1,5 @@
-import { AffectedArea } from "../affectedArea/affected-area";
-import { City } from "../city/city";
+import { AffectedArea } from '../affectedArea/affected-area';
+import { City } from '../city/city';
 
 interface DisasterProps {
   id?: string;
@@ -39,8 +39,6 @@ class Disaster {
   set date(date: Date) {
     this.props.date = date;
   }
-
-
 }
 
 export { Disaster, DisasterProps };
