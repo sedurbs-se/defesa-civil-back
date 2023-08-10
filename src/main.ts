@@ -7,12 +7,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-  .setTitle('Desastres API')
-  .setDescription('Descrição da API de desastres do app da Defesa Civil')
-  .setVersion('1.0')
-  .build();
-const document = SwaggerModule.createDocument(app, config);
-SwaggerModule.setup('docs', app, document);
+    .setTitle('Desastres API')
+    .setDescription('Descrição da API de desastres do app da Defesa Civil')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();

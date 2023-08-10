@@ -39,14 +39,14 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
       include: {
         unidadesHabitacionais: {
           include: {
-            fotos: true
-          }
+            fotos: true,
+          },
         },
         Desastre: {
           include: {
-            municipio: true
-          }
-        }
+            municipio: true,
+          },
+        },
       },
     });
 
@@ -62,14 +62,14 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
       include: {
         unidadesHabitacionais: {
           include: {
-            fotos: true
-          }
+            fotos: true,
+          },
         },
-        Desastre:{
+        Desastre: {
           include: {
-            municipio: true
-          }
-        }
+            municipio: true,
+          },
+        },
       },
     });
 
@@ -78,11 +78,11 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
     return AffectedAreaMapper.toDomainWithDetails(area);
   }
 
-  async findAll(disaster_id:string): Promise<AffectedArea[]> {
+  async findAll(disaster_id: string): Promise<AffectedArea[]> {
     const areas = await this.prisma.areaAfetada.findMany({
       where: {
         desastreId: disaster_id,
-      }
+      },
     });
 
     return areas.map(AffectedAreaMapper.toDomain);

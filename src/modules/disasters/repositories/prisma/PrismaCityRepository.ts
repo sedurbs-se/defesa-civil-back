@@ -13,7 +13,7 @@ class PrismaCityRepository implements CityRepository {
       data: {
         id: city.id,
         nome: city.name,
-    },
+      },
     });
   }
 
@@ -24,7 +24,7 @@ class PrismaCityRepository implements CityRepository {
       },
     });
 
-    if(!cidade) return null;
+    if (!cidade) return null;
 
     return CityMapper.toDomain(cidade);
   }

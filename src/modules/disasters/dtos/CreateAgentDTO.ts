@@ -9,7 +9,8 @@ export abstract class CreateAgentDTO {
   name: string;
 
   @ApiProperty({
-    description: 'O cpf do agente que será cadastrado no sistema e usado para login',
+    description:
+      'O cpf do agente que será cadastrado no sistema e usado para login',
   })
   @IsNotEmpty({ message: 'O campo cpf é obrigatório' })
   cpf: string;
@@ -25,6 +26,6 @@ export abstract class CreateAgentDTO {
   })
   @IsNotEmpty({ message: 'O campo contato é obrigatório' })
   contact: string;
-//   @IsNotEmpty({ message: 'O campo fl_lider_equipe é obrigatório' })
-//   fl_lider_equipe: boolean;
+  //   @IsNotEmpty({ message: 'O campo fl_lider_equipe é obrigatório' })
+  //   fl_lider_equipe: boolean;
 }

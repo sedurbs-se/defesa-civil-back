@@ -1,4 +1,4 @@
-import { Equipe as PersistenceTeam, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { Team } from '../domain/agentTeam/team';
 import { Agent } from '../domain/agent/agent';
 
@@ -6,9 +6,9 @@ const teamWithAgent = Prisma.validator<Prisma.EquipeArgs>()({
   include: {
     equipeAgente: {
       include: {
-        agente: true
-      }
-    }
+        agente: true,
+      },
+    },
   },
 });
 
@@ -28,8 +28,8 @@ export class TeamMapper {
           contact: ea.agente.contato,
           function: ea.agente.funcao,
           fl_lider_equipe: ea.fl_lider_equipe,
-        })
-      })
+        });
+      }),
     });
   }
 
