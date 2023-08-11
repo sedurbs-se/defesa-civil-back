@@ -4,7 +4,7 @@ import { HousingUnitMapper } from './HousingUnitMapper';
 import { Disaster } from '../domain/disaster/disaster';
 import { City } from '../domain/city/city';
 
-const areaWithUnity = Prisma.validator<Prisma.AreaAfetadaArgs>()({
+const areaWithUnityAndDisaster = Prisma.validator<Prisma.AreaAfetadaArgs>()({
   include: {
     unidadesHabitacionais: true,
     Desastre: {
@@ -15,8 +15,18 @@ const areaWithUnity = Prisma.validator<Prisma.AreaAfetadaArgs>()({
   },
 });
 
+const areaWithUnity = Prisma.validator<Prisma.AreaAfetadaArgs>()({
+  include: {
+    unidadesHabitacionais: true,
+    },
+});
+
 type DisasterWithAreaAndCity = Prisma.AreaAfetadaGetPayload<
   typeof areaWithUnity
+>;
+
+type DisasterWithAreaAndCityAndDisaster = Prisma.AreaAfetadaGetPayload<
+  typeof areaWithUnityAndDisaster
 >;
 
 export class AffectedAreaMapper {
@@ -29,7 +39,7 @@ export class AffectedAreaMapper {
     });
   }
 
-  static toDomainWithDetails(raw: DisasterWithAreaAndCity) {
+  static toDomainWithDisaster(raw: DisasterWithAreaAndCityAndDisaster) {
     return new AffectedArea({
       id: raw.id,
       disasterId: raw.desastreId,
@@ -44,6 +54,16 @@ export class AffectedAreaMapper {
             }),
           })
         : null,
+      order: raw.ORDEM,
+      name: raw.nome,
+      housingUnits: raw.unidadesHabitacionais.map(HousingUnitMapper.toDomain),
+    });
+  } 
+  
+  static toDomainWithDetails(raw: DisasterWithAreaAndCity ) {
+    return new AffectedArea({
+      id: raw.id,
+      disasterId: raw.desastreId,
       order: raw.ORDEM,
       name: raw.nome,
       housingUnits: raw.unidadesHabitacionais.map(HousingUnitMapper.toDomain),

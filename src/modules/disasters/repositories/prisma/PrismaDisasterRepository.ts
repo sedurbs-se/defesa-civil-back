@@ -49,11 +49,15 @@ class PrismaDisasterRepository implements DisasterRepository {
     const desastres = await this.prisma.desastre.findMany({
       include: {
         municipio: true,
-        areas: select_areas,
+        areas: {
+          include: {
+            unidadesHabitacionais: true,
+          }
+        },
       },
     });
 
-    return desastres.map(DisasterMapper.toDomain);
+    return desastres.map(DisasterMapper.toDomainWithDetails);
   }
 }
 

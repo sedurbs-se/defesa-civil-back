@@ -36,7 +36,7 @@ export class DisasterMapper {
       id: raw.id,
       cityId: raw.municipioId,
       date: raw.data,
-      affectedAreas: raw.areas.map((a) => AffectedAreaMapper.toDomain(a)),
+      affectedAreas: raw.areas.map((a) => AffectedAreaMapper.toDomainWithDetails(a)),
       city: CityMapper.toDomain(raw.municipio),
     });
   }

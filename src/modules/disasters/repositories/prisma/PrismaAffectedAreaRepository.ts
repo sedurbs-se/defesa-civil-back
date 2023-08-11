@@ -52,7 +52,7 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
 
     if (!area) return null;
 
-    return AffectedAreaMapper.toDomainWithDetails(area);
+    return AffectedAreaMapper.toDomainWithDisaster(area);
   }
   async findByOrder(order: number): Promise<AffectedArea> {
     const area = await this.prisma.areaAfetada.findUnique({
