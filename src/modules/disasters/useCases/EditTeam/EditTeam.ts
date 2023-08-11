@@ -1,10 +1,7 @@
 import { AppError } from 'src/core/logic/error';
-import { AffectedAreaRepository } from '../../repositories/IAffectedAreaRepository';
 import { ITeamRepository } from '../../repositories/ITeamRepository';
 import { Injectable } from '@nestjs/common';
-import { Agent } from '../../domain/agent/agent';
 import { EditTeamDTO } from '../../dtos/EditTeamDTO';
-import { TeamMapper } from '../../mappers/TeamMapper';
 import { Team } from '../../domain/agentTeam/team';
 import { IAgentRepository } from '../../repositories/IAgentRepository';
 

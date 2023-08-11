@@ -20,7 +20,6 @@ export class PrismaHousingUnitRepository implements HousingUnitRepository {
     });
   }
 
-
   async update(housingUnit: HousingUnit): Promise<void> {
     const { ...data } = HousingUnitMapper.toPersistence(housingUnit);
 
