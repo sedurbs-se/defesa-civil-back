@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { DisasterRepository } from '../../repositories/IDisasterRepository';
 import { Disaster } from '../../domain/disaster/disaster';
+import { DisasterRepository } from '../../repositories/IDisasterRepository';
 
 @Injectable()
 export class GetDisaster {
-  constructor(private readonly DisasterRepository: DisasterRepository) {}
+  constructor(private readonly disasterRepository: DisasterRepository) {}
 
   async execute(disaster_id: string): Promise<Disaster> {
-    return await this.DisasterRepository.find(disaster_id);
+    return await this.disasterRepository.find(disaster_id);
   }
 }

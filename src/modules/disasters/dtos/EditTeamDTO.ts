@@ -1,6 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger/dist/decorators';
-import { Optional } from '@nestjs/common';
 
 export abstract class EditTeamDTO {
   @ApiProperty({

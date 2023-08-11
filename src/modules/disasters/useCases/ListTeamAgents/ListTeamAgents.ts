@@ -1,8 +1,6 @@
 import { AppError } from 'src/core/logic/error';
-import { AffectedAreaRepository } from '../../repositories/IAffectedAreaRepository';
 import { ITeamRepository } from '../../repositories/ITeamRepository';
 import { Injectable } from '@nestjs/common';
-import { Agent } from '../../domain/agent/agent';
 
 @Injectable()
 export class ListTeamAgents {

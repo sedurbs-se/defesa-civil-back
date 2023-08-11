@@ -20,8 +20,16 @@ class Disaster {
     return this.props.cityId;
   }
 
+  set cityId(cityId: string) {
+    this.props.cityId = cityId;
+  }
+
   get date() {
     return this.props.date;
+  }
+
+  set date(date: Date) {
+    this.props.date = date;
   }
 
   get city() {
@@ -30,14 +38,6 @@ class Disaster {
 
   get affectedAreas() {
     return this.props.affectedAreas;
-  }
-
-  set cityId(cityId: string) {
-    this.props.cityId = cityId;
-  }
-
-  set date(date: Date) {
-    this.props.date = date;
   }
 }
 

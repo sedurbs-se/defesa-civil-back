@@ -1,6 +1,4 @@
-
-
 export enum PhotoType {
-    PLANILHA = 'PLANILHA',
-    FOTO = 'FOTO',
+  PLANILHA = 'PLANILHA',
+  FOTO = 'FOTO',
 }
