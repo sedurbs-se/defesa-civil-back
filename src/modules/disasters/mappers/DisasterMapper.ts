@@ -1,4 +1,4 @@
-import { Desastre as PersistenceDisaster, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { Disaster } from '../domain/disaster/disaster';
 import { AffectedAreaMapper } from './AffectedAreaMapper';
 import { CityMapper } from './CityMapper';

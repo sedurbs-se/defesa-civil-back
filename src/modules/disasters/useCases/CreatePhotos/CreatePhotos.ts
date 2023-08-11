@@ -24,7 +24,7 @@ export class CreatePhotos {
     }
 
     const photos = [];
-    
+
     for (const link of links) {
       const photo = new Photos({
         unidadeHabitacionalId: unidade_habitacional_id,

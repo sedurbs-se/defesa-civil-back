@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CreateTeamDTO } from '../../dtos/CreateTeamDTO';
+import { Controller, Get } from '@nestjs/common';
 import { ListAgents } from './ListAgents';
 
 @Controller()

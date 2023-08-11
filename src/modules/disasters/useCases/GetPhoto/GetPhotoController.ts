@@ -7,7 +7,6 @@ import { AppError } from 'src/core/logic/error';
 export class GetPhotoController {
   @Get('/photo/:link')
   async execute(@Param('link') link: string) {
-
     const file = join(process.env.TMP_FOLDER, link);
 
     if (!existsSync(file)) {

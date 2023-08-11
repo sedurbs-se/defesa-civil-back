@@ -7,7 +7,7 @@ interface PhotosProps {
   unidadeHabitacionalId: string;
   unidadeHabitacional?: HousingUnit;
   url: string;
-  type:PhotoType;
+  type: PhotoType;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -32,16 +32,15 @@ export class Photos extends Entity<PhotosProps> {
     return this.props.url;
   }
 
-    get type() {
-        return this.props.type;
-    }
+  get type() {
+    return this.props.type;
+  }
 
-    get createdAt() {
-        return this.props.createdAt;
-    }
+  get createdAt() {
+    return this.props.createdAt;
+  }
 
-    get updatedAt() {
-        return this.props.updatedAt;
-    }
-
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
 }

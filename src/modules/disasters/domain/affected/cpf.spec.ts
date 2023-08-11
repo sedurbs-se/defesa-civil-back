@@ -1,4 +1,3 @@
-import { InvalidCPFError } from './errors/invalid-cpf';
 import { CPF } from './cpf';
 
 describe('CPF', () => {

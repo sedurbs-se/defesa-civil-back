@@ -2,13 +2,11 @@ import {
   Controller,
   Post,
   UseInterceptors,
-  UploadedFile,
   Param,
-  ParseIntPipe,
   UploadedFiles,
   Body,
 } from '@nestjs/common';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { CreatePhotos } from './CreatePhotos';
@@ -36,7 +34,7 @@ export class CreatePhotosController {
   )
   async handle(
     @UploadedFiles() files: Array<Express.Multer.File>,
-    @Body() body:CreatePhotosDTO,
+    @Body() body: CreatePhotosDTO,
     @Param('unidade_habitacional_id') unidade_habitacional_id: string,
   ) {
     if (!files) throw new AppError('Arquivo não enviado');
@@ -44,6 +42,10 @@ export class CreatePhotosController {
     if (files.length === 0)
       throw new AppError('Pelo menos 1 arquivo deve ser enviado');
 
-    await this.createPhotos.execute(unidade_habitacional_id, files.map((f) => f.filename), body.type);
+    await this.createPhotos.execute(
+      unidade_habitacional_id,
+      files.map((f) => f.filename),
+      body.type,
+    );
   }
 }

@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import { AffectedAreaRepository } from '../../repositories/IAffectedAreaRepository';
 import { AffectedArea } from '../../domain/affectedArea/affected-area';

@@ -7,7 +7,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class PrismaAgentRepository implements IAgentRepository {
   constructor(private readonly prisma: PrismaService) {}
-  findPage(page: number, limit: number): Promise<Agent[]> {
+  findPage(): Promise<Agent[]> {
     throw new Error('Method not implemented.');
   }
   async find(): Promise<Agent[]> {

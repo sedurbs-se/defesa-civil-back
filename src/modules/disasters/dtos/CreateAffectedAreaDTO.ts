@@ -1,10 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsNumberString,
-  IsOptional,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export abstract class CreateAffectedAreaDTO {
   @ApiPropertyOptional({
