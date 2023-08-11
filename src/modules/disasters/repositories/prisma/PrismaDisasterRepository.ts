@@ -51,7 +51,11 @@ class PrismaDisasterRepository implements DisasterRepository {
         municipio: true,
         areas: {
           include: {
-            unidadesHabitacionais: true,
+            unidadesHabitacionais: {
+              include:{
+                fotos:true
+              }
+            },
           }
         },
       },

@@ -60,7 +60,7 @@ export class AffectedAreaMapper {
     });
   } 
   
-  static toDomainWithDetails(raw: DisasterWithAreaAndCity ) {
+  static toDomainWithDetails(raw: DisasterWithAreaAndCity) {
     return new AffectedArea({
       id: raw.id,
       disasterId: raw.desastreId,

@@ -20,7 +20,7 @@ export class HousingUnitMapper {
       affectedAreaId: raw.areaAfetadaId,
       address: raw.endereco,
       coordinates: raw.coordenadas,
-      photos: raw.fotos.map((f) => PhotosMapper.toDomain(f)),
+      photos: raw.fotos ? raw.fotos.map((f) => PhotosMapper.toDomain(f)) : [],
 
       fl_sos: raw.fl_sos,
       qtd_familias: raw.qtd_familias,
