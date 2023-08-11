@@ -14,7 +14,11 @@ type DisasterWithAreaCity = Prisma.DesastreGetPayload<
 >;
 
 const disasterWithAreaAndCity = Prisma.validator<Prisma.DesastreArgs>()({
-  include: { areas: true, municipio: true },
+  include: { areas: {
+    include: {
+      unidadesHabitacionais: true,
+    }
+  }, municipio: true },
 });
 
 type DisasterWithAreaAndCity = Prisma.DesastreGetPayload<
@@ -31,7 +35,17 @@ export class DisasterMapper {
     });
   }
 
-  static toDomainWithDetails(raw: DisasterWithAreaAndCity) {
+  static toDomainWithDetails(raw: DisasterWithAreaCity) {
+    return new Disaster({
+      id: raw.id,
+      cityId: raw.municipioId,
+      date: raw.data,
+      affectedAreas: raw.areas.map((a) => AffectedAreaMapper.toDomain(a)),
+      city: CityMapper.toDomain(raw.municipio),
+    });
+  }
+  
+  static toDomainWithDetailsAndUnity(raw: DisasterWithAreaAndCity) {
     return new Disaster({
       id: raw.id,
       cityId: raw.municipioId,

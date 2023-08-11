@@ -57,7 +57,7 @@ class PrismaDisasterRepository implements DisasterRepository {
       },
     });
 
-    return desastres.map(DisasterMapper.toDomainWithDetails);
+    return desastres.map(DisasterMapper.toDomainWithDetailsAndUnity);
   }
 }
 
