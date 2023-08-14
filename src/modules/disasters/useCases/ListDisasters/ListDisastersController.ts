@@ -3,7 +3,7 @@ import { ListDisasters } from './ListDisasters';
 
 @Controller()
 export class ListDisastersController {
-  constructor(private readonly listDisasters: ListDisasters) {}
+  constructor(private readonly listDisasters: ListDisasters) { }
 
   @Get('/disasters')
   async execute() {
@@ -17,6 +17,7 @@ export class ListDisastersController {
         name: d.city.name,
       },
       areas: d.affectedAreas.map((a) => ({
+        disaster_id: d.id,
         id: a.id,
         name: a.name,
         housingUnits: a.housingUnits.map((h) => ({
