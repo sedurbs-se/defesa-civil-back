@@ -7,20 +7,26 @@ export class GetDisasterController {
 
   @Get('/disaster/:disaster_id')
   async execute(@Param('disaster_id') disaster_id: string) {
-    const disaster = await this.getDisaster.execute(disaster_id);
+    const { disaster, affected_people_count, area_count, unity_count } =
+      await this.getDisaster.execute(disaster_id);
     return {
-      id: disaster.id,
-      date: disaster.date,
-      cityId: disaster.cityId,
-      city: {
-        id: disaster.city.id,
-        name: disaster.city.name,
+      disaster: {
+        id: disaster.id,
+        date: disaster.date,
+        cityId: disaster.cityId,
+        city: {
+          id: disaster.city.id,
+          name: disaster.city.name,
+        },
+        areas: disaster.affectedAreas.map((a) => ({
+          id: a.id,
+          name: a.name,
+          order: a.order,
+        })),
       },
-      areas: disaster.affectedAreas.map((a) => ({
-        id: a.id,
-        name: a.name,
-        order: a.order,
-      })),
+      affected_people_count,
+      unity_count,
+      area_count,
     };
   }
 }

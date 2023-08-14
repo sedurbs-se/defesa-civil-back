@@ -32,10 +32,12 @@ export class PrismaPhotoRepository implements PhotosRepository {
     return PhotosMapper.toDomain(photo);
   }
 
-  async delete(id: string): Promise<void> {
-    await this.prisma.fotoUnidade.delete({
+  async delete(ids: string[]): Promise<void> {
+    await this.prisma.fotoUnidade.deleteMany({
       where: {
-        id,
+        id: {
+          in: ids,
+        },
       },
     });
   }

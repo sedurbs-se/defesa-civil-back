@@ -3,6 +3,7 @@ import { DisasterRepository } from '../IDisasterRepository';
 import { PrismaService } from 'src/prisma.service';
 import { DisasterMapper } from '../../mappers/DisasterMapper';
 import { Injectable } from '@nestjs/common';
+import { DisasterWithDetails } from '../../useCases/GetDisaster/GetDisaster';
 
 @Injectable()
 class PrismaDisasterRepository implements DisasterRepository {
@@ -52,16 +53,54 @@ class PrismaDisasterRepository implements DisasterRepository {
         areas: {
           include: {
             unidadesHabitacionais: {
-              include:{
-                fotos:true
-              }
+              include: {
+                fotos: true,
+              },
             },
-          }
+          },
         },
       },
     });
 
     return desastres.map(DisasterMapper.toDomainWithDetailsAndUnity);
+  }
+
+  async getDisasterDetails(id: string): Promise<DisasterWithDetails> {
+    const d = await this.prisma.desastre.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        areas: true,
+        municipio: true,
+      },
+    });
+
+    if (!d) return null;
+    const disaster = DisasterMapper.toDomainWithDetails(d);
+
+    const unity_count = await this.prisma.unidadeHabitacional.findMany({
+      where: {
+        areaAfetadaId: {
+          in: disaster.affectedAreas.map((a) => a.id),
+        },
+      },
+      select: {
+        qtd_pessoas: true,
+      },
+    });
+
+    const affected_people_count = unity_count.reduce(
+      (acc, curr) => curr.qtd_pessoas + acc,
+      0,
+    );
+
+    return {
+      disaster,
+      affected_people_count,
+      unity_count: unity_count.length,
+      area_count: disaster.affectedAreas.length,
+    };
   }
 }
 

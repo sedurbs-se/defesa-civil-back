@@ -57,6 +57,8 @@ import { EditHousingUnit } from './useCases/EditHousingUnit/EditHousingUnit';
 import { EditHousingUnitController } from './useCases/EditHousingUnit/EditHousingUnitController';
 import { EditTeamController } from './useCases/EditTeam/EditTeamController';
 import { EditTeam } from './useCases/EditTeam/EditTeam';
+import { DeletePhotos } from './useCases/DeletePhotos/DeletePhotos';
+import { DeletePhotosController } from './useCases/DeletePhotos/DeletePhotosController';
 
 @Module({
   imports: [],
@@ -76,6 +78,7 @@ import { EditTeam } from './useCases/EditTeam/EditTeam';
     GetAreaController,
     GetHousingUnitController,
     CreatePhotosController,
+    DeletePhotosController,
     GetPhotoController,
     EditDisasterController,
     ListAgentsController,
@@ -138,6 +141,7 @@ import { EditTeam } from './useCases/EditTeam/EditTeam';
     GetArea,
     GetHousingUnit,
     CreatePhotos,
+    DeletePhotos,
     ListAgents,
     EditHousingUnit,
     EditTeam,
