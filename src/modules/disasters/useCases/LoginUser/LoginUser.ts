@@ -16,7 +16,17 @@ export class LoginUser {
     if (!user) {
       throw new AppError('CPF não cadastrado');
     }
-    const payload = { user, sub: user.id };
+    const payload = {
+      user: {
+        id: user.id,
+        name: user.name,
+        cpf: user.cpf,
+        contact: user.agent.contact,
+        function: user.agent.function,
+        fl_lider_equipe: user.agent.fl_lider_equipe,
+      },
+      sub: user.id,
+    };
 
     return {
       token: await this.jwtService.signAsync(payload),
