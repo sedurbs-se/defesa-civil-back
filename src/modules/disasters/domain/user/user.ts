@@ -6,6 +6,12 @@ interface UserProps {
   name: string;
   cpf: string;
   agent?: Agent;
+  role?: ROLES;
+}
+
+export enum ROLES {
+  ADMIN = 'Admin',
+  AGENT = 'Agente',
 }
 
 export class User extends Entity<UserProps> {
@@ -23,6 +29,10 @@ export class User extends Entity<UserProps> {
 
   get agent() {
     return this.props.agent;
+  }
+
+  get role() {
+    return this.props.role;
   }
 
   public static create(props: UserProps): User {

@@ -7,9 +7,7 @@ import { PhotoType } from '../../photoEnum';
 
 @Injectable()
 export class DeletePhotos {
-  constructor(
-    private photoRepository: PhotosRepository,
-  ) {}
+  constructor(private photoRepository: PhotosRepository) {}
 
   async execute(deletedIds: string[]) {
     await this.photoRepository.delete(deletedIds);

@@ -14,6 +14,6 @@ export class GetDisaster {
   constructor(private readonly disasterRepository: DisasterRepository) {}
 
   async execute(disaster_id: string): Promise<DisasterWithDetails> {
-    return await this.disasterRepository.getDisasterDetails(disaster_id)
+    return await this.disasterRepository.getDisasterDetails(disaster_id);
   }
 }

@@ -1,10 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { ListDisasters } from './ListDisasters';
+import { Roles } from 'src/core/decorators/roles.decorator';
+import { RolesGuard } from 'src/core/guards/roles.guard';
 
+@UseGuards(RolesGuard)
 @Controller()
 export class ListDisastersController {
-  constructor(private readonly listDisasters: ListDisasters) { }
-
+  constructor(private readonly listDisasters: ListDisasters) {}
+  @Roles('Agente', 'Admin')
   @Get('/disasters')
   async execute() {
     const disasters = await this.listDisasters.execute();

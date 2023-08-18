@@ -1,5 +1,5 @@
 import { Usuario as PersistenceUser, Prisma } from '@prisma/client';
-import { User } from '../domain/user/user';
+import { ROLES, User } from '../domain/user/user';
 import { Agent } from '../domain/agent/agent';
 
 const userWithAgent = Prisma.validator<Prisma.UsuarioArgs>()({
@@ -14,6 +14,7 @@ export class UserMapper {
       id: raw.id,
       name: raw.nome,
       cpf: raw.cpf,
+      role: raw.cargo as ROLES,
     });
   }
 
@@ -22,6 +23,7 @@ export class UserMapper {
       id: raw.id,
       name: raw.nome,
       cpf: raw.cpf,
+      role: raw.cargo as ROLES,
       agent: new Agent({
         id: raw.agente.id,
         function: raw.agente.funcao,
@@ -36,6 +38,7 @@ export class UserMapper {
       id: user.id,
       nome: user.name,
       cpf: user.cpf,
+      cargo: user.role,
     };
   }
 }

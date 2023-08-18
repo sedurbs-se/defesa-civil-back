@@ -1,8 +1,4 @@
-import {
-  Controller,
-  Body,
-  Post,
-} from '@nestjs/common';
+import { Controller, Body, Post } from '@nestjs/common';
 import { DeletePhotos } from './DeletePhotos';
 import { DeletePhotosDTO } from '../../dtos/DeletePhotosDTO';
 

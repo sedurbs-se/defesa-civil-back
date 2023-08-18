@@ -32,26 +32,26 @@ model AreaAfetada {
 }
 
 model UnidadeHabitacional {
-  id             String           @id @default(uuid())
-  ORDEM          Int              @unique
-  endereco       String
-  coordenadas    String
-  areaAfetadaId  String
-  areaAfetada    AreaAfetada      @relation(fields: [areaAfetadaId], references: [id])
-  fotos          FotoUnidade[]
+  id            String        @id @default(uuid())
+  ORDEM         Int           @unique
+  endereco      String
+  coordenadas   String
+  areaAfetadaId String
+  areaAfetada   AreaAfetada   @relation(fields: [areaAfetadaId], references: [id])
+  fotos         FotoUnidade[]
 
-  acoes          Acao[]
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  acoes     Acao[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   fl_sos        Boolean?
   dt_finalizado DateTime?
 
-  qtd_familias     Int
+  qtd_familias    Int
   qtd_pessoas     Int
   qtd_idosos      Int
   qtd_criancas    Int
-  qtd_adultos      Int
+  qtd_adultos     Int
   qtd_adolescente Int
   qtd_homens      Int
   qtd_mulheres    Int
@@ -67,7 +67,7 @@ model UnidadeHabitacional {
 model Acao {
   id String @id @default(uuid())
 
-  tipo             String
+  tipo                  String
   unidadeHabitacionalId String
   unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
 
@@ -94,6 +94,7 @@ model Usuario {
   cpf    String  @unique
   nome   String
   agente Agente?
+  cargo  String?
 }
 
 model Agente {
@@ -103,7 +104,7 @@ model Agente {
   usuarioId String   @unique @map("usuario_id")
   user      Usuario? @relation(fields: [usuarioId], references: [id])
 
-  equipeAgente    EquipeAgente[]
+  equipeAgente EquipeAgente[]
 }
 
 model Equipe {
@@ -115,12 +116,12 @@ model Equipe {
 }
 
 model EquipeAgente {
-  agenteId  String
-  agente    Agente   @relation(fields: [agenteId], references: [id])
-  equipeId  String
-  equipe    Equipe   @relation(fields: [equipeId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  agenteId        String
+  agente          Agente   @relation(fields: [agenteId], references: [id])
+  equipeId        String
+  equipe          Equipe   @relation(fields: [equipeId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
   fl_lider_equipe Boolean?
 
   @@id([agenteId, equipeId])
