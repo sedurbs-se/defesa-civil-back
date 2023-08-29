@@ -25,15 +25,7 @@ export class GetHousingUnitController {
       planilha: planilha
         ? { id: planilha.id, type: planilha.type, url: planilha.url }
         : null,
-      fl_sos: housing.fl_sos,
-      qtd_familias: housing.qtd_familias,
-      qtd_adultos: housing.qtd_adultos,
-      qtd_adolescente: housing.qtd_adolescente,
-      qtd_criancas: housing.qtd_criancas,
-      qtd_homens: housing.qtd_homens,
-      qtd_idosos: housing.qtd_idosos,
-      qtd_mulheres: housing.qtd_mulheres,
-      qtd_pessoas: housing.qtd_pessoas,
+
       fl_danificado: housing.fl_danificado,
       fl_desabrigado: housing.fl_desabrigado,
       fl_desalojado: housing.fl_desalojado,

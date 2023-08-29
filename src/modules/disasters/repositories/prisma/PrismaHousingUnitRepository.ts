@@ -9,7 +9,7 @@ export class PrismaHousingUnitRepository implements HousingUnitRepository {
   constructor(private readonly prisma: PrismaService) {}
   async save(housingUnit: HousingUnit): Promise<void> {
     const { ...data } = HousingUnitMapper.toPersistence(housingUnit);
-
+    console.log(data)
     await this.prisma.unidadeHabitacional.create({
       data: {
         ...data,

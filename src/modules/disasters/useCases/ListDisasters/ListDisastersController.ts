@@ -27,15 +27,7 @@ export class ListDisastersController {
           address: h.address,
           coordinates: h.coordinates,
           // fotos:
-          fl_sos: h.fl_sos,
-          qtd_familias: h.qtd_familias,
-          qtd_adultos: h.qtd_adultos,
-          qtd_adolescente: h.qtd_adolescente,
-          qtd_criancas: h.qtd_criancas,
-          qtd_homens: h.qtd_homens,
-          qtd_idosos: h.qtd_idosos,
-          qtd_mulheres: h.qtd_mulheres,
-          qtd_pessoas: h.qtd_pessoas,
+
           fl_danificado: h.fl_danificado,
           fl_desabrigado: h.fl_desabrigado,
           fl_desalojado: h.fl_desalojado,

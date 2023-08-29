@@ -13,17 +13,6 @@ interface HousingUnitProps {
   createdAt?: Date;
   updatedAt?: Date;
 
-  fl_sos: boolean;
-
-  qtd_familias: number;
-  qtd_pessoas: number;
-  qtd_idosos: number;
-  qtd_criancas: number;
-  qtd_adultos: number;
-  qtd_adolescente: number;
-  qtd_homens: number;
-  qtd_mulheres: number;
-
   fl_resistente: boolean;
   fl_danificado: boolean;
   fl_destroido: boolean;
@@ -59,35 +48,6 @@ class HousingUnit extends Entity<HousingUnitProps> {
 
   get photos() {
     return this.props.photos;
-  }
-
-  get fl_sos() {
-    return this.props.fl_sos;
-  }
-
-  get qtd_familias() {
-    return this.props.qtd_familias;
-  }
-  get qtd_pessoas() {
-    return this.props.qtd_pessoas;
-  }
-  get qtd_idosos() {
-    return this.props.qtd_idosos;
-  }
-  get qtd_criancas() {
-    return this.props.qtd_criancas;
-  }
-  get qtd_adultos() {
-    return this.props.qtd_adultos;
-  }
-  get qtd_adolescente() {
-    return this.props.qtd_adolescente;
-  }
-  get qtd_homens() {
-    return this.props.qtd_homens;
-  }
-  get qtd_mulheres() {
-    return this.props.qtd_mulheres;
   }
 
   get fl_resistente() {

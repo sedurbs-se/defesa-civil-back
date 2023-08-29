@@ -86,12 +86,6 @@ class PrismaDisasterRepository implements DisasterRepository {
         },
       },
       select: {
-        qtd_pessoas: true,
-        qtd_idosos: true,
-        qtd_adultos: true,
-        qtd_criancas: true,
-        qtd_adolescente: true,
-
         fl_resiliente: true,
         fl_desabrigado: true,
         fl_desalojado: true,
@@ -105,11 +99,11 @@ class PrismaDisasterRepository implements DisasterRepository {
 
     const affected_people_count = unities.reduce(
       (acc, curr) => ({
-        qtd_pessoas: acc.qtd_pessoas + curr.qtd_pessoas,
-        qtd_idosos: acc.qtd_idosos + curr.qtd_idosos,
-        qtd_adultos: acc.qtd_adultos + curr.qtd_adultos,
-        qtd_criancas: acc.qtd_criancas + curr.qtd_criancas,
-        qtd_adolescente: acc.qtd_adolescente + curr.qtd_adolescente,
+        qtd_pessoas: acc.qtd_pessoas + 0,
+        qtd_idosos: acc.qtd_idosos + 0,
+        qtd_adultos: acc.qtd_adultos + 0,
+        qtd_criancas: acc.qtd_criancas + 0,
+        qtd_adolescente: acc.qtd_adolescente + 0,
       }),
       {
         qtd_pessoas: 0,

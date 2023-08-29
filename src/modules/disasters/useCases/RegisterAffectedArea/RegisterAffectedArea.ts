@@ -19,16 +19,10 @@ class CreateAffectedArea {
 
     if (!existDisaster) throw new AppError('Disaster not found');
 
-    const existAffectedArea = await this.affectedAreaRepository.findByOrder(
-      request.order,
-    );
-
-    if (existAffectedArea) throw new AppError('Affected Area already exists');
-
     const affectedArea = new AffectedArea({
       disasterId: request.disasterId,
       name: request.name,
-      order: request.order,
+      order: existDisaster.affectedAreas.length + 1,
     });
 
     await this.affectedAreaRepository.save(affectedArea);

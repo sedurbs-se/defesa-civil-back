@@ -23,7 +23,7 @@ model Desastre {
 
 model AreaAfetada {
   id                    String                @id @default(uuid())
-  ORDEM                 Int                   @unique
+  ORDEM                 Int                   
   nome                  String
   unidadesHabitacionais UnidadeHabitacional[]
   Desastre              Desastre?             @relation(fields: [desastreId], references: [id])
@@ -33,7 +33,7 @@ model AreaAfetada {
 
 model UnidadeHabitacional {
   id             String           @id @default(uuid())
-  ORDEM          Int              @unique
+  ORDEM          Int              
   endereco       String
   coordenadas    String
   areaAfetadaId  String
@@ -44,21 +44,10 @@ model UnidadeHabitacional {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
 
-  fl_sos        Boolean?
-  dt_finalizado DateTime?
-
-  qtd_familias     Int
-  qtd_pessoas     Int
-  qtd_idosos      Int
-  qtd_criancas    Int
-  qtd_adultos      Int
-  qtd_adolescente Int
-  qtd_homens      Int
-  qtd_mulheres    Int
-
   fl_resistente  Boolean
   fl_danificado  Boolean
   fl_destroido   Boolean
+  
   fl_resiliente  Boolean
   fl_desabrigado Boolean
   fl_desalojado  Boolean
