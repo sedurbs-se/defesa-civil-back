@@ -4,8 +4,9 @@ import { AffectedArea } from '../../domain/affectedArea/affected-area';
 import { AffectedAreaRepository } from '../../repositories/IAffectedAreaRepository';
 import { DisasterRepository } from '../../repositories/IDisasterRepository';
 import { AppError } from 'src/core/logic/error';
+import { CreateAffectedAreaDTO } from '../../dtos/CreateAffectedAreaDTO';
 
-type EditAffectedAreaRequest = OptionalExceptFor<AffectedArea, 'id'>;
+type EditAffectedAreaRequest = OptionalExceptFor<CreateAffectedAreaDTO, 'id'>;
 
 @Injectable()
 export class EditAffectedArea {
@@ -27,17 +28,11 @@ export class EditAffectedArea {
 
     if (!existAffectedArea) throw new AppError('Affected Area not found');
 
-    const existAffectedAreaOrder =
-      await this.affectedAreaRepository.findByOrder(request.order);
-
-    if (existAffectedAreaOrder && existAffectedAreaOrder.id !== request.id)
-      throw new AppError('Affected Area with selected order already exists');
-
     const updatedAffectedArea = new AffectedArea({
       disasterId: request.disasterId,
       name: request.name,
-      order: request.order,
       id: request.id,
+      order: existAffectedArea.order,
     });
 
     await this.affectedAreaRepository.update(updatedAffectedArea);

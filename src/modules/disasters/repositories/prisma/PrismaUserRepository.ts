@@ -24,11 +24,14 @@ export class PrismaUserRepository implements IUserRepository {
       where: {
         cpf: id,
       },
+      include: {
+        agente: true,
+      }
     });
 
     if (!user) return null;
 
-    return UserMapper.toDomain(user);
+    return UserMapper.toDomainWithDetails(user);
   }
   async save(user: User): Promise<void> {
     const c = UserMapper.toPersistence(user);

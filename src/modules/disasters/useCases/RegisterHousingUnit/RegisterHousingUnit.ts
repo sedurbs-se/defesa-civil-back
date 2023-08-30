@@ -3,21 +3,25 @@ import { HousingUnit } from '../../domain/housingUnit/housing-unit';
 import { CreateHousingUnitDTO } from '../../dtos/CreateHousingUnitDTO';
 import { HousingUnitRepository } from '../../repositories/IHousingUnitRepository';
 import { Injectable } from '@nestjs/common';
+import { AffectedAreaRepository } from '../../repositories/IAffectedAreaRepository';
 
 @Injectable()
 class RegisterHousing {
-  constructor(private housingUnitRepository: HousingUnitRepository) {}
+  constructor(
+    private housingUnitRepository: HousingUnitRepository,
+    private affectedAreaRepository: AffectedAreaRepository,
+  ) {}
 
   async execute(data: CreateHousingUnitDTO): Promise<HousingUnit> {
-    const existWithOrder = await this.housingUnitRepository.findByOrdem(
-      data.order,
+    const existArea = await this.affectedAreaRepository.find(
+      data.affectedAreaId,
     );
-    if (existWithOrder) {
-      throw new AppError('Já existe uma unidade habitacional com essa ordem');
-    }
+
+    if (!existArea) throw new AppError('Area not found');
 
     const housingUnit = new HousingUnit({
       ...data,
+      order: existArea.housingUnits.length + 1,
     });
 
     await this.housingUnitRepository.save(housingUnit);

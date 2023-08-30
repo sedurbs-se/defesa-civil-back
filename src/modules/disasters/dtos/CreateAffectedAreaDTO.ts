@@ -19,9 +19,6 @@ export abstract class CreateAffectedAreaDTO {
     description:
       'A ordem da área, consiste em um número inteiro que gerará uma sequência nas unidades habitacionais',
   })
-  @IsNotEmpty({ message: 'O campo de ordem não pode ser vazio!' })
-  @IsNumber()
-  order: number;
 
   @ApiProperty({
     description: 'O nome da área. Normalmente se refere a um bairro',

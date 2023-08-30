@@ -22,16 +22,6 @@ export class HousingUnitMapper {
       coordinates: raw.coordenadas,
       photos: raw.fotos ? raw.fotos.map((f) => PhotosMapper.toDomain(f)) : [],
 
-      fl_sos: raw.fl_sos,
-      qtd_familias: raw.qtd_familias,
-      qtd_adultos: raw.qtd_adultos,
-      qtd_adolescente: raw.qtd_adolescente,
-      qtd_criancas: raw.qtd_criancas,
-      qtd_homens: raw.qtd_homens,
-      qtd_idosos: raw.qtd_idosos,
-      qtd_mulheres: raw.qtd_mulheres,
-      qtd_pessoas: raw.qtd_pessoas,
-
       fl_danificado: raw.fl_danificado,
       fl_desabrigado: raw.fl_desabrigado,
       fl_desalojado: raw.fl_desalojado,
@@ -56,15 +46,6 @@ export class HousingUnitMapper {
         ? housingUnit.photos.map((p) => PhotosMapper.toPersistence(p))
         : [],
 
-      fl_sos: housingUnit.fl_sos,
-      qtd_familias: housingUnit.qtd_familias,
-      qtd_adultos: housingUnit.qtd_adultos,
-      qtd_adolescente: housingUnit.qtd_adolescente,
-      qtd_criancas: housingUnit.qtd_criancas,
-      qtd_homens: housingUnit.qtd_homens,
-      qtd_idosos: housingUnit.qtd_idosos,
-      qtd_mulheres: housingUnit.qtd_mulheres,
-      qtd_pessoas: housingUnit.qtd_pessoas,
       fl_danificado: housingUnit.fl_danificado,
       fl_desabrigado: housingUnit.fl_desabrigado,
       fl_desalojado: housingUnit.fl_desalojado,
