@@ -59,6 +59,10 @@ import { EditTeamController } from './useCases/EditTeam/EditTeamController';
 import { EditTeam } from './useCases/EditTeam/EditTeam';
 import { DeletePhotos } from './useCases/DeletePhotos/DeletePhotos';
 import { DeletePhotosController } from './useCases/DeletePhotos/DeletePhotosController';
+import { GetAgentController } from './useCases/GetAgent/GetAgentController';
+import { GetAgent } from './useCases/GetAgent/GetAgent';
+import { EditAgentController } from './useCases/EditAgent/EditAgentController';
+import { EditAgent } from './useCases/EditAgent/EditAgent';
 
 @Module({
   imports: [],
@@ -84,6 +88,8 @@ import { DeletePhotosController } from './useCases/DeletePhotos/DeletePhotosCont
     ListAgentsController,
     EditHousingUnitController,
     EditTeamController,
+    GetAgentController,
+    EditAgentController,
   ],
   providers: [
     {
@@ -145,6 +151,8 @@ import { DeletePhotosController } from './useCases/DeletePhotos/DeletePhotosCont
     ListAgents,
     EditHousingUnit,
     EditTeam,
+    GetAgent,
+    EditAgent,
   ],
 })
 export class DesastreModule {}

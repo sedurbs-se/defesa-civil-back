@@ -56,7 +56,7 @@ model UnidadeHabitacional {
 model Acao {
   id String @id @default(uuid())
 
-  tipo             String
+  tipo                  String
   unidadeHabitacionalId String
   unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
 
@@ -83,6 +83,7 @@ model Usuario {
   cpf    String  @unique
   nome   String
   agente Agente?
+  cargo  String?
 }
 
 model Agente {
@@ -92,7 +93,7 @@ model Agente {
   usuarioId String   @unique @map("usuario_id")
   user      Usuario? @relation(fields: [usuarioId], references: [id])
 
-  equipeAgente    EquipeAgente[]
+  equipeAgente EquipeAgente[]
 }
 
 model Equipe {
@@ -104,12 +105,12 @@ model Equipe {
 }
 
 model EquipeAgente {
-  agenteId  String
-  agente    Agente   @relation(fields: [agenteId], references: [id])
-  equipeId  String
-  equipe    Equipe   @relation(fields: [equipeId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  agenteId        String
+  agente          Agente   @relation(fields: [agenteId], references: [id])
+  equipeId        String
+  equipe          Equipe   @relation(fields: [equipeId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
   fl_lider_equipe Boolean?
 
   @@id([agenteId, equipeId])
