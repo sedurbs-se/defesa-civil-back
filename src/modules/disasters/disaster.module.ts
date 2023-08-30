@@ -59,6 +59,12 @@ import { EditTeamController } from './useCases/EditTeam/EditTeamController';
 import { EditTeam } from './useCases/EditTeam/EditTeam';
 import { DeletePhotos } from './useCases/DeletePhotos/DeletePhotos';
 import { DeletePhotosController } from './useCases/DeletePhotos/DeletePhotosController';
+import { CreateAffectedController } from './useCases/CreateAffected/CreateAffectedController';
+import { CreateAffected } from './useCases/CreateAffected/CreateAffected';
+import { UpdateAffected } from './useCases/UpdateAffected/UpdateAffected';
+import { UpdateAffectedController } from './useCases/UpdateAffected/UpdateAffectedController';
+import { AffectedRepository } from './repositories/IAffectedRepository';
+import { PrismaAffectedRepository } from './repositories/prisma/PrismaAffectedRepository';
 
 @Module({
   imports: [],
@@ -84,6 +90,9 @@ import { DeletePhotosController } from './useCases/DeletePhotos/DeletePhotosCont
     ListAgentsController,
     EditHousingUnitController,
     EditTeamController,
+
+    CreateAffectedController,
+    UpdateAffectedController,
   ],
   providers: [
     {
@@ -118,7 +127,10 @@ import { DeletePhotosController } from './useCases/DeletePhotos/DeletePhotosCont
       provide: PhotosRepository,
       useClass: PrismaPhotoRepository,
     },
-
+    {
+      provide: AffectedRepository,
+      useClass: PrismaAffectedRepository,
+    },
     {
       provide: APP_INTERCEPTOR,
       useClass: ErrorsInterceptor,
@@ -145,6 +157,9 @@ import { DeletePhotosController } from './useCases/DeletePhotos/DeletePhotosCont
     ListAgents,
     EditHousingUnit,
     EditTeam,
+
+    CreateAffected,
+    UpdateAffected,
   ],
 })
 export class DesastreModule {}

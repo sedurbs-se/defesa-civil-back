@@ -1,18 +1,22 @@
 import { Prisma } from '@prisma/client';
 import { HousingUnit } from '../domain/housingUnit/housing-unit';
 import { PhotosMapper } from './PhotoMapper';
+import { AffectedMapper } from './AffectedMapper';
 
-const unidadeHabitacionalWithPhotos =
+const unidadeHabitacionalWithPhotosAndAffecteds =
   Prisma.validator<Prisma.UnidadeHabitacionalArgs>()({
-    include: { fotos: true },
+    include: { 
+      fotos: true,
+      afetados: true,
+    },
   });
 
-type UnidadeHabitacionalWithPhotos = Prisma.UnidadeHabitacionalGetPayload<
-  typeof unidadeHabitacionalWithPhotos
+type UnidadeHabitacionalWithPhotosAndAffecteds = Prisma.UnidadeHabitacionalGetPayload<
+  typeof unidadeHabitacionalWithPhotosAndAffecteds
 >;
 
 export class HousingUnitMapper {
-  static toDomain(raw: UnidadeHabitacionalWithPhotos) {
+  static toDomain(raw: UnidadeHabitacionalWithPhotosAndAffecteds) {
     return new HousingUnit({
       id: raw.id,
       order: raw.ORDEM,
@@ -21,7 +25,7 @@ export class HousingUnitMapper {
       address: raw.endereco,
       coordinates: raw.coordenadas,
       photos: raw.fotos ? raw.fotos.map((f) => PhotosMapper.toDomain(f)) : [],
-
+      affecteds: raw.afetados ? raw.afetados.map((a) => AffectedMapper.toDomain(a)) : [],
       fl_danificado: raw.fl_danificado,
       fl_desabrigado: raw.fl_desabrigado,
       fl_desalojado: raw.fl_desalojado,

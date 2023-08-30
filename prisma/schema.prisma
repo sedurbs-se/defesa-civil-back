@@ -23,7 +23,7 @@ model Desastre {
 
 model AreaAfetada {
   id                    String                @id @default(uuid())
-  ORDEM                 Int                   
+  ORDEM                 Int
   nome                  String
   unidadesHabitacionais UnidadeHabitacional[]
   Desastre              Desastre?             @relation(fields: [desastreId], references: [id])
@@ -32,31 +32,45 @@ model AreaAfetada {
 }
 
 model UnidadeHabitacional {
-  id             String           @id @default(uuid())
-  ORDEM          Int              
-  endereco       String
-  coordenadas    String
-  areaAfetadaId  String
-  areaAfetada    AreaAfetada      @relation(fields: [areaAfetadaId], references: [id])
-  fotos          FotoUnidade[]
+  id            String        @id @default(uuid())
+  ORDEM         Int
+  endereco      String
+  coordenadas   String
+  areaAfetadaId String
+  areaAfetada   AreaAfetada   @relation(fields: [areaAfetadaId], references: [id])
+  fotos         FotoUnidade[]
 
-  acoes          Acao[]
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  afetados   Afetado[]
 
-  fl_resistente  Boolean
-  fl_danificado  Boolean
-  fl_destroido   Boolean
-  
+  acoes     Acao[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  fl_resistente Boolean
+  fl_danificado Boolean
+  fl_destroido  Boolean
+
   fl_resiliente  Boolean
   fl_desabrigado Boolean
   fl_desalojado  Boolean
 }
 
+model Afetado {
+  id      String @id @default(uuid())
+  cpf     String @unique
+  nome    String
+  contato String
+  sexo    String
+  idade   Int
+  fl_chefe_familia Boolean
+  unidadeHabitacionalId String
+  unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
+}
+
 model Acao {
   id String @id @default(uuid())
 
-  tipo             String
+  tipo                  String
   unidadeHabitacionalId String
   unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
 
@@ -92,7 +106,7 @@ model Agente {
   usuarioId String   @unique @map("usuario_id")
   user      Usuario? @relation(fields: [usuarioId], references: [id])
 
-  equipeAgente    EquipeAgente[]
+  equipeAgente EquipeAgente[]
 }
 
 model Equipe {
@@ -104,12 +118,12 @@ model Equipe {
 }
 
 model EquipeAgente {
-  agenteId  String
-  agente    Agente   @relation(fields: [agenteId], references: [id])
-  equipeId  String
-  equipe    Equipe   @relation(fields: [equipeId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  agenteId        String
+  agente          Agente   @relation(fields: [agenteId], references: [id])
+  equipeId        String
+  equipe          Equipe   @relation(fields: [equipeId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
   fl_lider_equipe Boolean?
 
   @@id([agenteId, equipeId])
