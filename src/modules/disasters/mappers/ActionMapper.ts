@@ -5,11 +5,9 @@ export class ActionMapper {
   static toDomain(raw: Acao) {
     return new Action({
       id: raw.id,
-      afected_contact: raw.afetado_contato,
-      afected_cpf: raw.afetado_cpf,
-      afected_name: raw.afetado_nome,
       type: raw.tipo,
       housingUnitId: raw.unidadeHabitacionalId,
+      affectedAreaId: raw.areaAfetadaId,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     });

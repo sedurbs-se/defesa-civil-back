@@ -23,49 +23,57 @@ model Desastre {
 
 model AreaAfetada {
   id                    String                @id @default(uuid())
-  ORDEM                 Int                   
+  ORDEM                 Int
   nome                  String
   unidadesHabitacionais UnidadeHabitacional[]
   Desastre              Desastre?             @relation(fields: [desastreId], references: [id])
   desastreId            String?
   team                  Equipe[]
+  Acao                  Acao[]
 }
 
 model UnidadeHabitacional {
-  id             String           @id @default(uuid())
-  ORDEM          Int              
-  endereco       String
-  coordenadas    String
-  areaAfetadaId  String
-  areaAfetada    AreaAfetada      @relation(fields: [areaAfetadaId], references: [id])
-  fotos          FotoUnidade[]
+  id            String        @id @default(uuid())
+  ORDEM         Int
+  endereco      String
+  coordenadas   String
+  areaAfetadaId String
+  areaAfetada   AreaAfetada   @relation(fields: [areaAfetadaId], references: [id])
+  fotos         FotoUnidade[]
 
-  acoes          Acao[]
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  acoes     Acao[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  fl_resistente  Boolean
-  fl_danificado  Boolean
-  fl_destroido   Boolean
-  
+  fl_resistente Boolean
+  fl_danificado Boolean
+  fl_destroido  Boolean
+
   fl_resiliente  Boolean
   fl_desabrigado Boolean
   fl_desalojado  Boolean
 }
 
 model Acao {
-  id String @id @default(uuid())
+  id                    String               @id @default(uuid())
+  tipoAcaoId            String
+  tipo                  TipoAcao             @relation(fields: [tipoAcaoId], references: [id])
+  unidadeHabitacionalId String?
+  unidadeHabitacional   UnidadeHabitacional? @relation(fields: [unidadeHabitacionalId], references: [id])
 
-  tipo                  String
-  unidadeHabitacionalId String
-  unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
+  AreaAfetada   AreaAfetada? @relation(fields: [areaAfetadaId], references: [id])
+  areaAfetadaId String?
 
-  afetado_cpf     String
-  afetado_contato String
-  afetado_nome    String
+  contexto String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model TipoAcao {
+  id   String @id @default(uuid())
+  nome String
+  Acao Acao[]
 }
 
 model FotoUnidade {
