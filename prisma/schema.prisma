@@ -97,6 +97,7 @@ model Usuario {
   cpf    String  @unique
   nome   String
   agente Agente?
+  cargo  String?
 }
 
 model Agente {

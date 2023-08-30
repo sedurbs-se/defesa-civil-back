@@ -65,6 +65,10 @@ import { UpdateAffected } from './useCases/UpdateAffected/UpdateAffected';
 import { UpdateAffectedController } from './useCases/UpdateAffected/UpdateAffectedController';
 import { AffectedRepository } from './repositories/IAffectedRepository';
 import { PrismaAffectedRepository } from './repositories/prisma/PrismaAffectedRepository';
+import { GetAgentController } from './useCases/GetAgent/GetAgentController';
+import { GetAgent } from './useCases/GetAgent/GetAgent';
+import { EditAgentController } from './useCases/EditAgent/EditAgentController';
+import { EditAgent } from './useCases/EditAgent/EditAgent';
 
 @Module({
   imports: [],
@@ -93,6 +97,8 @@ import { PrismaAffectedRepository } from './repositories/prisma/PrismaAffectedRe
 
     CreateAffectedController,
     UpdateAffectedController,
+    GetAgentController,
+    EditAgentController,
   ],
   providers: [
     {
@@ -160,6 +166,8 @@ import { PrismaAffectedRepository } from './repositories/prisma/PrismaAffectedRe
 
     CreateAffected,
     UpdateAffected,
+    GetAgent,
+    EditAgent,
   ],
 })
 export class DesastreModule {}

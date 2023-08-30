@@ -2,7 +2,7 @@ import { AppError } from 'src/core/logic/error';
 import { CreateAgentDTO } from '../../dtos/CreateAgentDTO';
 import { IAgentRepository } from '../../repositories/IAgentRepository';
 import { IUserRepository } from '../../repositories/IUserRepository';
-import { User } from '../../domain/user/user';
+import { ROLES, User } from '../../domain/user/user';
 import { Agent } from '../../domain/agent/agent';
 import { Injectable } from '@nestjs/common';
 
@@ -23,6 +23,7 @@ export class RegisterAgent {
     const user = new User({
       name: data.name,
       cpf: data.cpf,
+      role: ROLES.AGENT,
     });
 
     await this.userRepository.save(user);

@@ -18,7 +18,7 @@ const areaWithUnityAndDisaster = Prisma.validator<Prisma.AreaAfetadaArgs>()({
 const areaWithUnity = Prisma.validator<Prisma.AreaAfetadaArgs>()({
   include: {
     unidadesHabitacionais: true,
-    },
+  },
 });
 
 type DisasterWithAreaAndCity = Prisma.AreaAfetadaGetPayload<
@@ -58,8 +58,8 @@ export class AffectedAreaMapper {
       name: raw.nome,
       housingUnits: raw.unidadesHabitacionais.map(HousingUnitMapper.toDomain),
     });
-  } 
-  
+  }
+
   static toDomainWithDetails(raw: DisasterWithAreaAndCity) {
     return new AffectedArea({
       id: raw.id,

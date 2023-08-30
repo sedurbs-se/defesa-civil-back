@@ -15,6 +15,11 @@ export class PrismaAgentRepository implements IAgentRepository {
       include: {
         user: true,
       },
+      orderBy: {
+        user: {
+          nome: 'asc',
+        },
+      },
     });
     return agents.map((agent) => AgentMapper.toDomainWithUser(agent));
   }
@@ -38,15 +43,18 @@ export class PrismaAgentRepository implements IAgentRepository {
   }
 
   async getById(id: string): Promise<Agent> {
-    const agent = await this.prisma.agente.findUnique({
+    const agent = await this.prisma.agente.findFirst({
       where: {
         id,
+      },
+      include: {
+        user: true,
       },
     });
 
     if (!agent) return null;
 
-    return AgentMapper.toDomain(agent);
+    return AgentMapper.toDomainWithUser(agent);
   }
   async getByUserId(user_id: string): Promise<Agent> {
     const agent = await this.prisma.agente.findUnique({
@@ -67,7 +75,10 @@ export class PrismaAgentRepository implements IAgentRepository {
   }
   async update(Agent: Agent): Promise<void> {
     const c = AgentMapper.toPersistence(Agent);
-    await this.prisma.agente.create({
+    await this.prisma.agente.update({
+      where: {
+        id: c.id,
+      },
       data: c,
     });
   }

@@ -1,11 +1,12 @@
-import { PrismaClient } from "@prisma/client";
-import municipio from "./insert/municipio";
+import { PrismaClient } from '@prisma/client';
+import municipio from './insert/municipio';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn'],
+});
 
 async function main() {
   await municipio(prisma);
-  
 }
 
 main()
