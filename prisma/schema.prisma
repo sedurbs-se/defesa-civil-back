@@ -66,8 +66,56 @@ model Acao {
 
   contexto String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  tarefas Tarefa[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Tarefa {
+  id            String      @id @default(uuid())
+  acaoId        String      @map("acao_id")
+  acao          Acao        @relation(fields: [acaoId], references: [id])
+  nome          String
+  status        String
+  quantificavel Boolean?
+  itemBasicoId  String?
+  itemBasico    ItemBasico? @relation(fields: [itemBasicoId], references: [id])
+
+  eventos Evento[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model ItemBasico {
+  id     String   @id @default(uuid())
+  nome   String
+  Tarefa Tarefa[]
+}
+
+model Evento {
+  id           String     @id @default(uuid())
+  tarefaId     String     @map("tarefa_id")
+  tarefa       Tarefa     @relation(fields: [tarefaId], references: [id])
+  descricao    String
+  tipoEventoId String
+  tipoEvento   TipoEvento @relation(fields: [tipoEventoId], references: [id])
+  foto         String?
+  quantidade   Int?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model TipoEvento {
+  id     String   @id @default(uuid())
+  nome   String
+  Evento Evento[]
+  final  Boolean?
 }
 
 model TipoAcao {
