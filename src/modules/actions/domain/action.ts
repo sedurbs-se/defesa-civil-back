@@ -1,14 +1,12 @@
 import { Entity } from 'src/core/logic/Entity';
-import { HousingUnit } from '../housingUnit/housing-unit';
-import { AffectedArea } from '../affectedArea/affected-area';
+import { HousingUnit } from 'src/modules/disasters/domain/housingUnit/housing-unit';
+import { AffectedArea } from 'src/modules/disasters/domain/affectedArea/affected-area';
 
 interface ActionProps {
   id?: string;
-  type: string;
+  typeId: string;
 
-  afected_cpf: string;
-  afected_contact: string;
-  afected_name: string;
+  context: string;
 
   housingUnitId: string;
   housingUnit?: HousingUnit;
@@ -18,6 +16,7 @@ interface ActionProps {
 
   createdAt?: Date;
   updatedAt?: Date;
+  deletedAt?: Date;
 }
 
 class Action extends Entity<ActionProps> {
@@ -25,20 +24,16 @@ class Action extends Entity<ActionProps> {
     super(props, props.id);
   }
 
-  get type() {
-    return this.props.type;
+  get typeId() {
+    return this.props.typeId;
   }
 
-  get afected_cpf() {
-    return this.props.afected_cpf;
+  get context() {
+    return this.props.context;
   }
 
-  get afected_contact() {
-    return this.props.afected_contact;
-  }
-
-  get afected_name() {
-    return this.props.afected_name;
+  get affectedAreaId() {
+    return this.props.affectedAreaId;
   }
 
   get housingUnitId() {
@@ -55,6 +50,10 @@ class Action extends Entity<ActionProps> {
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  get deletedAt() {
+    return this.props.deletedAt;
   }
 }
 

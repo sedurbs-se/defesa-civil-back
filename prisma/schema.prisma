@@ -29,6 +29,7 @@ model AreaAfetada {
   Desastre              Desastre?             @relation(fields: [desastreId], references: [id])
   desastreId            String?
   team                  Equipe[]
+  Acao                  Acao[]
 }
 
 model UnidadeHabitacional {
@@ -39,20 +40,10 @@ model UnidadeHabitacional {
   areaAfetadaId String
   areaAfetada   AreaAfetada   @relation(fields: [areaAfetadaId], references: [id])
   fotos         FotoUnidade[]
-
   afetados   Afetado[]
-
   acoes     Acao[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  fl_resistente Boolean
-  fl_danificado Boolean
-  fl_destroido  Boolean
-
-  fl_resiliente  Boolean
-  fl_desabrigado Boolean
-  fl_desalojado  Boolean
 }
 
 model Afetado {
@@ -68,18 +59,74 @@ model Afetado {
 }
 
 model Acao {
-  id String @id @default(uuid())
+  id                    String               @id @default(uuid())
+  tipoAcaoId            String
+  tipo                  TipoAcao             @relation(fields: [tipoAcaoId], references: [id])
+  unidadeHabitacionalId String?
+  unidadeHabitacional   UnidadeHabitacional? @relation(fields: [unidadeHabitacionalId], references: [id])
 
-  tipo                  String
-  unidadeHabitacionalId String
-  unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
+  AreaAfetada   AreaAfetada? @relation(fields: [areaAfetadaId], references: [id])
+  areaAfetadaId String?
 
-  afetado_cpf     String
-  afetado_contato String
-  afetado_nome    String
+  contexto String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  tarefas Tarefa[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Tarefa {
+  id            String      @id @default(uuid())
+  acaoId        String      @map("acao_id")
+  acao          Acao        @relation(fields: [acaoId], references: [id])
+  nome          String
+  status        String
+  quantificavel Boolean?
+  itemBasicoId  String?
+  itemBasico    ItemBasico? @relation(fields: [itemBasicoId], references: [id])
+
+  eventos Evento[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model ItemBasico {
+  id     String   @id @default(uuid())
+  nome   String
+  Tarefa Tarefa[]
+}
+
+model Evento {
+  id           String     @id @default(uuid())
+  tarefaId     String     @map("tarefa_id")
+  tarefa       Tarefa     @relation(fields: [tarefaId], references: [id])
+  descricao    String
+  tipoEventoId String
+  tipoEvento   TipoEvento @relation(fields: [tipoEventoId], references: [id])
+  fotoId       String?
+  foto         Imagem?    @relation(fields: [fotoId], references: [id])
+  quantidade   Int?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model TipoEvento {
+  id     String   @id @default(uuid())
+  nome   String
+  Evento Evento[]
+  final  Boolean?
+}
+
+model TipoAcao {
+  id   String @id @default(uuid())
+  nome String
+  Acao Acao[]
 }
 
 model FotoUnidade {
@@ -128,4 +175,12 @@ model EquipeAgente {
   fl_lider_equipe Boolean?
 
   @@id([agenteId, equipeId])
+}
+
+model Imagem {
+  id        String   @id @default(uuid())
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Evento    Evento[]
 }
