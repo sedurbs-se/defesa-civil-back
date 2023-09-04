@@ -20,6 +20,6 @@ export class CreateAffected {
 
     const affected = new Affected({ ...data });
 
-    await this.affectedRepository.save(affected);
+    return await this.affectedRepository.save(affected);
   }
 }

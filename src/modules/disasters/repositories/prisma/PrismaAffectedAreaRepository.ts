@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { AffectedArea } from '../../domain/affectedArea/affected-area';
 import { AffectedAreaMapper } from '../../mappers/AffectedAreaMapper';
 import { AffectedAreaWithDetails } from '../../useCases/GetArea/GetArea';
+import { HousingUnitMapper } from '../../mappers/HousingUnitMapper';
 
 @Injectable()
 export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
@@ -76,28 +77,34 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
     });
 
     if (!area) return null;
-    const unities = await this.prisma.unidadeHabitacional.findMany({
+
+    const u = await this.prisma.unidadeHabitacional.findMany({
       where: {
         areaAfetadaId: id,
       },
-      select: {
-        fl_resiliente: true,
-        fl_desabrigado: true,
-        fl_desalojado: true,
-
-        fl_danificado: true,
-        fl_destroido: true,
-        fl_resistente: true,
-      },
+      include: {
+        afetados: true,
+      }
     });
+
+    const unities = u.map((u) => HousingUnitMapper.ToDomainWithAffecteds(u));
 
     const affected_people_count = unities.reduce(
       (acc, curr) => ({
-        qtd_pessoas: acc.qtd_pessoas + 0,
-        qtd_idosos: acc.qtd_idosos + 0,
-        qtd_adultos: acc.qtd_adultos + 0,
-        qtd_criancas: acc.qtd_criancas + 0,
-        qtd_adolescente: acc.qtd_adolescente + 0,
+        qtd_pessoas: acc.qtd_pessoas + curr.affecteds.length,
+        qtd_idosos:
+          acc.qtd_idosos +
+          curr.affecteds.filter((a) => a.getAgeGroup() === 'IDOSO').length,
+        qtd_adultos:
+          acc.qtd_adultos +
+          curr.affecteds.filter((a) => a.getAgeGroup() === 'ADULTO').length,
+        qtd_criancas:
+          acc.qtd_criancas +
+          curr.affecteds.filter((a) => a.getAgeGroup() === 'CRIANÇA').length,
+        qtd_adolescente:
+          acc.qtd_adolescente +
+          curr.affecteds.filter((a) => a.getAgeGroup() === 'ADOLESCENTE')
+            .length,
       }),
       {
         qtd_pessoas: 0,
@@ -107,6 +114,7 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
         qtd_adolescente: 0,
       },
     );
+
 
     const unity_count = unities.reduce(
       (acc, curr) => {

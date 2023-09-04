@@ -14,6 +14,14 @@ interface AffectedProps {
 }
 
 class Affected extends Entity<AffectedProps> {
+
+  public getAgeGroup() {
+    if (this.props.age < 12) return 'CRIANÇA';
+    if (this.props.age < 18) return 'ADOLESCENTE';
+    if (this.props.age < 60) return 'ADULTO';
+    return 'IDOSO';
+  }
+
   constructor(props: AffectedProps) {
     super(props, props.id);
   }

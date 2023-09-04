@@ -1,8 +1,8 @@
 import { Affected } from "../domain/affected/affected";
 
 export abstract class AffectedRepository {
-  abstract save(affected: Affected): Promise<void>;
-  abstract update(affected: Affected): Promise<void>;
+  abstract save(affected: Affected): Promise<Affected>;
+  abstract update(affected: Affected): Promise<Affected>;
   abstract saveMany(affected: Affected[]): Promise<void>;
   abstract find(id: string): Promise<Affected>;
   abstract findByCPF(cpf: string, unity_id: string): Promise<Affected>;

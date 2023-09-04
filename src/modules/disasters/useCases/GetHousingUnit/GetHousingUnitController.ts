@@ -18,9 +18,18 @@ export class GetHousingUnitController {
     return {
       id: housing.id,
       order: housing.order,
-      areaAfetadaId: housing.affectedAreaId,
+      affectedAreaId: housing.affectedAreaId,
       address: housing.address,
       coordinates: housing.coordinates,
+      affecteds: housing.affecteds.map((a) => ({
+        id: a.id,
+        name: a.name,
+        age: a.age,
+        sex: a.sex,
+        contact: a.contact,
+        fl_chefe_familia: a.fl_chefe_familia,
+        unidadeHabitacionalId: a.unidadeHabitacionalId,
+      })),
       fotos,
       planilha: planilha
         ? { id: planilha.id, type: planilha.type, url: planilha.url }

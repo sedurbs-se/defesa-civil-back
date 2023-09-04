@@ -29,6 +29,6 @@ export class UpdateAffected {
       ...data,
     });
 
-    await this.affectedRepository.update(affected);
+    return await this.affectedRepository.update(affected);
   }
 }

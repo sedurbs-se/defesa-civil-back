@@ -8,25 +8,28 @@ import { AffectedMapper } from '../../mappers/AffectedMapper';
 class PrismaAffectedRepository implements AffectedRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async save(affected: Affected): Promise<void> {
+  async save(affected: Affected): Promise<Affected> {
     const { ...data } = AffectedMapper.toPersistence(affected);
 
-    await this.prisma.afetado.create({
+    const a = await this.prisma.afetado.create({
       data,
     });
+
+    return AffectedMapper.toDomain(a);
   }
 
-  async update(affected: Affected): Promise<void> {
+  async update(affected: Affected): Promise<Affected> {
     const { ...data } = AffectedMapper.toPersistence(affected);
 
-    await this.prisma.afetado.update({
+    const a = await this.prisma.afetado.update({
       where: {
         id: affected.id,
       },
       data,
     });
+    return AffectedMapper.toDomain(a);
   }
-  
+
   async saveMany(affected: Affected[]): Promise<void> {
     const affecteds = affected.map((a) => AffectedMapper.toPersistence(a));
 
@@ -42,7 +45,7 @@ class PrismaAffectedRepository implements AffectedRepository {
         id,
       },
     });
-
+    if (!raw) return null;
     return AffectedMapper.toDomain(raw);
   }
 
@@ -53,6 +56,8 @@ class PrismaAffectedRepository implements AffectedRepository {
         unidadeHabitacionalId: unity_id,
       },
     });
+
+    if (!raw) return null;
 
     return AffectedMapper.toDomain(raw);
   }

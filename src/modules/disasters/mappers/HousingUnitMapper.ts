@@ -14,6 +14,16 @@ const unidadeHabitacionalWithPhotosAndAffecteds =
 type UnidadeHabitacionalWithPhotosAndAffecteds = Prisma.UnidadeHabitacionalGetPayload<
   typeof unidadeHabitacionalWithPhotosAndAffecteds
 >;
+const unidadeHabitacionalWithAffecteds =
+  Prisma.validator<Prisma.UnidadeHabitacionalArgs>()({
+    include: { 
+      afetados: true,
+    },
+  });
+
+type UnidadeHabitacionalWithAffecteds = Prisma.UnidadeHabitacionalGetPayload<
+  typeof unidadeHabitacionalWithAffecteds
+>;
 
 export class HousingUnitMapper {
   static toDomain(raw: UnidadeHabitacionalWithPhotosAndAffecteds) {
@@ -25,6 +35,27 @@ export class HousingUnitMapper {
       address: raw.endereco,
       coordinates: raw.coordenadas,
       photos: raw.fotos ? raw.fotos.map((f) => PhotosMapper.toDomain(f)) : [],
+      affecteds: raw.afetados ? raw.afetados.map((a) => AffectedMapper.toDomain(a)) : [],
+      fl_danificado: raw.fl_danificado,
+      fl_desabrigado: raw.fl_desabrigado,
+      fl_desalojado: raw.fl_desalojado,
+      fl_destroido: raw.fl_destroido,
+      fl_resiliente: raw.fl_resiliente,
+      fl_resistente: raw.fl_resistente,
+
+      createdAt: raw.createdAt,
+      updatedAt: raw.updatedAt,
+    });
+  }
+
+  static ToDomainWithAffecteds(raw: UnidadeHabitacionalWithAffecteds) {
+    return new HousingUnit({
+      id: raw.id,
+      order: raw.ORDEM,
+
+      affectedAreaId: raw.areaAfetadaId,
+      address: raw.endereco,
+      coordinates: raw.coordenadas,
       affecteds: raw.afetados ? raw.afetados.map((a) => AffectedMapper.toDomain(a)) : [],
       fl_danificado: raw.fl_danificado,
       fl_desabrigado: raw.fl_desabrigado,

@@ -69,6 +69,8 @@ import { GetAgentController } from './useCases/GetAgent/GetAgentController';
 import { GetAgent } from './useCases/GetAgent/GetAgent';
 import { EditAgentController } from './useCases/EditAgent/EditAgentController';
 import { EditAgent } from './useCases/EditAgent/EditAgent';
+import { GetAffectedController } from './useCases/GetAffected/GetAffectedController';
+import { GetAffected } from './useCases/GetAffected/GetAffected';
 
 @Module({
   imports: [],
@@ -97,6 +99,9 @@ import { EditAgent } from './useCases/EditAgent/EditAgent';
 
     CreateAffectedController,
     UpdateAffectedController,
+    GetAffectedController,
+
+
     GetAgentController,
     EditAgentController,
   ],
@@ -166,6 +171,8 @@ import { EditAgent } from './useCases/EditAgent/EditAgent';
 
     CreateAffected,
     UpdateAffected,
+    GetAffected,
+
     GetAgent,
     EditAgent,
   ],

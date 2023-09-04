@@ -1,13 +1,24 @@
-import { Body, Injectable, Param, Post } from '@nestjs/common';
+import { Body, Controller, Param, Put } from '@nestjs/common';
 import { CreateAffectedDTO } from '../../dtos/CreateAffectedDTO';
 import { UpdateAffected } from './UpdateAffected';
 
-@Injectable()
+@Controller()
 export class UpdateAffectedController {
   constructor(private readonly service: UpdateAffected) {}
 
-  @Post('/affected/:id')
+  @Put('/affected/:id')
   async handle(@Body() body: CreateAffectedDTO, @Param('id') id: string) {
-    await this.service.execute(body, id);
+    const a = await this.service.execute(body, id);
+
+    return {
+      id: a.id,
+      name: a.name,
+      age: a.age,
+      sex: a.sex,
+      cpf: a.cpf,
+      contact: a.contact,
+      fl_chefe_familia: a.fl_chefe_familia,
+      unidadeHabitacionalId: a.unidadeHabitacionalId,
+    };
   }
 }
