@@ -9,7 +9,6 @@ export class RegisterActionController {
 
   @Post('/action')
   async execute(@Body() body: RegisterActionDTO) {
-    console.log('teste');
     const action = new Action(body);
     await this.registerAction.execute({ action });
 

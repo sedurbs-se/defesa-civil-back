@@ -40,20 +40,27 @@ model UnidadeHabitacional {
   areaAfetadaId String
   areaAfetada   AreaAfetada   @relation(fields: [areaAfetadaId], references: [id])
   fotos         FotoUnidade[]
-  afetados   Afetado[]
-  acoes     Acao[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  afetados      Afetado[]
+  acoes         Acao[]
+  fl_resistente Boolean
+  fl_danificado Boolean
+  fl_destroido  Boolean
+
+  fl_resiliente  Boolean
+  fl_desabrigado Boolean
+  fl_desalojado  Boolean
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Afetado {
-  id      String @id @default(uuid())
-  cpf     String @unique
-  nome    String
-  contato String
-  sexo    String
-  idade   Int
-  fl_chefe_familia Boolean
+  id                    String              @id @default(uuid())
+  cpf                   String              @unique
+  nome                  String
+  contato               String
+  sexo                  String
+  idade                 Int
+  fl_chefe_familia      Boolean
   unidadeHabitacionalId String
   unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
 }

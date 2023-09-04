@@ -1,8 +1,8 @@
-import { Body, Injectable, Param, Post } from '@nestjs/common';
+import { Body, Controller, Injectable, Param, Post } from '@nestjs/common';
 import { CreateAffectedDTO } from '../../dtos/CreateAffectedDTO';
 import { UpdateAffected } from './UpdateAffected';
 
-@Injectable()
+@Controller()
 export class UpdateAffectedController {
   constructor(private readonly service: UpdateAffected) {}
 
