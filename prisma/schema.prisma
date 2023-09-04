@@ -10,6 +10,9 @@ datasource db {
 model Municipio {
   id        String     @id @default(uuid())
   nome      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  deletedAt DateTime?
   desastres Desastre[]
 }
 
@@ -19,6 +22,10 @@ model Desastre {
   municipioId String        @map("municipio_id")
   municipio   Municipio     @relation(fields: [municipioId], references: [id])
   areas       AreaAfetada[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+  finalizado  Boolean       @default(false)
 }
 
 model AreaAfetada {
@@ -29,6 +36,10 @@ model AreaAfetada {
   Desastre              Desastre?             @relation(fields: [desastreId], references: [id])
   desastreId            String?
   team                  Equipe[]
+  Acao                  Acao[]
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+  deletedAt             DateTime?
 }
 
 model UnidadeHabitacional {
@@ -39,13 +50,8 @@ model UnidadeHabitacional {
   areaAfetadaId String
   areaAfetada   AreaAfetada   @relation(fields: [areaAfetadaId], references: [id])
   fotos         FotoUnidade[]
-
-  afetados   Afetado[]
-
-  acoes     Acao[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  afetados      Afetado[]
+  acoes         Acao[]
   fl_resistente Boolean
   fl_danificado Boolean
   fl_destroido  Boolean
@@ -53,33 +59,104 @@ model UnidadeHabitacional {
   fl_resiliente  Boolean
   fl_desabrigado Boolean
   fl_desalojado  Boolean
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
 }
 
 model Afetado {
-  id      String @id @default(uuid())
-  cpf     String @unique
-  nome    String
-  contato String
-  sexo    String
-  idade   Int
-  fl_chefe_familia Boolean
+  id                    String              @id @default(uuid())
+  cpf                   String              @unique
+  nome                  String
+  contato               String
+  sexo                  String
+  idade                 Int
+  fl_chefe_familia      Boolean
   unidadeHabitacionalId String
   unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+  deletedAt             DateTime?
 }
 
 model Acao {
-  id String @id @default(uuid())
+  id                    String               @id @default(uuid())
+  tipoAcaoId            String
+  tipo                  TipoAcao             @relation(fields: [tipoAcaoId], references: [id])
+  unidadeHabitacionalId String?
+  unidadeHabitacional   UnidadeHabitacional? @relation(fields: [unidadeHabitacionalId], references: [id])
 
-  tipo                  String
-  unidadeHabitacionalId String
-  unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
+  AreaAfetada   AreaAfetada? @relation(fields: [areaAfetadaId], references: [id])
+  areaAfetadaId String?
 
-  afetado_cpf     String
-  afetado_contato String
-  afetado_nome    String
+  contexto String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  tarefas Tarefa[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Tarefa {
+  id            String      @id @default(uuid())
+  acaoId        String      @map("acao_id")
+  acao          Acao        @relation(fields: [acaoId], references: [id])
+  nome          String
+  status        String
+  quantificavel Boolean?
+  itemBasicoId  String?
+  itemBasico    ItemBasico? @relation(fields: [itemBasicoId], references: [id])
+
+  eventos Evento[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model ItemBasico {
+  id        String    @id @default(uuid())
+  nome      String
+  Tarefa    Tarefa[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Evento {
+  id           String     @id @default(uuid())
+  tarefaId     String     @map("tarefa_id")
+  tarefa       Tarefa     @relation(fields: [tarefaId], references: [id])
+  descricao    String
+  tipoEventoId String
+  tipoEvento   TipoEvento @relation(fields: [tipoEventoId], references: [id])
+  fotoId       String?
+  foto         Imagem?    @relation(fields: [fotoId], references: [id])
+  quantidade   Int?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model TipoEvento {
+  id        String    @id @default(uuid())
+  nome      String
+  Evento    Evento[]
+  final     Boolean?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model TipoAcao {
+  id        String    @id @default(uuid())
+  nome      String
+  Acao      Acao[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }
 
 model FotoUnidade {
@@ -90,14 +167,18 @@ model FotoUnidade {
   type                  String
   createdAt             DateTime            @default(now())
   updatedAt             DateTime            @updatedAt
+  deletedAt             DateTime?
 }
 
 model Usuario {
-  id     String  @id @default(uuid())
-  cpf    String  @unique
-  nome   String
-  agente Agente?
-  cargo  String?
+  id        String    @id @default(uuid())
+  cpf       String    @unique
+  nome      String
+  agente    Agente?
+  cargo     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }
 
 model Agente {
@@ -108,6 +189,9 @@ model Agente {
   user      Usuario? @relation(fields: [usuarioId], references: [id])
 
   equipeAgente EquipeAgente[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  deletedAt    DateTime?
 }
 
 model Equipe {
@@ -116,16 +200,29 @@ model Equipe {
   areaAfetadaId String         @map("area_afetada_id")
   areaAfetada   AreaAfetada    @relation(fields: [areaAfetadaId], references: [id])
   equipeAgente  EquipeAgente[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  deletedAt     DateTime?
 }
 
 model EquipeAgente {
   agenteId        String
-  agente          Agente   @relation(fields: [agenteId], references: [id])
+  agente          Agente    @relation(fields: [agenteId], references: [id])
   equipeId        String
-  equipe          Equipe   @relation(fields: [equipeId], references: [id])
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  equipe          Equipe    @relation(fields: [equipeId], references: [id])
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
   fl_lider_equipe Boolean?
 
   @@id([agenteId, equipeId])
+}
+
+model Imagem {
+  id        String    @id @default(uuid())
+  url       String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Evento    Evento[]
+  deletedAt DateTime?
 }

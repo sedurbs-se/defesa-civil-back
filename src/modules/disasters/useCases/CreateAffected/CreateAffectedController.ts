@@ -2,10 +2,9 @@ import { Body, Controller, Post } from "@nestjs/common";
 import { CreateAffected } from "./CreateAffected";
 import { CreateAffectedDTO } from "../../dtos/CreateAffectedDTO";
 
-
 @Controller()
 export class CreateAffectedController {
-    constructor(private readonly service:CreateAffected) { }
+  constructor(private readonly service: CreateAffected) {}
 
     @Post("/affected")
     async handle(@Body() body:CreateAffectedDTO) {

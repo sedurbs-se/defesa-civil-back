@@ -77,8 +77,6 @@ class Affected extends Entity<AffectedProps> {
   get unidadeHabitacional() {
     return this.props.unidadeHabitacional;
   }
-
-
 }
 
 export { AffectedProps, Affected };

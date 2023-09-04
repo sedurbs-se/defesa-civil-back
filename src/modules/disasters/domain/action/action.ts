@@ -1,5 +1,6 @@
 import { Entity } from 'src/core/logic/Entity';
 import { HousingUnit } from '../housingUnit/housing-unit';
+import { AffectedArea } from '../affectedArea/affected-area';
 
 interface ActionProps {
   id?: string;
@@ -11,6 +12,9 @@ interface ActionProps {
 
   housingUnitId: string;
   housingUnit?: HousingUnit;
+
+  affectedAreaId: string;
+  affectedArea?: AffectedArea;
 
   createdAt?: Date;
   updatedAt?: Date;

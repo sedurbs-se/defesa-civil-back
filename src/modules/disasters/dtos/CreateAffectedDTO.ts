@@ -19,7 +19,7 @@ export abstract class CreateAffectedDTO {
   })
   @IsNotEmpty({ message: 'O campo sexo é obrigatório' })
   sex: string;
-  
+
   @ApiProperty({
     description: 'O contato do afetado (Telefone, email, etc)',
   })

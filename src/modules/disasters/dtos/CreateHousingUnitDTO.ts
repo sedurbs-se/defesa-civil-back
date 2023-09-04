@@ -1,8 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
 export abstract class CreateHousingUnitDTO {
-
-
   @IsNotEmpty({ message: 'O campo id da área afetada é obrigatório' })
   affectedAreaId: string;
 

@@ -14,7 +14,7 @@ import { AppError } from '../logic/error';
 export class ErrorsInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(
-      catchError((err: AppError | BadRequestException | Error) => {
+      catchError((err: AppError | BadRequestException | Error | any) => {
         if (err instanceof AppError) {
           return throwError(
             () => new HttpException(err.message, err.statusCode),
@@ -23,6 +23,20 @@ export class ErrorsInterceptor implements NestInterceptor {
         if (err instanceof BadRequestException) {
           return throwError(
             () => new HttpException(err.getResponse(), err.getStatus()),
+          );
+        }
+
+        if (typeof err === 'object' && err.response) {
+          return throwError(
+            () =>
+              new HttpException(
+                {
+                  error: err.response.error,
+                  message: err.response.message,
+                  statusCode: err.response.statusCode,
+                },
+                err.response.statusCode,
+              ),
           );
         }
 

@@ -1,4 +1,4 @@
-import { Affected } from "../domain/affected/affected";
+import { Affected } from '../domain/affected/affected';
 
 export abstract class AffectedRepository {
   abstract save(affected: Affected): Promise<Affected>;

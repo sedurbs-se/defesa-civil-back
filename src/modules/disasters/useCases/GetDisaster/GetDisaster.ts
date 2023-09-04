@@ -21,7 +21,7 @@ export interface DisasterWithDetails {
     resistentes: number;
 
     count: number;
-  }
+  };
   area_count: number;
 }
 
