@@ -1,6 +1,7 @@
 import { Entity } from 'src/core/logic/Entity';
 import { AffectedArea } from '../affectedArea/affected-area';
 import { Photos } from '../photos/photos';
+import { Affected } from '../affected/affected';
 
 interface HousingUnitProps {
   id?: string;
@@ -10,6 +11,7 @@ interface HousingUnitProps {
   coordinates: string;
   affectedArea?: AffectedArea;
   photos?: Photos[];
+  affecteds?: Affected[];
   createdAt?: Date;
   updatedAt?: Date;
 
@@ -48,6 +50,10 @@ class HousingUnit extends Entity<HousingUnitProps> {
 
   get photos() {
     return this.props.photos;
+  }
+
+  get affecteds() {
+    return this.props.affecteds;
   }
 
   get fl_resistente() {

@@ -9,7 +9,6 @@ export class PrismaHousingUnitRepository implements HousingUnitRepository {
   constructor(private readonly prisma: PrismaService) {}
   async save(housingUnit: HousingUnit): Promise<void> {
     const { ...data } = HousingUnitMapper.toPersistence(housingUnit);
-    console.log(data)
     await this.prisma.unidadeHabitacional.create({
       data: {
         ...data,
@@ -43,6 +42,7 @@ export class PrismaHousingUnitRepository implements HousingUnitRepository {
       },
       include: {
         fotos: true,
+        afetados: true,
       },
     });
     if (!housingUnit) return null;
@@ -56,6 +56,7 @@ export class PrismaHousingUnitRepository implements HousingUnitRepository {
       },
       include: {
         fotos: true,
+        afetados: true,
       },
     });
 
@@ -67,6 +68,7 @@ export class PrismaHousingUnitRepository implements HousingUnitRepository {
     const housingUnits = await this.prisma.unidadeHabitacional.findMany({
       include: {
         fotos: true,
+        afetados: true,
       },
       where: {
         areaAfetadaId: area_id,

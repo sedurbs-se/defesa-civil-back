@@ -59,6 +59,12 @@ import { EditTeamController } from './useCases/EditTeam/EditTeamController';
 import { EditTeam } from './useCases/EditTeam/EditTeam';
 import { DeletePhotos } from './useCases/DeletePhotos/DeletePhotos';
 import { DeletePhotosController } from './useCases/DeletePhotos/DeletePhotosController';
+import { CreateAffectedController } from './useCases/CreateAffected/CreateAffectedController';
+import { CreateAffected } from './useCases/CreateAffected/CreateAffected';
+import { UpdateAffected } from './useCases/UpdateAffected/UpdateAffected';
+import { UpdateAffectedController } from './useCases/UpdateAffected/UpdateAffectedController';
+import { AffectedRepository } from './repositories/IAffectedRepository';
+import { PrismaAffectedRepository } from './repositories/prisma/PrismaAffectedRepository';
 import { GetAgentController } from './useCases/GetAgent/GetAgentController';
 import { GetAgent } from './useCases/GetAgent/GetAgent';
 import { EditAgentController } from './useCases/EditAgent/EditAgentController';
@@ -90,6 +96,9 @@ import { ImageModule } from '../images/image.module';
     ListAgentsController,
     EditHousingUnitController,
     EditTeamController,
+
+    CreateAffectedController,
+    UpdateAffectedController,
     GetAgentController,
     EditAgentController,
   ],
@@ -126,7 +135,10 @@ import { ImageModule } from '../images/image.module';
       provide: PhotosRepository,
       useClass: PrismaPhotoRepository,
     },
-
+    {
+      provide: AffectedRepository,
+      useClass: PrismaAffectedRepository,
+    },
     {
       provide: APP_INTERCEPTOR,
       useClass: ErrorsInterceptor,
@@ -153,6 +165,9 @@ import { ImageModule } from '../images/image.module';
     ListAgents,
     EditHousingUnit,
     EditTeam,
+
+    CreateAffected,
+    UpdateAffected,
     GetAgent,
     EditAgent,
   ],
