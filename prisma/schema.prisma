@@ -103,7 +103,8 @@ model Evento {
   descricao    String
   tipoEventoId String
   tipoEvento   TipoEvento @relation(fields: [tipoEventoId], references: [id])
-  foto         String?
+  fotoId       String?
+  foto         Imagem?    @relation(fields: [fotoId], references: [id])
   quantidade   Int?
 
   createdAt DateTime  @default(now())
@@ -170,4 +171,12 @@ model EquipeAgente {
   fl_lider_equipe Boolean?
 
   @@id([agenteId, equipeId])
+}
+
+model Imagem {
+  id        String   @id @default(uuid())
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Evento    Evento[]
 }

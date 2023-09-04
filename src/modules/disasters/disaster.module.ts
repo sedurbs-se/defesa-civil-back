@@ -64,9 +64,10 @@ import { GetAgent } from './useCases/GetAgent/GetAgent';
 import { EditAgentController } from './useCases/EditAgent/EditAgentController';
 import { EditAgent } from './useCases/EditAgent/EditAgent';
 import { ActionModule } from '../actions/action.module';
+import { ImageModule } from '../images/image.module';
 
 @Module({
-  imports: [ActionModule],
+  imports: [ActionModule, ImageModule],
   controllers: [
     ListCitiesController,
     ListDisastersController,
