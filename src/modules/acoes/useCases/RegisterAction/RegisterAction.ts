@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { AcaoRepository } from '../../repositories/AcaoRepository';
-import { Action } from '../../domain/acao';
+import { Acao } from '../../domain/acao';
 
 interface RegisterActionRequest {
-  action: Action;
+  action: Acao;
 }
 
 @Injectable()

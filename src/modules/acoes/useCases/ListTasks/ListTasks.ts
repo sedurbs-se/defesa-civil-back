@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TaskRepository } from '../../repositories/TarefaRepository';
+import { TarefaRepository } from '../../repositories/TarefaRepository';
 
 interface ListTasksRequest {
   actionId?: string;
@@ -7,7 +7,7 @@ interface ListTasksRequest {
 
 @Injectable()
 export class ListTasks {
-  constructor(private readonly taskRepository: TaskRepository) {}
+  constructor(private readonly taskRepository: TarefaRepository) {}
 
   async execute(request: ListTasksRequest) {
     return await this.taskRepository.findAll({

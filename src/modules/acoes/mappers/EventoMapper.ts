@@ -1,7 +1,7 @@
 import { Evento as PersistenceEvento } from '@prisma/client';
 import { Evento } from '../domain/evento';
 
-export class EventMapper {
+export class EventoMapper {
   static toDomain(raw: PersistenceEvento) {
     return new Evento({
       id: raw.id,

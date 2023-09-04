@@ -1,7 +1,7 @@
 import { Acao as PersistenceAcao } from '@prisma/client';
 import { Acao } from '../domain/acao';
 
-export class ActionMapper {
+export class AcaoMapper {
   static toDomain(raw: PersistenceAcao) {
     return new Acao({
       id: raw.id,

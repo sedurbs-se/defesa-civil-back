@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TaskMapper } from '../../mappers/TaskMapper';
+import { TarefaMapper } from '../../mappers/TarefaMapper';
 import { PrismaService } from 'src/prisma.service';
 import { FindTasksOptions, TarefaRepository } from '../TarefaRepository';
 import { Tarefa } from '../../domain/tarefa';
@@ -8,7 +8,7 @@ import { Tarefa } from '../../domain/tarefa';
 export class PrismaTaskRepository implements TarefaRepository {
   constructor(readonly prisma: PrismaService) {}
   async save(task: Tarefa): Promise<void> {
-    const tarefa = TaskMapper.toPersistence(task);
+    const tarefa = TarefaMapper.toPersistence(task);
     await this.prisma.tarefa.upsert({
       where: { id: tarefa.id },
       update: tarefa,
@@ -20,12 +20,12 @@ export class PrismaTaskRepository implements TarefaRepository {
       where: { id },
     });
     if (!tarefa) return null;
-    return TaskMapper.toDomain(tarefa);
+    return TarefaMapper.toDomain(tarefa);
   }
   async findAll(options: FindTasksOptions): Promise<Tarefa[]> {
     const tarefas = await this.prisma.tarefa.findMany({
       where: options,
     });
-    return tarefas.map(TaskMapper.toDomain);
+    return tarefas.map(TarefaMapper.toDomain);
   }
 }

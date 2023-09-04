@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { RegisterAction } from './RegisterAction';
 import { RegisterActionDTO } from '../../dtos/RegisterActionDTO';
-import { Action } from '../../domain/acao';
+import { Acao } from '../../domain/acao';
 
 @Controller()
 export class RegisterActionController {
@@ -9,7 +9,7 @@ export class RegisterActionController {
 
   @Post('/action')
   async execute(@Body() body: RegisterActionDTO) {
-    const action = new Action(body);
+    const action = new Acao(body);
     await this.registerAction.execute({ action });
 
     return {

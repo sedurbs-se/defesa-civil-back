@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { TaskRepository } from '../../repositories/TarefaRepository';
-import { Task } from '../../domain/tarefa';
+import { TarefaRepository } from '../../repositories/TarefaRepository';
+import { Tarefa } from '../../domain/tarefa';
 
 interface RegisterTaskRequest {
-  task: Task;
+  task: Tarefa;
 }
 
 @Injectable()
 export class RegisterTask {
-  constructor(private readonly taskRepository: TaskRepository) {}
+  constructor(private readonly taskRepository: TarefaRepository) {}
 
   async execute({ task }: RegisterTaskRequest) {
     await this.taskRepository.save(task);

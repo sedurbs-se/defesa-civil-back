@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EventRepository } from '../../repositories/EventoRepository';
+import { EventoRepository } from '../../repositories/EventoRepository';
 
 interface ListEventsRequest {
   taskId: string;
@@ -7,7 +7,7 @@ interface ListEventsRequest {
 
 @Injectable()
 export class ListEvents {
-  constructor(private readonly eventRepository: EventRepository) {}
+  constructor(private readonly eventRepository: EventoRepository) {}
 
   async execute(request: ListEventsRequest) {
     return await this.eventRepository.findAll({

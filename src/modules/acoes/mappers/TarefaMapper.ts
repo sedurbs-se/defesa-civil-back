@@ -1,7 +1,7 @@
 import { Tarefa as PersistenceTarefa } from '@prisma/client';
 import { Tarefa } from '../domain/tarefa';
 
-export class TaskMapper {
+export class TarefaMapper {
   static toDomain(raw: PersistenceTarefa) {
     return new Tarefa({
       id: raw.id,

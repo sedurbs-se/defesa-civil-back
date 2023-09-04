@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { EventoRepository, FindEventsOptions } from '../EventoRepository';
 import { Evento } from '../../domain/evento';
-import { EventMapper } from '../../mappers/EventMapper';
+import { EventoMapper } from '../../mappers/EventoMapper';
 
 @Injectable()
 export class PrismaEventRepository implements EventoRepository {
   constructor(readonly prisma: PrismaService) {}
   async save(event: Evento): Promise<void> {
-    const evento = EventMapper.toPersistence(event);
+    const evento = EventoMapper.toPersistence(event);
     await this.prisma.evento.upsert({
       where: { id: evento.id },
       update: evento,
@@ -20,12 +20,12 @@ export class PrismaEventRepository implements EventoRepository {
       where: { id },
     });
     if (!event) return null;
-    return EventMapper.toDomain(event);
+    return EventoMapper.toDomain(event);
   }
   async findAll(options: FindEventsOptions): Promise<Evento[]> {
     const events = await this.prisma.evento.findMany({
       where: options,
     });
-    return events.map(EventMapper.toDomain);
+    return events.map(EventoMapper.toDomain);
   }
 }

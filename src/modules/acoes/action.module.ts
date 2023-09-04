@@ -6,12 +6,12 @@ import { PrismaAcaoRepository } from './repositories/prisma/PrismaAcaoRepository
 import { RegisterActionController } from './useCases/RegisterAction/RegisterActionController';
 import { RegisterTaskController } from './useCases/RegisterTask/RegisterTaskController';
 import { RegisterTask } from './useCases/RegisterTask/RegisterTask';
-import { TaskRepository } from './repositories/TarefaRepository';
-import { PrismaTaskRepository } from './repositories/prisma/PrismaTaskRepository';
+import { TarefaRepository } from './repositories/TarefaRepository';
+import { PrismaTaskRepository } from './repositories/prisma/PrismaTarefaRepository';
 import { RegisterEventController } from './useCases/RegisterEvent/RegisterEventController';
 import { RegisterEvent } from './useCases/RegisterEvent/RegisterEvent';
-import { EventRepository } from './repositories/EventoRepository';
-import { PrismaEventRepository } from './repositories/prisma/PrismaEventRepository';
+import { EventoRepository } from './repositories/EventoRepository';
+import { PrismaEventRepository } from './repositories/prisma/PrismaEventoRepository';
 import { ListActions } from './useCases/ListActions/ListActions';
 import { ListActionsController } from './useCases/ListActions/ListActionsController';
 import { ListTasks } from './useCases/ListTasks/ListTasks';
@@ -35,11 +35,11 @@ import { ListEventsController } from './useCases/ListEvents/ListEventsController
       useClass: PrismaAcaoRepository,
     },
     {
-      provide: TaskRepository,
+      provide: TarefaRepository,
       useClass: PrismaTaskRepository,
     },
     {
-      provide: EventRepository,
+      provide: EventoRepository,
       useClass: PrismaEventRepository,
     },
     PrismaService,

@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { EventRepository } from '../../repositories/EventoRepository';
-import { Event } from '../../domain/evento';
+import { EventoRepository } from '../../repositories/EventoRepository';
+import { Evento } from '../../domain/evento';
 
 interface RegisterEventRequest {
-  event: Event;
+  event: Evento;
 }
 
 @Injectable()
 export class RegisterEvent {
-  constructor(private readonly eventRepository: EventRepository) {}
+  constructor(private readonly eventRepository: EventoRepository) {}
 
   async execute({ event }: RegisterEventRequest) {
     await this.eventRepository.save(event);
