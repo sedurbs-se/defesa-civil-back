@@ -43,6 +43,7 @@ export class UploadImageController {
         })
         .build({
           errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+          fileIsRequired: true,
         }),
     )
     file: Express.Multer.File,
