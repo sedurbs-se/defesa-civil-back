@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Action } from '../../domain/action';
 import { ActionMapper } from '../../mappers/ActionMapper';
-import { AcaoRepository } from '../IAcaoRepository';
+import { AcaoRepository, FindActionsOptions } from '../IAcaoRepository';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -22,8 +22,10 @@ export class PrismaAcaoRepository implements AcaoRepository {
     if (!acao) return null;
     return ActionMapper.toDomain(acao);
   }
-  async findAll(): Promise<Action[]> {
-    const acoes = await this.prisma.acao.findMany();
+  async findAll(options: FindActionsOptions): Promise<Action[]> {
+    const acoes = await this.prisma.acao.findMany({
+      where: options,
+    });
     return acoes.map(ActionMapper.toDomain);
   }
 }

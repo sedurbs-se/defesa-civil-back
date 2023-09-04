@@ -5,7 +5,7 @@ interface EventProps {
   taskId: string;
   description: string;
   eventTypeId: string;
-  photo: string;
+  photoId: string;
   quantity?: number;
   createdAt?: Date;
   updatedAt?: Date;
@@ -29,8 +29,8 @@ class Event extends Entity<EventProps> {
     return this.props.eventTypeId;
   }
 
-  get photo() {
-    return this.props.photo;
+  get photoId() {
+    return this.props.photoId;
   }
 
   get quantity() {
