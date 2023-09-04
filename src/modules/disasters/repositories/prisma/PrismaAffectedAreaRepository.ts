@@ -3,7 +3,7 @@ import { AffectedAreaRepository } from '../IAffectedAreaRepository';
 import { Injectable } from '@nestjs/common';
 import { AffectedArea } from '../../domain/affectedArea/affected-area';
 import { AffectedAreaMapper } from '../../mappers/AffectedAreaMapper';
-import { AffectedAreaWithDetails } from '../../useCases/GetArea/GetArea';
+import { AffectedAreaWithDetails } from '../../useCases/ObterArea/ObterArea';
 import { HousingUnitMapper } from '../../mappers/HousingUnitMapper';
 
 @Injectable()
@@ -84,7 +84,7 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
       },
       include: {
         afetados: true,
-      }
+      },
     });
 
     const unities = u.map((u) => HousingUnitMapper.ToDomainWithAffecteds(u));
@@ -114,7 +114,6 @@ export class PrismaAffectedAreaRepository implements AffectedAreaRepository {
         qtd_adolescente: 0,
       },
     );
-
 
     const unity_count = unities.reduce(
       (acc, curr) => {

@@ -3,7 +3,7 @@ import { DisasterRepository } from '../IDisasterRepository';
 import { PrismaService } from 'src/prisma.service';
 import { DisasterMapper } from '../../mappers/DisasterMapper';
 import { Injectable } from '@nestjs/common';
-import { DisasterWithDetails } from '../../useCases/GetDisaster/GetDisaster';
+import { DisasterWithDetails } from '../../useCases/ObterDesastre/ObterDesastre';
 import { HousingUnitMapper } from '../../mappers/HousingUnitMapper';
 
 @Injectable()

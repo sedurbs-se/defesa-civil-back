@@ -1,0 +1,39 @@
+import { AppError } from 'src/core/logic/error';
+import { CreateAgentDTO } from '../../dtos/CreateAgentDTO';
+import { IAgentRepository } from '../../repositories/IAgentRepository';
+import { IUserRepository } from '../../repositories/IUserRepository';
+import { ROLES, User } from '../../domain/user/user';
+import { Agent } from '../../domain/agent/agent';
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class CriarAgente {
+  constructor(
+    private agentRepository: IAgentRepository,
+    private userRepository: IUserRepository,
+  ) {}
+
+  async execute(data: CreateAgentDTO): Promise<void> {
+    const existUser = await this.userRepository.getByCPF(data.cpf);
+
+    if (existUser) {
+      throw new AppError('CPF já cadastrado');
+    }
+
+    const user = new User({
+      name: data.name,
+      cpf: data.cpf,
+      role: ROLES.AGENT,
+    });
+
+    await this.userRepository.save(user);
+
+    const agent = new Agent({
+      user_id: user.id,
+      function: data.function,
+      contact: data.contact,
+    });
+
+    await this.agentRepository.save(agent);
+  }
+}

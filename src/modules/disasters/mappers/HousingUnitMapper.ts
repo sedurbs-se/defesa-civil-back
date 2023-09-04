@@ -11,12 +11,13 @@ const unidadeHabitacionalWithPhotosAndAffecteds =
     },
   });
 
-type UnidadeHabitacionalWithPhotosAndAffecteds = Prisma.UnidadeHabitacionalGetPayload<
-  typeof unidadeHabitacionalWithPhotosAndAffecteds
->;
+type UnidadeHabitacionalWithPhotosAndAffecteds =
+  Prisma.UnidadeHabitacionalGetPayload<
+    typeof unidadeHabitacionalWithPhotosAndAffecteds
+  >;
 const unidadeHabitacionalWithAffecteds =
   Prisma.validator<Prisma.UnidadeHabitacionalArgs>()({
-    include: { 
+    include: {
       afetados: true,
     },
   });
@@ -58,7 +59,9 @@ export class HousingUnitMapper {
       affectedAreaId: raw.areaAfetadaId,
       address: raw.endereco,
       coordinates: raw.coordenadas,
-      affecteds: raw.afetados ? raw.afetados.map((a) => AffectedMapper.toDomain(a)) : [],
+      affecteds: raw.afetados
+        ? raw.afetados.map((a) => AffectedMapper.toDomain(a))
+        : [],
       fl_danificado: raw.fl_danificado,
       fl_desabrigado: raw.fl_desabrigado,
       fl_desalojado: raw.fl_desalojado,

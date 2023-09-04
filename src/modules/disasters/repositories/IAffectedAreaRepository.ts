@@ -1,5 +1,5 @@
 import { AffectedArea } from '../domain/affectedArea/affected-area';
-import { AffectedAreaWithDetails } from '../useCases/GetArea/GetArea';
+import { AffectedAreaWithDetails } from '../useCases/ObterArea/ObterArea';
 
 export abstract class AffectedAreaRepository {
   abstract save(affectedArea: AffectedArea): Promise<void>;

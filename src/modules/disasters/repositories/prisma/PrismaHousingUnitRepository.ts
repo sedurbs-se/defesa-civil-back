@@ -31,7 +31,7 @@ export class PrismaHousingUnitRepository implements HousingUnitRepository {
         fotos: {
           create: data.fotos,
         },
-      },  
+      },
     });
   }
 
@@ -77,5 +77,4 @@ export class PrismaHousingUnitRepository implements HousingUnitRepository {
 
     return housingUnits.map(HousingUnitMapper.toDomain);
   }
-
 }

@@ -1,5 +1,5 @@
 import { Disaster } from '../domain/disaster/disaster';
-import { DisasterWithDetails } from '../useCases/GetDisaster/GetDisaster';
+import { DisasterWithDetails } from '../useCases/ObterDesastre/ObterDesastre';
 
 export abstract class DisasterRepository {
   abstract save(disaster: Disaster): Promise<void>;

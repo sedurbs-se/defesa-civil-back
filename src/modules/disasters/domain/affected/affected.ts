@@ -14,7 +14,6 @@ interface AffectedProps {
 }
 
 class Affected extends Entity<AffectedProps> {
-
   public getAgeGroup() {
     if (this.props.age < 12) return 'CRIANÇA';
     if (this.props.age < 18) return 'ADOLESCENTE';
