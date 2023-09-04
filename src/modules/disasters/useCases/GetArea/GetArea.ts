@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { AffectedAreaRepository } from '../../repositories/IAffectedAreaRepository';
 import { AffectedArea } from '../../domain/affectedArea/affected-area';
 
-
 export interface AffectedAreaWithDetails {
-  area:AffectedArea;
+  area: AffectedArea;
   affected_people_count: {
     qtd_pessoas: number;
     qtd_idosos: number;
@@ -22,7 +21,7 @@ export interface AffectedAreaWithDetails {
     resistentes: number;
 
     count: number;
-  }
+  };
 }
 
 @Injectable()

@@ -90,7 +90,6 @@ class PrismaDisasterRepository implements DisasterRepository {
         fl_desabrigado: true,
         fl_desalojado: true,
 
-
         fl_danificado: true,
         fl_destroido: true,
         fl_resistente: true,
@@ -113,29 +112,32 @@ class PrismaDisasterRepository implements DisasterRepository {
         qtd_adolescente: 0,
       },
     );
-    
-    const unity_count = unities.reduce((acc, curr) => {
-      if (curr.fl_resiliente) acc.resilientes++;
-      if (curr.fl_desabrigado) acc.desabrigados++;
-      if (curr.fl_desalojado) acc.desalojados++;
 
-      if (curr.fl_danificado) acc.danificados++;
-      if (curr.fl_destroido) acc.destruidos++;
-      if (curr.fl_resistente) acc.resistentes++;
+    const unity_count = unities.reduce(
+      (acc, curr) => {
+        if (curr.fl_resiliente) acc.resilientes++;
+        if (curr.fl_desabrigado) acc.desabrigados++;
+        if (curr.fl_desalojado) acc.desalojados++;
 
-      acc.count++;
-      return acc;
-    },{
-      resilientes: 0,
-      desabrigados: 0,
-      desalojados: 0,
+        if (curr.fl_danificado) acc.danificados++;
+        if (curr.fl_destroido) acc.destruidos++;
+        if (curr.fl_resistente) acc.resistentes++;
 
-      danificados: 0,
-      destruidos: 0,
-      resistentes: 0,
+        acc.count++;
+        return acc;
+      },
+      {
+        resilientes: 0,
+        desabrigados: 0,
+        desalojados: 0,
 
-      count: 0,
-    });
+        danificados: 0,
+        destruidos: 0,
+        resistentes: 0,
+
+        count: 0,
+      },
+    );
     return {
       disaster,
       affected_people_count,

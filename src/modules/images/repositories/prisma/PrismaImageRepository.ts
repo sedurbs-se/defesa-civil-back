@@ -16,9 +16,6 @@ class PrismaImageRepository implements ImageRepository {
     });
     return ImageMapper.toDomain(createdImg);
   }
-  update(image: Image): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
   async find(id: string): Promise<Image> {
     const image = await this.prisma.imagem.findUnique({
       where: { id },

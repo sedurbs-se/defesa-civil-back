@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import { Body, Controller, Param, Put } from '@nestjs/common';
 import { EditAgent } from './EditAgent';
 import { EditAgentDTO } from '../../dtos/EditAgentDTO';
 import { Agent } from '../../domain/agent/agent';

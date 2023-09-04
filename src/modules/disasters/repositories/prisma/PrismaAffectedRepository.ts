@@ -26,7 +26,7 @@ class PrismaAffectedRepository implements AffectedRepository {
       data,
     });
   }
-  
+
   async saveMany(affected: Affected[]): Promise<void> {
     const affecteds = affected.map((a) => AffectedMapper.toPersistence(a));
 

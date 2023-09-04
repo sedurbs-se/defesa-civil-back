@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export abstract class CreateAffectedAreaDTO {
   @ApiPropertyOptional({
@@ -19,7 +19,6 @@ export abstract class CreateAffectedAreaDTO {
     description:
       'A ordem da área, consiste em um número inteiro que gerará uma sequência nas unidades habitacionais',
   })
-
   @ApiProperty({
     description: 'O nome da área. Normalmente se refere a um bairro',
   })

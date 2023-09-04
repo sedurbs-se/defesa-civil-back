@@ -26,7 +26,7 @@ export class PrismaUserRepository implements IUserRepository {
       },
       include: {
         agente: true,
-      }
+      },
     });
 
     if (!user) return null;

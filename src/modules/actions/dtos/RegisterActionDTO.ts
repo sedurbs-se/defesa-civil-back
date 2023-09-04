@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsOptional, ValidateIf } from 'class-validator';
+import { IsNotEmpty, IsOptional, ValidateIf } from 'class-validator';
 
 export abstract class RegisterActionDTO {
   @ApiPropertyOptional({
