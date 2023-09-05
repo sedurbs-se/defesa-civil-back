@@ -11,7 +11,7 @@ model Municipio {
   id        String     @id @default(uuid())
   nome      String
   createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  updatedAt DateTime?  @updatedAt
   deletedAt DateTime?
   desastres Desastre[]
 }
@@ -23,7 +23,7 @@ model Desastre {
   municipio   Municipio     @relation(fields: [municipioId], references: [id])
   areas       AreaAfetada[]
   createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  updatedAt   DateTime?     @updatedAt
   deletedAt   DateTime?
   finalizado  Boolean       @default(false)
 }
@@ -38,7 +38,7 @@ model AreaAfetada {
   team                  Equipe[]
   Acao                  Acao[]
   createdAt             DateTime              @default(now())
-  updatedAt             DateTime              @updatedAt
+  updatedAt             DateTime?             @updatedAt
   deletedAt             DateTime?
 }
 
@@ -60,7 +60,7 @@ model UnidadeHabitacional {
   fl_desabrigado Boolean
   fl_desalojado  Boolean
   createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  updatedAt      DateTime? @updatedAt
   deletedAt      DateTime?
 }
 
@@ -75,7 +75,7 @@ model Afetado {
   unidadeHabitacionalId String
   unidadeHabitacional   UnidadeHabitacional @relation(fields: [unidadeHabitacionalId], references: [id])
   createdAt             DateTime            @default(now())
-  updatedAt             DateTime            @updatedAt
+  updatedAt             DateTime?           @updatedAt
   deletedAt             DateTime?
 }
 
@@ -94,7 +94,7 @@ model Acao {
   tarefas Tarefa[]
 
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 }
 
@@ -111,7 +111,7 @@ model Tarefa {
   eventos Evento[]
 
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 }
 
@@ -120,7 +120,7 @@ model ItemBasico {
   nome      String
   Tarefa    Tarefa[]
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 }
 
@@ -136,7 +136,7 @@ model Evento {
   quantidade   Int?
 
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 }
 
@@ -146,7 +146,7 @@ model TipoEvento {
   Evento    Evento[]
   final     Boolean?
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 }
 
@@ -155,7 +155,7 @@ model TipoAcao {
   nome      String
   Acao      Acao[]
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 }
 
@@ -166,7 +166,7 @@ model FotoUnidade {
   url                   String
   type                  String
   createdAt             DateTime            @default(now())
-  updatedAt             DateTime            @updatedAt
+  updatedAt             DateTime?           @updatedAt
   deletedAt             DateTime?
 }
 
@@ -177,7 +177,7 @@ model Usuario {
   agente    Agente?
   cargo     String?
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 }
 
@@ -190,7 +190,7 @@ model Agente {
 
   equipeAgente EquipeAgente[]
   createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  updatedAt    DateTime?      @updatedAt
   deletedAt    DateTime?
 }
 
@@ -201,7 +201,7 @@ model Equipe {
   areaAfetada   AreaAfetada    @relation(fields: [areaAfetadaId], references: [id])
   equipeAgente  EquipeAgente[]
   createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  updatedAt     DateTime?      @updatedAt
   deletedAt     DateTime?
 }
 
@@ -211,7 +211,7 @@ model EquipeAgente {
   equipeId        String
   equipe          Equipe    @relation(fields: [equipeId], references: [id])
   createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  updatedAt       DateTime? @updatedAt
   deletedAt       DateTime?
   fl_lider_equipe Boolean?
 
@@ -222,7 +222,7 @@ model Imagem {
   id        String    @id @default(uuid())
   url       String
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime? @updatedAt
   Evento    Evento[]
   deletedAt DateTime?
 }
