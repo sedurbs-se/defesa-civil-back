@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { AcaoRepository } from '../../repositories/AcaoRepository';
 
-interface ListActionsRequest {
+interface ListarAcoesRequest {
   housingUnitId?: string;
   affectedAreaId?: string;
 }
 
 @Injectable()
-export class ListActions {
+export class ListarAcoes {
   constructor(private readonly acaoRepository: AcaoRepository) {}
 
-  async execute(request: ListActionsRequest) {
+  async execute(request: ListarAcoesRequest) {
     return await this.acaoRepository.findAll({
       areaAfetadaId: request.affectedAreaId,
       unidadeHabitacionalId: request.housingUnitId,

@@ -1,18 +1,18 @@
 import { Entity } from 'src/core/logic/Entity';
-import { UnidadeHabitacional } from 'src/modules/desastres/domain/unidadeHabitacional/unidade-habitacional';
-import { AreaAfetada } from 'src/modules/desastres/domain/areaAfetada/area-afetada';
+import { UnidadeHabitacional } from 'src/modules/disasters/domain/unidadeHabitacional/unidade-habitacional';
+import { AreaAfetada } from 'src/modules/disasters/domain/areaAfetada/area-afetada';
 
 interface AcaoProps {
   id?: string;
-  typeId: string;
+  tipoId: string;
 
-  context: string;
+  contexto: string;
 
-  housingUnitId: string;
-  housingUnit?: UnidadeHabitacional;
+  unidadeHabitacionalId: string;
+  unidadeHabitacional?: UnidadeHabitacional;
 
-  affectedAreaId: string;
-  affectedArea?: AreaAfetada;
+  areaAfetadaId: string;
+  areaAfetada?: AreaAfetada;
 
   createdAt?: Date;
   updatedAt?: Date;
@@ -24,24 +24,24 @@ class Acao extends Entity<AcaoProps> {
     super(props, props.id);
   }
 
-  get typeId() {
-    return this.props.typeId;
+  get tipoId() {
+    return this.props.tipoId;
   }
 
-  get context() {
-    return this.props.context;
+  get contexto() {
+    return this.props.contexto;
   }
 
-  get affectedAreaId() {
-    return this.props.affectedAreaId;
+  get areaAfetadaId() {
+    return this.props.areaAfetadaId;
   }
 
-  get housingUnitId() {
-    return this.props.housingUnitId;
+  get unidadeHabitacionalId() {
+    return this.props.unidadeHabitacionalId;
   }
 
-  get housingUnit() {
-    return this.props.housingUnit;
+  get unidadeHabitacional() {
+    return this.props.unidadeHabitacional;
   }
 
   get createdAt() {

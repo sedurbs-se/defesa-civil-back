@@ -1,9 +1,9 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { ListActions } from './ListActions';
+import { ListarAcoes } from './ListarAcoes';
 
 @Controller()
-export class ListActionsController {
-  constructor(private readonly listActions: ListActions) {}
+export class ListarAcoesController {
+  constructor(private readonly listActions: ListarAcoes) {}
 
   @Get('/action')
   async execute(@Query('a') a?: string, @Query('u') u?: string) {

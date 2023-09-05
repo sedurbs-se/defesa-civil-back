@@ -1,9 +1,9 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ListEvents } from './ListEvents';
+import { ListarEventos } from './ListarEventos';
 
 @Controller()
-export class ListEventsController {
-  constructor(private readonly listEvents: ListEvents) {}
+export class ListarEventosController {
+  constructor(private readonly listEvents: ListarEventos) {}
 
   @Get('/task/:id/event')
   async execute(@Param('id') id: string) {

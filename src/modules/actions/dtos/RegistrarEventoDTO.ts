@@ -1,21 +1,21 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
-export abstract class RegisterEventDTO {
+export abstract class RegistrarEventoDTO {
   @IsOptional()
   id?: string;
 
   @IsNotEmpty({ message: 'O evento precisa pertencer a uma tarefa!' })
-  taskId: string;
+  tarefaId: string;
 
   @IsNotEmpty({ message: 'O evento precisa ter uma descricao!' })
-  description: string;
+  descricao: string;
 
   @IsNotEmpty({ message: 'O evento precisa ter um tipo!' })
-  eventTypeId: string;
+  tipoEventoId: string;
 
   @IsNotEmpty({ message: 'O evento precisa ter uma foto!' })
-  photoId: string;
+  fotoId: string;
 
   @IsOptional()
-  quantity: number;
+  quantidade: number;
 }

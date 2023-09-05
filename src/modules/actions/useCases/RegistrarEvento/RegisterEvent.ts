@@ -3,14 +3,14 @@ import { EventoRepository } from '../../repositories/EventoRepository';
 import { Evento } from '../../domain/evento';
 
 interface RegisterEventRequest {
-  event: Evento;
+  evento: Evento;
 }
 
 @Injectable()
 export class RegisterEvent {
   constructor(private readonly eventRepository: EventoRepository) {}
 
-  async execute({ event }: RegisterEventRequest) {
-    await this.eventRepository.save(event);
+  async execute({ evento }: RegisterEventRequest) {
+    await this.eventRepository.save(evento);
   }
 }

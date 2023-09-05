@@ -1,23 +1,23 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { RegisterAction } from './useCases/RegisterAction/RegisterAction';
+import { RegisterAction } from './useCases/RegistrarAcao/RegisterAction';
 import { AcaoRepository } from './repositories/AcaoRepository';
 import { PrismaAcaoRepository } from './repositories/prisma/PrismaAcaoRepository';
-import { RegisterActionController } from './useCases/RegisterAction/RegisterActionController';
-import { RegisterTaskController } from './useCases/RegisterTask/RegisterTaskController';
-import { RegisterTask } from './useCases/RegisterTask/RegisterTask';
+import { RegisterActionController } from './useCases/RegistrarAcao/RegisterActionController';
+import { RegisterTaskController } from './useCases/RegistrarTarefa/RegisterTaskController';
+import { RegisterTask } from './useCases/RegistrarTarefa/RegisterTask';
 import { TarefaRepository } from './repositories/TarefaRepository';
 import { PrismaTaskRepository } from './repositories/prisma/PrismaTarefaRepository';
-import { RegisterEventController } from './useCases/RegisterEvent/RegisterEventController';
-import { RegisterEvent } from './useCases/RegisterEvent/RegisterEvent';
+import { RegisterEventController } from './useCases/RegistrarEvento/RegisterEventController';
+import { RegisterEvent } from './useCases/RegistrarEvento/RegisterEvent';
 import { EventoRepository } from './repositories/EventoRepository';
 import { PrismaEventRepository } from './repositories/prisma/PrismaEventoRepository';
-import { ListActions } from './useCases/ListActions/ListActions';
-import { ListActionsController } from './useCases/ListActions/ListActionsController';
-import { ListTasks } from './useCases/ListTasks/ListTasks';
-import { ListTasksController } from './useCases/ListTasks/ListTasksController';
-import { ListEvents } from './useCases/ListEvents/ListEvents';
-import { ListEventsController } from './useCases/ListEvents/ListEventsController';
+import { ListarAcoes } from './useCases/ListarAcoes/ListarAcoes';
+import { ListarAcoesController } from './useCases/ListarAcoes/ListarAcoesController';
+import { ListTasks } from './useCases/ListarTarefas/ListTasks';
+import { ListTasksController } from './useCases/ListarTarefas/ListTasksController';
+import { ListarEventos } from './useCases/ListarEventos/ListarEventos';
+import { ListarEventosController } from './useCases/ListarEventos/ListarEventosController';
 
 @Module({
   imports: [],
@@ -25,9 +25,9 @@ import { ListEventsController } from './useCases/ListEvents/ListEventsController
     RegisterActionController,
     RegisterTaskController,
     RegisterEventController,
-    ListActionsController,
+    ListarAcoesController,
     ListTasksController,
-    ListEventsController,
+    ListarEventosController,
   ],
   providers: [
     {
@@ -46,9 +46,9 @@ import { ListEventsController } from './useCases/ListEvents/ListEventsController
     RegisterAction,
     RegisterTask,
     RegisterEvent,
-    ListActions,
+    ListarAcoes,
     ListTasks,
-    ListEvents,
+    ListarEventos,
   ],
 })
 export class ActionModule {}
