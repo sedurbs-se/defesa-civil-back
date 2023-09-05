@@ -73,6 +73,8 @@ import { GetAffectedController } from './useCases/GetAffected/GetAffectedControl
 import { GetAffected } from './useCases/GetAffected/GetAffected';
 import { ActionModule } from '../actions/action.module';
 import { ImageModule } from '../images/image.module';
+import { GetTeamsByAgentController } from './useCases/GetTeamsByAgent/GetTeamsByAgentController';
+import { GetTeamsByAgent } from './useCases/GetTeamsByAgent/GetTeamsByAgent';
 
 @Module({
   imports: [ActionModule, ImageModule],
@@ -103,9 +105,9 @@ import { ImageModule } from '../images/image.module';
     UpdateAffectedController,
     GetAffectedController,
 
-
     GetAgentController,
     EditAgentController,
+    GetTeamsByAgentController,
   ],
   providers: [
     {
@@ -177,6 +179,7 @@ import { ImageModule } from '../images/image.module';
 
     GetAgent,
     EditAgent,
+    GetTeamsByAgent,
   ],
 })
 export class DesastreModule {}

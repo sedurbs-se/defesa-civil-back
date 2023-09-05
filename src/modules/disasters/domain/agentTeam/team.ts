@@ -1,5 +1,6 @@
 import { Entity } from 'src/core/logic/Entity';
 import { Agent } from '../agent/agent';
+import { AffectedArea } from '../affectedArea/affected-area';
 
 interface TeamProps {
   id?: string;
@@ -8,6 +9,7 @@ interface TeamProps {
   lider_id?: string;
   lider?: Agent;
   agents?: Agent[];
+  affected_area?: AffectedArea;
 }
 
 export class Team extends Entity<TeamProps> {
@@ -35,6 +37,13 @@ export class Team extends Entity<TeamProps> {
     return this.props.lider;
   }
 
+  get affected_area() {
+    return this.props.affected_area;
+  }
+
+  set affected_area(area: AffectedArea) {
+    this.props.affected_area = area;
+  }
   public static create(props: TeamProps): Team {
     const team = new Team(props);
 

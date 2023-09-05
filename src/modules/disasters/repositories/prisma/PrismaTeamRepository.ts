@@ -24,6 +24,27 @@ export class PrismaTeamRepository implements ITeamRepository {
 
     return teams.map((e) => TeamMapper.toDomain(e));
   }
+  async findByAgentId(agentId: string): Promise<Team[]> {
+    const teams = await this.prisma.equipe.findMany({
+      where: {
+        equipeAgente: {
+          every: {
+            agenteId: agentId,
+          },
+        },
+      },
+      include: {
+        equipeAgente: {
+          include: {
+            agente: true,
+          },
+        },
+        areaAfetada: true,
+      },
+    });
+
+    return teams.map((e) => TeamMapper.toDomainWithArea(e));
+  }
 
   async find(id: string): Promise<Team> {
     const team = await this.prisma.equipe.findUnique({
