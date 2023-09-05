@@ -41,9 +41,9 @@ export class CriarEquipe {
 
     const team = new Equipe({
       name: data.name,
-      affected_area_id: data.affectedAreaId,
+      areaAfetadaId: data.affectedAreaId,
       lider_id: data.leaderId,
-      agents: newAgents,
+      agentes: newAgents,
     });
 
     await this.teamRepository.save(team);

@@ -17,9 +17,9 @@ export class ListarAgentesEquipe {
       team: {
         id: team.id,
         name: team.name,
-        affectedAreaId: team.affected_area_id,
+        affectedAreaId: team.areaAfetadaId,
         leaderId: team.lider_id,
-        agents: team.agents.map((agent) => ({
+        agents: team.agentes.map((agent) => ({
           id: agent.id,
           user_id: agent.usuarioId,
           contact: agent.contato,

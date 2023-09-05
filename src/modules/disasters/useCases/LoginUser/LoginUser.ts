@@ -19,6 +19,7 @@ export class LoginUser {
     const payload = {
       user: {
         id: user.id,
+        agent_id: user.agente.id,
         name: user.nome,
         cpf: user.cpf,
         contact: user.agente.contato,

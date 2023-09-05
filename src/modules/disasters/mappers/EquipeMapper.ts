@@ -72,8 +72,8 @@ export class EquipeMapper {
     return {
       id: Equipe.id,
       nome: Equipe.name,
-      areaAfetadaId: Equipe.affected_area_id,
-      agentes: Equipe.agents.map((e) => ({
+      areaAfetadaId: Equipe.areaAfetadaId,
+      agentes: Equipe.agentes.map((e) => ({
         fl_lider_equipe: Equipe.lider_id === e.id,
         agenteId: e.id,
         equipeId: Equipe.id,

@@ -12,9 +12,9 @@ export class ListarEquipePorAreaController {
     return teams.map((t) => ({
       id: t.id,
       name: t.name,
-      affectedAreaId: t.affected_area_id,
+      affectedAreaId: t.areaAfetadaId,
       leaderId: t.lider_id,
-      agents: t.agents.map((a) => ({
+      agents: t.agentes.map((a) => ({
         id: a.id,
         contact: a.contato,
         function: a.funcao,

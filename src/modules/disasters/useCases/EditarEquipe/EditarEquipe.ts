@@ -32,9 +32,9 @@ export class EditarEquipe {
     const domainTeam = new Equipe({
       id: team.id,
       name: teamDTO.name,
-      affected_area_id: teamDTO.affectedAreaId,
+      areaAfetadaId: teamDTO.affectedAreaId,
       lider_id: teamDTO.leaderId,
-      agents,
+      agentes:agents,
     });
 
     await this.teamRepository.update(domainTeam);
