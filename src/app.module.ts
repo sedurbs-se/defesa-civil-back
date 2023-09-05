@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { HttpModule } from './infra/http/Http.module';
+import { AppGateway } from './infra/websocket/app.gateway';
 
 @Module({
   imports: [

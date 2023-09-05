@@ -1,12 +1,12 @@
 import { AppError } from 'src/core/logic/error';
-import { IUserRepository } from '../../repositories/IUserRepository';
+import { UsuarioRepository } from '../../repositories/UsuarioRepository';
 import { JwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class LoginUser {
   constructor(
-    private readonly userRepository: IUserRepository,
+    private readonly userRepository: UsuarioRepository,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -19,11 +19,11 @@ export class LoginUser {
     const payload = {
       user: {
         id: user.id,
-        name: user.name,
+        name: user.nome,
         cpf: user.cpf,
-        contact: user.agent.contact,
-        function: user.agent.function,
-        fl_lider_equipe: user.agent.fl_lider_equipe,
+        contact: user.agente.contato,
+        function: user.agente.funcao,
+        fl_lider_equipe: user.agente.fl_lider_equipe,
       },
       sub: user.id,
     };
