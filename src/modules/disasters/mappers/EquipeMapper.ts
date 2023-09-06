@@ -22,7 +22,11 @@ const teamWithAgentAndArea = Prisma.validator<Prisma.EquipeArgs>()({
         agente: true,
       },
     },
-    areaAfetada: true,
+    areaAfetada: {
+      include: {
+        unidadesHabitacionais: true,
+      },
+    },
   },
 });
 
@@ -50,12 +54,13 @@ export class EquipeMapper {
   }
 
   static toDomainWithArea(raw: TeamWithAgentAndArea) {
+    console.log(raw.areaAfetada);
     return new Equipe({
       id: raw.id,
       name: raw.nome,
       areaAfetadaId: raw.areaAfetadaId,
       lider_id: raw.equipeAgente.find((e) => e.fl_lider_equipe).agenteId,
-      areaAfetada: AreaAfetadaMapper.toDomain(raw.areaAfetada),
+      areaAfetada: AreaAfetadaMapper.toDomainWithDetails(raw.areaAfetada),
       agentes: raw.equipeAgente.map((ea) => {
         return new Agente({
           id: ea.agenteId,

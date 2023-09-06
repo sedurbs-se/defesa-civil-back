@@ -8,13 +8,13 @@ export class ObterEquipePorAgenteController {
   @Get('/agent/teams/:id')
   async handle(@Param('id') id: string) {
     const equipe = await this.service.execute(id);
-
+    console.log(equipe[0].areaAfetada)
     return equipe.map((equipe) => ({
       id: equipe.id,
       name: equipe.name,
       affectedAreaId: equipe.areaAfetadaId,
       leaderId: equipe.lider_id,
-      area: {
+      affectedArea: {
         id: equipe.areaAfetada.id,
         name: equipe.areaAfetada.nome,
         order: equipe.areaAfetada.ordem,
@@ -22,7 +22,7 @@ export class ObterEquipePorAgenteController {
       },
       agents: equipe.agentes.map((agent) => ({
         id: agent.id,
-        user_id: agent.user.id,
+        user_id: agent.usuarioId,
         contact: agent.contato,
         function: agent.funcao,
         leader_equipe: agent.fl_lider_equipe,

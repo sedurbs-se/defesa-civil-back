@@ -3,6 +3,7 @@ import municipio from './insert/municipio';
 import item_basico from './insert/item_basico';
 import tipo_acao from './insert/tipo_acao';
 import tipo_evento from './insert/tipo_evento';
+import user_admin from './insert/user_admin';
 
 const prisma = new PrismaClient({
   log: ['query', 'info', 'warn'],
@@ -14,6 +15,7 @@ async function main() {
     item_basico(prisma),
     tipo_acao(prisma),
     tipo_evento(prisma),
+    user_admin(prisma),
   ]);
 }
 

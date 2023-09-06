@@ -28,7 +28,7 @@ export class PrismaEquipeRepository implements EquipeRepository {
     const teams = await this.prisma.equipe.findMany({
       where: {
         equipeAgente: {
-          every: {
+          some: {
             agenteId: agentId,
           },
         },
@@ -39,7 +39,11 @@ export class PrismaEquipeRepository implements EquipeRepository {
             agente: true,
           },
         },
-        areaAfetada: true,
+        areaAfetada: {
+          include: {
+            unidadesHabitacionais: true,
+          },
+        },
       },
     });
 
