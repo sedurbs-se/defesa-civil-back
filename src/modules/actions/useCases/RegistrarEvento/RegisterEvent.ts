@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { EventoRepository } from '../../repositories/EventoRepository';
-import { Evento } from '../../domain/evento';
+import { Evento } from '../../domain/evento/evento';
 
 interface RegisterEventRequest {
   evento: Evento;

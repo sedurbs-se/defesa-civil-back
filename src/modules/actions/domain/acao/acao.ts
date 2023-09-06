@@ -1,10 +1,12 @@
 import { Entity } from 'src/core/logic/Entity';
 import { UnidadeHabitacional } from 'src/modules/disasters/domain/unidadeHabitacional/unidade-habitacional';
 import { AreaAfetada } from 'src/modules/disasters/domain/areaAfetada/area-afetada';
+import { TipoAcao } from './TipoAcao';
 
 interface AcaoProps {
   id?: string;
   tipoId: string;
+  tipo?: TipoAcao;
 
   contexto: string;
 
@@ -28,6 +30,9 @@ class Acao extends Entity<AcaoProps> {
     return this.props.tipoId;
   }
 
+  get tipo() {
+    return this.props.tipo;
+  }
   get contexto() {
     return this.props.contexto;
   }
@@ -36,6 +41,9 @@ class Acao extends Entity<AcaoProps> {
     return this.props.areaAfetadaId;
   }
 
+  get areaAfetada() {
+    return this.props.areaAfetada;
+  }
   get unidadeHabitacionalId() {
     return this.props.unidadeHabitacionalId;
   }

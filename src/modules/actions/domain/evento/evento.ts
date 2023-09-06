@@ -1,4 +1,5 @@
 import { Entity } from 'src/core/logic/Entity';
+import { TipoEvento } from './tipoEvento';
 
 interface EventoProps {
   id?: string;
@@ -7,6 +8,7 @@ interface EventoProps {
   tipoEventoId: string;
   fotoId: string;
   quantidade?: number;
+  tipoEvento?: TipoEvento;
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date;
@@ -27,6 +29,10 @@ class Evento extends Entity<EventoProps> {
 
   get tipoEventoId() {
     return this.props.tipoEventoId;
+  }
+
+  get tipoEvento() {
+    return this.props.tipoEvento;
   }
 
   get fotoId() {

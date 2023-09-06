@@ -6,7 +6,7 @@ interface EquipeProps {
   id?: string;
   name: string;
   areaAfetadaId: string;
-  areaAfetada?:AreaAfetada;
+  areaAfetada?: AreaAfetada;
   lider_id?: string;
   lider?: Agente;
   agentes?: Agente[];

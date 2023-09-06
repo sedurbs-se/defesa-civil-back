@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { RegisterAction } from './RegisterAction';
 import { RegistrarAcaoDTO } from '../../dtos/RegistrarAcaoDTO';
-import { Acao } from '../../domain/acao';
+import { Acao } from '../../domain/acao/acao';
 
 @Controller()
 export class RegisterActionController {

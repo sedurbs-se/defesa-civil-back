@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { RegisterEvent } from './RegisterEvent';
 import { RegistrarEventoDTO } from '../../dtos/RegistrarEventoDTO';
-import { Evento } from '../../domain/evento';
+import { Evento } from '../../domain/evento/evento';
 
 @Controller()
 export class RegisterEventController {

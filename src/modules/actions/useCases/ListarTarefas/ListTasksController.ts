@@ -14,12 +14,29 @@ export class ListTasksController {
     const tasks = await this.listTasks.execute(options);
 
     const tasksDTO = tasks.map((task) => ({
-      ...task.props,
+      id: task.id,
+      acaoId: task.acaoId,
+      itemBasicoId: task.itemBasicoId,
+      nome: task.nome,
+      quantificavel: task.quantificavel,
+      status: task.status,
+      createdAt: task.createdAt,
+      updatedAt: task.updatedAt,
+      deletedAt: task.deletedAt,
+      eventos: task.eventos.map((evento) => ({
+        id: evento.id,
+        tarefaId: evento.tarefaId,
+        descricao: evento.descricao,
+        tipoEventoId: evento.tipoEventoId,
+        fotoId: evento.fotoId,
+        quantidade: evento.quantidade,
+        createdAt: evento.createdAt,
+        updatedAt: evento.updatedAt,
+        deletedAt: evento.deletedAt,
+        tipoEvento: { ...evento.tipoEvento.props },
+      })),
     }));
 
-    return {
-      ok: true,
-      result: tasksDTO,
-    };
+    return tasksDTO;
   }
 }

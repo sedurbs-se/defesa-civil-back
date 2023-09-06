@@ -18,6 +18,8 @@ import { ListTasks } from './useCases/ListarTarefas/ListTasks';
 import { ListTasksController } from './useCases/ListarTarefas/ListTasksController';
 import { ListarEventos } from './useCases/ListarEventos/ListarEventos';
 import { ListarEventosController } from './useCases/ListarEventos/ListarEventosController';
+import { ObterAcaoController } from './useCases/ObterAcao/ObterAcaoController';
+import { ObterAcao } from './useCases/ObterAcao/ObterAcao';
 
 @Module({
   imports: [],
@@ -28,6 +30,7 @@ import { ListarEventosController } from './useCases/ListarEventos/ListarEventosC
     ListarAcoesController,
     ListTasksController,
     ListarEventosController,
+    ObterAcaoController,
   ],
   providers: [
     {
@@ -49,6 +52,7 @@ import { ListarEventosController } from './useCases/ListarEventos/ListarEventosC
     ListarAcoes,
     ListTasks,
     ListarEventos,
+    ObterAcao,
   ],
 })
 export class ActionModule {}

@@ -1,4 +1,4 @@
-import { Evento } from '../domain/evento';
+import { Evento } from '../domain/evento/evento';
 
 export interface FindEventsOptions {
   tarefaId?: string;

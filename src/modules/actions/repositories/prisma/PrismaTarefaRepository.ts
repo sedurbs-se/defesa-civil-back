@@ -25,7 +25,14 @@ export class PrismaTaskRepository implements TarefaRepository {
   async findAll(options: FindTasksOptions): Promise<Tarefa[]> {
     const tarefas = await this.prisma.tarefa.findMany({
       where: options,
+      include: {
+        eventos: {
+          include: {
+            tipoEvento: true,
+          },
+        },
+      },
     });
-    return tarefas.map(TarefaMapper.toDomain);
+    return tarefas.map(TarefaMapper.toDomainWithEventos);
   }
 }

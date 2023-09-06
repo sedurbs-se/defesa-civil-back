@@ -1,4 +1,4 @@
-import { Acao } from '../domain/acao';
+import { Acao } from '../domain/acao/acao';
 
 export interface FindActionsOptions {
   unidadeHabitacionalId?: string;

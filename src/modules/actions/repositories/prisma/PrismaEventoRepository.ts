@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { EventoRepository, FindEventsOptions } from '../EventoRepository';
-import { Evento } from '../../domain/evento';
+import { Evento } from '../../domain/evento/evento';
 import { EventoMapper } from '../../mappers/EventoMapper';
 
 @Injectable()

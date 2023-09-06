@@ -34,7 +34,7 @@ export class EditarEquipe {
       name: teamDTO.name,
       areaAfetadaId: teamDTO.affectedAreaId,
       lider_id: teamDTO.leaderId,
-      agentes:agents,
+      agentes: agents,
     });
 
     await this.teamRepository.update(domainTeam);
