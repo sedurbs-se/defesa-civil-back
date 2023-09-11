@@ -18,8 +18,16 @@ export class CreateAffected {
       throw new AppError('CPF já cadastrado');
     }
 
-    const affected = new Afetado(affectedExists);
-
+    const affected = new Afetado({
+      contato: data.contact,
+      cpf: data.cpf,
+      idade: data.age,
+      nome: data.name,
+      fl_chefe_familia: data.fl_chefe_familia,
+      sexo: data.sex,
+      unidadeHabitacionalId: data.unidadeHabitacionalId,
+    });
+    
     return await this.affectedRepository.save(affected);
   }
 }

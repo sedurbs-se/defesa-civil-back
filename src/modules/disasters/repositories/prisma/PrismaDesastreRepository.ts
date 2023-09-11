@@ -55,6 +55,7 @@ class PrismaDesastreRepository implements DesastreRepository {
           include: {
             unidadesHabitacionais: {
               include: {
+                afetados: true,
                 fotos: true,
               },
             },

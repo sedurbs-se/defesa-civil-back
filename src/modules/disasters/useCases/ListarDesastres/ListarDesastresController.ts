@@ -32,14 +32,17 @@ export class ListarDesastresController {
           disaster_id: d.id,
           id: a.id,
           name: a.nome,
+          order: a.ordem,
           housingUnits: a.unidadesHabitacionais.map((h) => ({
             id: h.id,
             order: h.ordem,
             affectedAreaId: h.areaAfetadaId,
             address: h.endereco,
             coordinates: h.coordenadas,
-            // fotos:
-
+            idosos: h.afetados.filter((a) => a.obterGrupoIdade() === 'IDOSO').length,
+            adultos: h.afetados.filter((a) => a.obterGrupoIdade() === 'ADULTO').length,
+            criancas: h.afetados.filter((a) => a.obterGrupoIdade() === 'CRIANÇA').length,
+            
             fl_danificado: h.fl_danificado,
             fl_desabrigado: h.fl_desabrigado,
             fl_desalojado: h.fl_desalojado,
@@ -53,6 +56,7 @@ export class ListarDesastresController {
         id: a.id,
         name: a.nome,
         disaster_id: a.desastreId,
+        order: a.ordem,
       })),
       housingUnits: housingUnits.map((h) => ({
         id: h.id,
@@ -60,8 +64,9 @@ export class ListarDesastresController {
         affectedAreaId: h.areaAfetadaId,
         address: h.endereco,
         coordinates: h.coordenadas,
-        // fotos:
-
+        idosos: h.afetados.filter((a) => a.obterGrupoIdade() === 'IDOSO').length,
+        adultos: h.afetados.filter((a) => a.obterGrupoIdade() === 'ADULTO').length,
+        criancas: h.afetados.filter((a) => a.obterGrupoIdade() === 'CRIANÇA').length,
         fl_danificado: h.fl_danificado,
         fl_desabrigado: h.fl_desabrigado,
         fl_desalojado: h.fl_desalojado,

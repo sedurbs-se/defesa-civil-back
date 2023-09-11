@@ -58,7 +58,6 @@ class PrismaAfetadoRepository implements AfetadoRepository {
     });
 
     if (!raw) return null;
-
     return AfetadoMapper.toDomain(raw);
   }
 
