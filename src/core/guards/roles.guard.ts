@@ -7,6 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from 'src/constants';
+import { Usuario } from 'src/modules/disasters/domain/usuario/usuario';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -29,13 +30,12 @@ export class RolesGuard implements CanActivate {
     } catch {
       throw new UnauthorizedException();
     }
-    const user = request.user;
+    const user = request.user as Usuario;
     const roles = this.reflector.get<string[]>('roles', context.getHandler());
     if (!roles) {
       return false;
     }
-
-    return matchRoles(roles, user.props.role);
+  return matchRoles(roles, user.cargo);
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {

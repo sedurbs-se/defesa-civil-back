@@ -171,14 +171,15 @@ model FotoUnidade {
 }
 
 model Usuario {
-  id        String    @id @default(uuid())
-  cpf       String    @unique
-  nome      String
-  agente    Agente?
-  cargo     String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
-  deletedAt DateTime?
+  id         String      @id @default(uuid())
+  cpf        String      @unique
+  nome       String
+  agente     Agente?
+  cargo      String?
+  alteracoes Alteracao[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime?   @updatedAt
+  deletedAt  DateTime?
 }
 
 model Agente {
@@ -225,4 +226,17 @@ model Imagem {
   updatedAt DateTime? @updatedAt
   Evento    Evento[]
   deletedAt DateTime?
+}
+
+model Alteracao {
+  id         String  @id @default(uuid())
+  usuarioId  String
+  usuario    Usuario @relation(fields: [usuarioId], references: [id])
+  tipo       String // CREATE, UPDATE, DELETE
+
+  // Toda modificações no sistema será feita com metodo SoftDelete (deletedAt)
+  antigo_id String? // id do objeto antes da alteração
+  novo_id   String? // id do objeto depois da alteração
+
+  createdAt DateTime @default(now())
 }

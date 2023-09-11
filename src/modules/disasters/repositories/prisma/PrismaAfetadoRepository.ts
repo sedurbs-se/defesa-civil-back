@@ -19,13 +19,15 @@ class PrismaAfetadoRepository implements AfetadoRepository {
   }
 
   async update(affected: Afetado): Promise<Afetado> {
-    const { ...data } = AfetadoMapper.toPersistence(affected);
+    const data = AfetadoMapper.toPersistence(affected);
 
     const a = await this.prisma.afetado.update({
       where: {
         id: affected.id,
       },
-      data,
+      data: {
+        ...data,
+      },
     });
     return AfetadoMapper.toDomain(a);
   }
@@ -70,6 +72,7 @@ class PrismaAfetadoRepository implements AfetadoRepository {
 
     return raw.map((r) => AfetadoMapper.toDomain(r));
   }
+  
   async delete(id: string[]): Promise<void> {
     await this.prisma.afetado.deleteMany({
       where: {

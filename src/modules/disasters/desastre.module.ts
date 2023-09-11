@@ -76,6 +76,8 @@ import { ImageModule } from '../images/image.module';
 import { AppGateway } from 'src/infra/websocket/app.gateway';
 import { ObterEquipePorAgenteController } from './useCases/ObterEquipePorAgente/ObterEquipePorAgenteController';
 import { ObterEquipePorAgente } from './useCases/ObterEquipePorAgente/ObterEquipePorAgente';
+import { AlteracaoRepository } from '../historico/repositories/AlteracaoRepository';
+import { PrismaAlteracaoRepository } from '../historico/repositories/prisma/PrismaAlteracaoRepository';
 
 @Module({
   imports: [ActionModule, ImageModule],
@@ -146,6 +148,10 @@ import { ObterEquipePorAgente } from './useCases/ObterEquipePorAgente/ObterEquip
     {
       provide: AfetadoRepository,
       useClass: PrismaAfetadoRepository,
+    },
+    {
+      provide: AlteracaoRepository,
+      useClass: PrismaAlteracaoRepository,
     },
     {
       provide: APP_INTERCEPTOR,

@@ -15,13 +15,15 @@ export class LoginUser {
 
     if (!user) {
       throw new AppError('CPF não cadastrado');
-    }
+    };
+    console.log(user)
     const payload = {
       user: {
         id: user.id,
         agent_id: user.agente.id,
         name: user.nome,
         cpf: user.cpf,
+        cargo: user.cargo,
         contact: user.agente.contato,
         function: user.agente.funcao,
         fl_lider_equipe: user.agente.fl_lider_equipe,
