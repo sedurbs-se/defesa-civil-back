@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import { IsInt, IsNotEmpty, IsNumberString, IsOptional } from 'class-validator';
 
 export abstract class BuscarTodosFiltrosDTO {
   @IsOptional()
@@ -7,12 +7,17 @@ export abstract class BuscarTodosFiltrosDTO {
   @IsOptional()
   tipo?: string;
 
+  @IsOptional()
+  tabela?: string;
+
+  @IsNotEmpty({ message: 'O campo de novo_id não pode ser vazio!' })
+  novo_id: string;
+
   @IsNotEmpty({ message: 'O campo de pagina não pode ser vazio!' })
-  @IsNumber()
+  @IsNumberString()
   pagina: number;
+  
   @IsNotEmpty({ message: 'O campo de limite não pode ser vazio!' })
-  @IsNumber()
+  @IsNumberString()
   limite: number;
 }
-
-

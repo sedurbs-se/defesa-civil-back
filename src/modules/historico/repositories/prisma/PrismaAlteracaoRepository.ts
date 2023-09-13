@@ -14,28 +14,44 @@ class PrismaAlteracaoRepository implements AlteracaoRepository {
         id,
       },
       include: {
-        usuario: true,
+        usuario: {
+          include: {
+            agente: true
+          }
+        }
       },
     });
     if (!a) return null;
     return AlteracaoMapper.toDomain(a);
   }
   async findAll({
-    id_usuario,
-    tipo,
     pagina,
     limite,
+    ...filtros
   }: BuscarTodosFiltrosDTO): Promise<Alteracao[]> {
+
+    const where = {};
+
+    Object.keys(filtros).forEach((key) => {
+      if (filtros[key]) {
+        where[key] = filtros[key];
+      }
+    });
+
     const alteracoes = await this.prisma.alteracao.findMany({
-      where: {
-        usuarioId: id_usuario,
-        tipo,
-      },
+      where,
       include: {
-        usuario: true,
+        usuario: {
+          include: {
+            agente: true
+          }
+        }
       },
       skip: pagina * limite,
       take: limite,
+      orderBy:{
+        createdAt: 'desc'
+      }
     });
 
     return alteracoes.map((a) => AlteracaoMapper.toDomain(a));
@@ -47,12 +63,15 @@ class PrismaAlteracaoRepository implements AlteracaoRepository {
         usuarioId: data.usuarioId,
         id: data.id,
         tipo: data.tipo,
+        tabela: data.tabela,
         antigo_id: data.antigo_id,
         novo_id: data.novo_id,
         createdAt: data.createdAt,
       },
     });
   }
+
+ 
 }
 
 export { PrismaAlteracaoRepository };

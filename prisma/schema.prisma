@@ -229,14 +229,15 @@ model Imagem {
 }
 
 model Alteracao {
-  id         String  @id @default(uuid())
-  usuarioId  String
-  usuario    Usuario @relation(fields: [usuarioId], references: [id])
-  tipo       String // CREATE, UPDATE, DELETE
-
+  id        String  @id @default(uuid())
+  usuarioId String
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  tipo      String // CREATE, UPDATE, DELETE
+  tabela    String // Tabela que foi alterada
   // Toda modificações no sistema será feita com metodo SoftDelete (deletedAt)
   antigo_id String? // id do objeto antes da alteração
   novo_id   String? // id do objeto depois da alteração
 
+  versao    Int
   createdAt DateTime @default(now())
 }

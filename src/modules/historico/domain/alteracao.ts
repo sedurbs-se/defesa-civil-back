@@ -13,6 +13,7 @@ interface AlteracaoProps {
   usuario?: Usuario;
 
   tipo: TipoAlteracao; // CREATE, UPDATE, DELETE
+  tabela: string; // nome da tabela que sofreu a alteração
   antigo_id: string; // id do objeto antes da alteração
   novo_id: string; // id do objeto depois da alteração
 
@@ -31,6 +32,9 @@ class Alteracao extends Entity<AlteracaoProps> {
   }
   get tipo() {
     return this.props.tipo;
+  }
+  get tabela() {
+    return this.props.tabela;
   }
 
   get antigo_id() {

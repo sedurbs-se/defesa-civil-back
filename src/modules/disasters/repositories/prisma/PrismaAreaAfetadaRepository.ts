@@ -181,4 +181,16 @@ export class PrismaAreaAfetadaRepository implements AreaAfetadaRepository {
 
     return areas.map(AreaAfetadaMapper.toDomain);
   }
+
+  async delete(alteracao: AreaAfetada): Promise<AreaAfetada> {
+    const a = AreaAfetadaMapper.toPersistence(alteracao);
+
+    const area = await this.prisma.areaAfetada.delete({
+      where: {
+        id: a.id,
+      },
+    });
+
+    return AreaAfetadaMapper.toDomain(area);
+  }
 }

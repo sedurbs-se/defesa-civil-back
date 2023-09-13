@@ -43,10 +43,12 @@ export class CriarDesastre {
       tipo: TipoAlteracao.CREATE,
       id_usuario: request.id_usuario,
       createdAt: new Date(),
+      tabela: 'DESASTRE',
       // id_usuario: request.userId,
     });
 
     await this.alteracaoRepository.save(alteracao);
+    
     return disaster;
   }
 }

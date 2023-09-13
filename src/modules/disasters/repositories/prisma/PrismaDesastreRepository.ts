@@ -5,6 +5,7 @@ import { DesastreMapper } from '../../mappers/DesastreMapper';
 import { Injectable } from '@nestjs/common';
 import { DisasterWithDetails } from '../../useCases/ObterDesastre/ObterDesastre';
 import { UnidadeMapper } from '../../mappers/UnidadeMapper';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 class PrismaDesastreRepository implements DesastreRepository {
@@ -31,10 +32,26 @@ class PrismaDesastreRepository implements DesastreRepository {
     });
   }
 
+  async delete(disaster: Desastre): Promise<Desastre> {
+    const m = DesastreMapper.toPersistence(disaster);
+
+    const d = await this.prisma.desastre.create({
+      data: {
+        ...m,
+        id: randomUUID(),
+        deletedAt: new Date(),
+      },
+      include: { areas: true, municipio: true },
+    });
+
+    return DesastreMapper.toDomain(d);
+  }
+
   async find(id: string): Promise<Desastre> {
-    const desastre = await this.prisma.desastre.findUnique({
+    const desastre = await this.prisma.desastre.findFirst({
       where: {
         id: id,
+        deletedAt: null,
       },
       include: {
         areas: true,
@@ -49,6 +66,9 @@ class PrismaDesastreRepository implements DesastreRepository {
 
   async findAll(select_areas = false): Promise<Desastre[]> {
     const desastres = await this.prisma.desastre.findMany({
+      where: {
+        deletedAt: null,
+      },
       include: {
         municipio: true,
         areas: {
@@ -68,9 +88,10 @@ class PrismaDesastreRepository implements DesastreRepository {
   }
 
   async getDisasterDetails(id: string): Promise<DisasterWithDetails> {
-    const d = await this.prisma.desastre.findUnique({
+    const d = await this.prisma.desastre.findFirst({
       where: {
         id: id,
+        deletedAt: null,
       },
       include: {
         areas: true,

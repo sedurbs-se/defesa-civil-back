@@ -78,6 +78,8 @@ import { ObterEquipePorAgenteController } from './useCases/ObterEquipePorAgente/
 import { ObterEquipePorAgente } from './useCases/ObterEquipePorAgente/ObterEquipePorAgente';
 import { AlteracaoRepository } from '../historico/repositories/AlteracaoRepository';
 import { PrismaAlteracaoRepository } from '../historico/repositories/prisma/PrismaAlteracaoRepository';
+import { ObterAlteracoes } from '../historico/useCases/ObterAlteracoes/ObterAlteracoes';
+import { ObterAlteracoesController } from '../historico/useCases/ObterAlteracoes/ObterAlteracoesController';
 
 @Module({
   imports: [ActionModule, ImageModule],
@@ -111,6 +113,9 @@ import { PrismaAlteracaoRepository } from '../historico/repositories/prisma/Pris
     ObterAgenteController,
     EditarAgenteController,
     ObterEquipePorAgenteController,
+
+
+    ObterAlteracoesController,
   ],
   providers: [
     {
@@ -186,6 +191,7 @@ import { PrismaAlteracaoRepository } from '../historico/repositories/prisma/Pris
     EditarAgente,
     ObterEquipePorAgente,
 
+    ObterAlteracoes,
     AppGateway,
   ],
 })
