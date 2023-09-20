@@ -1,14 +1,24 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { CreateHousingUnitDTO } from '../../dtos/CreateHousingUnitDTO';
 import { CriarUnidade } from './CriarUnidade';
+import { CARGOS } from '../../domain/usuario/usuario';
+import { Roles } from 'src/core/decorators/roles.decorator';
+import { RolesGuard } from 'src/core/guards/roles.guard';
+import { Usuario } from '@prisma/client';
+import { User } from 'src/core/decorators/user.decorator';
 
+@UseGuards(RolesGuard)
 @Controller()
 export class CriarUnidadeController {
   constructor(private readonly criarUnidade: CriarUnidade) {}
 
   @Post('/housing-unit')
-  async execute(@Body() body: CreateHousingUnitDTO) {
-    const housingUnit = await this.criarUnidade.execute(body);
+  @Roles(CARGOS.AGENT)
+  async execute(@Body() body: CreateHousingUnitDTO, @User() user: Usuario) {
+    const housingUnit = await this.criarUnidade.execute({
+      ...body,
+      id_usuario: user.id,
+    });
 
     return {
       id: housingUnit.id,

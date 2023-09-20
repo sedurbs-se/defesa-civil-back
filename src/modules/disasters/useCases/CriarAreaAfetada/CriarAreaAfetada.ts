@@ -38,6 +38,7 @@ class CriarAreaAfetada {
     const alteracao = new Alteracao({
       antigo_id: null,
       novo_id: affectedArea.id,
+      item_id: affectedArea.id,
       tipo: TipoAlteracao.CREATE,
       id_usuario: request.id_usuario,
       createdAt: new Date(),

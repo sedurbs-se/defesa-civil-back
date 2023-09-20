@@ -10,8 +10,8 @@ export abstract class BuscarTodosFiltrosDTO {
   @IsOptional()
   tabela?: string;
 
-  @IsNotEmpty({ message: 'O campo de novo_id não pode ser vazio!' })
-  novo_id: string;
+  @IsNotEmpty({ message: 'O campo de item_id não pode ser vazio!' })
+  item_id: string;
 
   @IsNotEmpty({ message: 'O campo de pagina não pode ser vazio!' })
   @IsNumberString()

@@ -237,7 +237,7 @@ model Alteracao {
   // Toda modificações no sistema será feita com metodo SoftDelete (deletedAt)
   antigo_id String? // id do objeto antes da alteração
   novo_id   String? // id do objeto depois da alteração
+  item_id   String? // id do objeto que foi alterado
 
-  versao    Int
   createdAt DateTime @default(now())
 }

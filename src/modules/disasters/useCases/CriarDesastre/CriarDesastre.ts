@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AlteracaoRepository } from 'src/modules/historico/repositories/AlteracaoRepository';
 import {
   Alteracao,
+  AlteracaoTable,
   TipoAlteracao,
 } from 'src/modules/historico/domain/alteracao';
 import { OptionalExceptFor } from 'src/core/logic/OptionalExceptFor';
@@ -40,10 +41,11 @@ export class CriarDesastre {
     const alteracao = new Alteracao({
       antigo_id: null,
       novo_id: disaster.id,
+      item_id: disaster.id,
       tipo: TipoAlteracao.CREATE,
       id_usuario: request.id_usuario,
       createdAt: new Date(),
-      tabela: 'DESASTRE',
+      tabela: AlteracaoTable.DESASTRE,
       // id_usuario: request.userId,
     });
 

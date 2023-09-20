@@ -5,7 +5,7 @@ import { CidadeRepository } from '../../repositories/CidadeRepository';
 import { AppError } from 'src/core/logic/error';
 import { Injectable } from '@nestjs/common';
 import { AlteracaoRepository } from 'src/modules/historico/repositories/AlteracaoRepository';
-import { Alteracao, TipoAlteracao } from 'src/modules/historico/domain/alteracao';
+import { Alteracao, AlteracaoTable, TipoAlteracao } from 'src/modules/historico/domain/alteracao';
 
 interface CreateDisasterDTOWithUserId extends CreateDisasterDTO {
   id_usuario: string;
@@ -44,10 +44,11 @@ export class EditarDesastre {
     const alteracao = new Alteracao({
       antigo_id: deleted.id,
       novo_id: disaster.id,
+      item_id: disaster.id,
       tipo: TipoAlteracao.UPDATE,
       id_usuario: request.id_usuario,
       createdAt: new Date(),
-      tabela: 'DESASTRE',
+      tabela: AlteracaoTable.DESASTRE,
     });
 
     await this.alteracaoRepository.save(alteracao);

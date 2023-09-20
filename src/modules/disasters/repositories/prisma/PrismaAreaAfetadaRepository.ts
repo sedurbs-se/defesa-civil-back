@@ -5,6 +5,7 @@ import { AreaAfetada } from '../../domain/areaAfetada/area-afetada';
 import { AreaAfetadaMapper } from '../../mappers/AreaAfetadaMapper';
 import { AffectedAreaWithDetails } from '../../useCases/ObterArea/ObterArea';
 import { UnidadeMapper } from '../../mappers/UnidadeMapper';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class PrismaAreaAfetadaRepository implements AreaAfetadaRepository {
@@ -34,9 +35,10 @@ export class PrismaAreaAfetadaRepository implements AreaAfetadaRepository {
   }
 
   async find(id: string): Promise<AreaAfetada> {
-    const area = await this.prisma.areaAfetada.findUnique({
+    const area = await this.prisma.areaAfetada.findFirst({
       where: {
         id,
+        deletedAt: null,
       },
       include: {
         unidadesHabitacionais: {
@@ -58,9 +60,10 @@ export class PrismaAreaAfetadaRepository implements AreaAfetadaRepository {
   }
 
   async findWithDetails(id: string): Promise<AffectedAreaWithDetails> {
-    const area = await this.prisma.areaAfetada.findUnique({
+    const area = await this.prisma.areaAfetada.findFirst({
       where: {
         id,
+        deletedAt: null,
       },
       include: {
         unidadesHabitacionais: {
@@ -152,6 +155,7 @@ export class PrismaAreaAfetadaRepository implements AreaAfetadaRepository {
     const area = await this.prisma.areaAfetada.findFirst({
       where: {
         ORDEM: order,
+        deletedAt: null,
       },
       include: {
         unidadesHabitacionais: {
@@ -176,6 +180,7 @@ export class PrismaAreaAfetadaRepository implements AreaAfetadaRepository {
     const areas = await this.prisma.areaAfetada.findMany({
       where: {
         desastreId: disaster_id,
+        deletedAt: null,
       },
     });
 
@@ -185,9 +190,11 @@ export class PrismaAreaAfetadaRepository implements AreaAfetadaRepository {
   async delete(alteracao: AreaAfetada): Promise<AreaAfetada> {
     const a = AreaAfetadaMapper.toPersistence(alteracao);
 
-    const area = await this.prisma.areaAfetada.delete({
-      where: {
-        id: a.id,
+    const area = await this.prisma.areaAfetada.create({
+      data: {
+        ...a,
+        id: randomUUID(),
+        deletedAt: new Date(),
       },
     });
 

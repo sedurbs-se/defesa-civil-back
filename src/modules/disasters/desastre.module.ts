@@ -80,6 +80,8 @@ import { AlteracaoRepository } from '../historico/repositories/AlteracaoReposito
 import { PrismaAlteracaoRepository } from '../historico/repositories/prisma/PrismaAlteracaoRepository';
 import { ObterAlteracoes } from '../historico/useCases/ObterAlteracoes/ObterAlteracoes';
 import { ObterAlteracoesController } from '../historico/useCases/ObterAlteracoes/ObterAlteracoesController';
+import { ObterAlteracaoController } from '../historico/useCases/ObeterAlteracao/ObterAlteracaoController';
+import { ObterAlteracao } from '../historico/useCases/ObeterAlteracao/ObterAlteracao';
 
 @Module({
   imports: [ActionModule, ImageModule],
@@ -116,6 +118,7 @@ import { ObterAlteracoesController } from '../historico/useCases/ObterAlteracoes
 
 
     ObterAlteracoesController,
+    ObterAlteracaoController,
   ],
   providers: [
     {
@@ -190,8 +193,8 @@ import { ObterAlteracoesController } from '../historico/useCases/ObterAlteracoes
     ObterAgente,
     EditarAgente,
     ObterEquipePorAgente,
-
     ObterAlteracoes,
+    ObterAlteracao,
     AppGateway,
   ],
 })

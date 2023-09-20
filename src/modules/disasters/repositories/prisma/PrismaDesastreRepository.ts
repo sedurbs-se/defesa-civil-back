@@ -72,10 +72,20 @@ class PrismaDesastreRepository implements DesastreRepository {
       include: {
         municipio: true,
         areas: {
+          where: {
+            deletedAt: null,
+          },
           include: {
             unidadesHabitacionais: {
+              where: {
+                deletedAt: null,
+              },
               include: {
-                afetados: true,
+                afetados: {
+                  where: {
+                    deletedAt: null,
+                  },
+                },
                 fotos: true,
               },
             },
@@ -94,7 +104,11 @@ class PrismaDesastreRepository implements DesastreRepository {
         deletedAt: null,
       },
       include: {
-        areas: true,
+        areas: {
+          where: {
+            deletedAt: null,
+          },
+        },
         municipio: true,
       },
     });
@@ -105,6 +119,7 @@ class PrismaDesastreRepository implements DesastreRepository {
 
     const u = await this.prisma.unidadeHabitacional.findMany({
       where: {
+        deletedAt: null,
         areaAfetadaId: {
           in: disaster.areasAfetadas.map((a) => a.id),
         },

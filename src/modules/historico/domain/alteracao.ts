@@ -7,6 +7,65 @@ export enum TipoAlteracao {
   DELETE = 'DELETE',
 }
 
+export enum AlteracaoTable {
+  DESASTRE = 'DESASTRE',
+  AREA_AFETADA = 'AREA_AFETADA',
+  UNIDADE_HABITACIONAL = 'UNIDADE_HABITACIONAL',
+  AGENTE = 'AGENTE',
+}
+
+export const buildQuery = (tabela: AlteracaoTable, id: string) => {
+  if (tabela === AlteracaoTable.DESASTRE) {
+    return `
+    SELECT data, nome as municipio_name FROM Desastre 
+      join Municipio on Desastre.municipio_id = Municipio.id
+    WHERE Desastre.id = '${id}'
+    `;
+  }
+
+  if (tabela === AlteracaoTable.AREA_AFETADA) {
+    return `
+      SELECT nome FROM AreaAfetada WHERE id = '${id}'
+    `;
+  }
+
+  if (tabela === AlteracaoTable.UNIDADE_HABITACIONAL) {
+    return `
+      SELECT * FROM UnidadeHabitacional WHERE id = '${id}'
+    `;
+  }
+};
+
+export const buildQueryIds = (tabela: AlteracaoTable, id: string) => {
+  if (tabela === AlteracaoTable.DESASTRE) {
+    return `
+      SELECT 
+      Desastre.id as id_desastre,
+      AreaAfetada.id as id_area, 
+      UnidadeHabitacional.id as id_unidade, 
+      Afetado.id as id_afetado 
+        FROM Desastre
+        left join AreaAfetada on AreaAfetada.desastreId = Desastre.id
+        left join UnidadeHabitacional on UnidadeHabitacional.areaAfetadaId = AreaAfetada.id
+        left join Afetado on Afetado.unidadeHabitacionalId = Afetado.id
+        group by Desastre.id, AreaAfetada.id, UnidadeHabitacional.id, Afetado.id
+        having Desastre.id = '${id}'
+        `;
+  }
+
+  if (tabela === AlteracaoTable.AREA_AFETADA) {
+    return `
+      SELECT nome FROM AreaAfetada WHERE id = '${id}'
+    `;
+  }
+
+  if (tabela === AlteracaoTable.UNIDADE_HABITACIONAL) {
+    return `
+      SELECT * FROM UnidadeHabitacional WHERE id = '${id}'
+    `;
+  }
+};
+
 interface AlteracaoProps {
   id?: string;
   id_usuario: string;
@@ -16,6 +75,10 @@ interface AlteracaoProps {
   tabela: string; // nome da tabela que sofreu a alteração
   antigo_id: string; // id do objeto antes da alteração
   novo_id: string; // id do objeto depois da alteração
+  item_id: string; // id do objeto depois da alteração
+
+  antigo?: Object;
+  novo?: Object;
 
   createdAt: Date;
 }
@@ -43,6 +106,18 @@ class Alteracao extends Entity<AlteracaoProps> {
 
   get novo_id() {
     return this.props.novo_id;
+  }
+
+  get item_id() {
+    return this.props.item_id;
+  }
+
+  get antigo() {
+    return this.props.antigo;
+  }
+
+  get novo() {
+    return this.props.novo;
   }
 
   get createdAt() {

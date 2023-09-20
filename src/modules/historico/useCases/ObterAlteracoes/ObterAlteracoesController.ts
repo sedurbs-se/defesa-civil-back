@@ -17,6 +17,7 @@ export class ObterAlteracoesController {
           cpf: h.usuario.cpf,
           funcao: h.usuario.agente.funcao,
         },
+        changes:[],
         tipo: h.tipo,
         tabela: h.tabela,
         antigo_id: h.antigo_id,

@@ -37,6 +37,22 @@ export class PrismaUnidadeHabitacionalRepository
     });
   }
 
+  async delete(housingUnit: UnidadeHabitacional): Promise<UnidadeHabitacional> {
+    const data = UnidadeMapper.toPersistence(housingUnit);
+    const deleted = await this.prisma.unidadeHabitacional.create({
+      data: {
+        ...data,
+        fotos: {
+          create: data.fotos,
+        },
+        deletedAt: new Date(),
+      },
+      include: { fotos: true, afetados: true}
+    });
+
+    return UnidadeMapper.toDomain(deleted);
+  }
+
   async find(id: string): Promise<UnidadeHabitacional> {
     const housingUnit = await this.prisma.unidadeHabitacional.findUnique({
       where: {

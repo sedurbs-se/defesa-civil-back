@@ -5,7 +5,7 @@ import { AreaAfetadaRepository } from '../../repositories/AreaAfetadaRepository'
 import { DesastreRepository } from '../../repositories/DesastreRepository';
 import { AppError } from 'src/core/logic/error';
 import { CreateAffectedAreaDTO } from '../../dtos/CreateAffectedAreaDTO';
-import { Alteracao, TipoAlteracao } from 'src/modules/historico/domain/alteracao';
+import { Alteracao, AlteracaoTable, TipoAlteracao } from 'src/modules/historico/domain/alteracao';
 import { AlteracaoRepository } from 'src/modules/historico/repositories/AlteracaoRepository';
 
 type EditarAreaAfetadaRequest = OptionalExceptFor<CreateAffectedAreaDTO, 'id'>;
@@ -49,10 +49,11 @@ export class EditarAreaAfetada {
     const alteracao = new Alteracao({
       antigo_id: deleted.id,
       novo_id: updatedAffectedArea.id,
-      tipo: TipoAlteracao.UPDATE,
+      item_id: updatedAffectedArea.id,
       id_usuario: request.id_usuario,
+      tipo: TipoAlteracao.UPDATE,
       createdAt: new Date(),
-      tabela: 'AREA_AFETADA',
+      tabela: AlteracaoTable.AREA_AFETADA,
     });
 
     await this.alteracaoRepository.save(alteracao);
