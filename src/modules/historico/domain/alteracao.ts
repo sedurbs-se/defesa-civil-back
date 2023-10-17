@@ -11,10 +11,13 @@ export enum AlteracaoTable {
   DESASTRE = 'DESASTRE',
   AREA_AFETADA = 'AREA_AFETADA',
   UNIDADE_HABITACIONAL = 'UNIDADE_HABITACIONAL',
-  AGENTE = 'AGENTE',
+  EQUIPE = 'EQUIPE',
+  AFETADO = 'AFETADO',
 }
 
 export const buildQuery = (tabela: AlteracaoTable, id: string) => {
+
+
   if (tabela === AlteracaoTable.DESASTRE) {
     return `
     SELECT data, nome as municipio_name FROM Desastre 
@@ -31,7 +34,21 @@ export const buildQuery = (tabela: AlteracaoTable, id: string) => {
 
   if (tabela === AlteracaoTable.UNIDADE_HABITACIONAL) {
     return `
-      SELECT * FROM UnidadeHabitacional WHERE id = '${id}'
+      SELECT coordenadas, endereco, GROUP_CONCAT(FotoUnidade.id, ",") as fotos FROM UnidadeHabitacional
+      left join FotoUnidade on FotoUnidade.unidadeHabitacionalId = UnidadeHabitacional.id
+      WHERE UnidadeHabitacional.id = '${id}'
+      `;
+  }
+
+  if (tabela === AlteracaoTable.EQUIPE) {
+    return `
+      SELECT * FROM Equipe WHERE id = '${id}'
+    `;
+  }
+
+  if (tabela === AlteracaoTable.AFETADO) {
+    return `
+      SELECT * FROM Afetado WHERE id = '${id}'
     `;
   }
 };
@@ -43,10 +60,12 @@ export const buildQueryIds = (tabela: AlteracaoTable, id: string) => {
       Desastre.id as id_desastre,
       AreaAfetada.id as id_area, 
       UnidadeHabitacional.id as id_unidade, 
+      Equipe.id as id_equipe,
       Afetado.id as id_afetado 
         FROM Desastre
         left join AreaAfetada on AreaAfetada.desastreId = Desastre.id
         left join UnidadeHabitacional on UnidadeHabitacional.areaAfetadaId = AreaAfetada.id
+        left join Equipe on Equipe.areaAfetadaId = AreaAfetada.id
         left join Afetado on Afetado.unidadeHabitacionalId = Afetado.id
         group by Desastre.id, AreaAfetada.id, UnidadeHabitacional.id, Afetado.id
         having Desastre.id = '${id}'
@@ -55,13 +74,29 @@ export const buildQueryIds = (tabela: AlteracaoTable, id: string) => {
 
   if (tabela === AlteracaoTable.AREA_AFETADA) {
     return `
-      SELECT nome FROM AreaAfetada WHERE id = '${id}'
+      SELECT 
+      AreaAfetada.id as id_area,
+      UnidadeHabitacional.id as id_unidade,
+      Equipe.id as id_equipe,
+      Afetado.id as id_afetado
+        FROM AreaAfetada
+        left join UnidadeHabitacional on UnidadeHabitacional.areaAfetadaId = AreaAfetada.id
+        left join Equipe on Equipe.areaAfetadaId = AreaAfetada.id
+        left join Afetado on Afetado.unidadeHabitacionalId = Afetado.id
+        group by AreaAfetada.id, UnidadeHabitacional.id, Afetado.id
+        having AreaAfetada.id = '${id}'
     `;
   }
 
   if (tabela === AlteracaoTable.UNIDADE_HABITACIONAL) {
     return `
-      SELECT * FROM UnidadeHabitacional WHERE id = '${id}'
+      SELECT
+      UnidadeHabitacional.id as id_unidade,
+      Afetado.id as id_afetado
+        FROM UnidadeHabitacional
+        left join Afetado on Afetado.unidadeHabitacionalId = Afetado.id
+        group by UnidadeHabitacional.id, Afetado.id
+        having UnidadeHabitacional.id = '${id}'
     `;
   }
 };

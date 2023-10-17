@@ -10,7 +10,7 @@ export class PrismaUnidadeHabitacionalRepository
 {
   constructor(private readonly prisma: PrismaService) {}
   async save(housingUnit: UnidadeHabitacional): Promise<void> {
-    const { ...data } = UnidadeMapper.toPersistence(housingUnit);
+    const data = UnidadeMapper.toPersistence(housingUnit);
     await this.prisma.unidadeHabitacional.create({
       data: {
         ...data,
@@ -22,7 +22,7 @@ export class PrismaUnidadeHabitacionalRepository
   }
 
   async update(housingUnit: UnidadeHabitacional): Promise<void> {
-    const { ...data } = UnidadeMapper.toPersistence(housingUnit);
+    const {fotos,...data} = UnidadeMapper.toPersistence(housingUnit);
 
     await this.prisma.unidadeHabitacional.update({
       where: {
@@ -31,7 +31,7 @@ export class PrismaUnidadeHabitacionalRepository
       data: {
         ...data,
         fotos: {
-          create: data.fotos,
+          create: fotos,
         },
       },
     });
@@ -67,6 +67,7 @@ export class PrismaUnidadeHabitacionalRepository
 
     return UnidadeMapper.toDomain(housingUnit);
   }
+
   async findByOrdem(ordem: number): Promise<UnidadeHabitacional> {
     const housingUnit = await this.prisma.unidadeHabitacional.findFirst({
       where: {
@@ -82,6 +83,7 @@ export class PrismaUnidadeHabitacionalRepository
 
     return UnidadeMapper.toDomain(housingUnit);
   }
+  
   async findAll(area_id: string): Promise<UnidadeHabitacional[]> {
     const housingUnits = await this.prisma.unidadeHabitacional.findMany({
       include: {

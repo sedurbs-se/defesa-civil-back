@@ -35,12 +35,8 @@ class CriarUnidade {
       areaAfetadaId: data.affectedAreaId,
       coordenadas: data.coordinates,
       endereco: data.address,
-      fl_danificado: data.fl_danificado,
-      fl_desabrigado: data.fl_desabrigado,
-      fl_desalojado: data.fl_desalojado,
-      fl_destroido: data.fl_destroido,
-      fl_resiliente: data.fl_resiliente,
-      fl_resistente: data.fl_resistente,
+      status_familia: data.status_familia,
+      status_habitacao: data.status_habitacao,
     });
 
     await this.housingUnitRepository.save(housingUnit);

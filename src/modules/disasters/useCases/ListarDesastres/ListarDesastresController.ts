@@ -39,16 +39,16 @@ export class ListarDesastresController {
             affectedAreaId: h.areaAfetadaId,
             address: h.endereco,
             coordinates: h.coordenadas,
-            idosos: h.afetados.filter((a) => a.obterGrupoIdade() === 'IDOSO').length,
-            adultos: h.afetados.filter((a) => a.obterGrupoIdade() === 'ADULTO').length,
-            criancas: h.afetados.filter((a) => a.obterGrupoIdade() === 'CRIANÇA').length,
-            
-            fl_danificado: h.fl_danificado,
-            fl_desabrigado: h.fl_desabrigado,
-            fl_desalojado: h.fl_desalojado,
-            fl_destroido: h.fl_destroido,
-            fl_resiliente: h.fl_resiliente,
-            fl_resistente: h.fl_resistente,
+            idosos: h.afetados.filter((a) => a.obterGrupoIdade() === 'IDOSO')
+              .length,
+            adultos: h.afetados.filter((a) => a.obterGrupoIdade() === 'ADULTO')
+              .length,
+            criancas: h.afetados.filter(
+              (a) => a.obterGrupoIdade() === 'CRIANÇA',
+            ).length,
+
+            status_habitacao: h.status_habitacao,
+            status_familia: h.status_familia,
           })),
         })),
       })),
@@ -64,15 +64,14 @@ export class ListarDesastresController {
         affectedAreaId: h.areaAfetadaId,
         address: h.endereco,
         coordinates: h.coordenadas,
-        idosos: h.afetados.filter((a) => a.obterGrupoIdade() === 'IDOSO').length,
-        adultos: h.afetados.filter((a) => a.obterGrupoIdade() === 'ADULTO').length,
-        criancas: h.afetados.filter((a) => a.obterGrupoIdade() === 'CRIANÇA').length,
-        fl_danificado: h.fl_danificado,
-        fl_desabrigado: h.fl_desabrigado,
-        fl_desalojado: h.fl_desalojado,
-        fl_destroido: h.fl_destroido,
-        fl_resiliente: h.fl_resiliente,
-        fl_resistente: h.fl_resistente,
+        idosos: h.afetados.filter((a) => a.obterGrupoIdade() === 'IDOSO')
+          .length,
+        adultos: h.afetados.filter((a) => a.obterGrupoIdade() === 'ADULTO')
+          .length,
+        criancas: h.afetados.filter((a) => a.obterGrupoIdade() === 'CRIANÇA')
+          .length,
+          status_habitacao: h.status_habitacao,
+          status_familia: h.status_familia,
       })),
     };
   }

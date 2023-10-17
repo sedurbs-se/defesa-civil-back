@@ -1,4 +1,5 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsEnum, IsNotEmpty } from 'class-validator';
+import { StatusFamilia, StatusHabitacao } from '../domain/unidadeHabitacional/unidade-habitacional';
 
 export abstract class CreateHousingUnitDTO {
   @IsNotEmpty({ message: 'O campo id da área afetada é obrigatório' })
@@ -10,21 +11,11 @@ export abstract class CreateHousingUnitDTO {
   @IsNotEmpty({ message: 'O campo coordenadas é obrigatório' })
   coordinates: string;
 
-  @IsNotEmpty({ message: 'O campo flag resistente é obrigatório' })
-  fl_resistente: boolean;
+  @IsNotEmpty({ message: 'O campo status_habitacao é obrigatório' })
+  @IsEnum(StatusHabitacao, { message: 'O campo status_habitacao deve ser um enum válido' })
+  status_habitacao: StatusHabitacao;
 
-  @IsNotEmpty({ message: 'O campo flag danificado é obrigatório' })
-  fl_danificado: boolean;
-
-  @IsNotEmpty({ message: 'O campo flag destruído é obrigatório' })
-  fl_destroido: boolean;
-
-  @IsNotEmpty({ message: 'O campo flag resiliente é obrigatório' })
-  fl_resiliente: boolean;
-
-  @IsNotEmpty({ message: 'O campo flag desabrigado é obrigatório' })
-  fl_desabrigado: boolean;
-
-  @IsNotEmpty({ message: 'O campo flag desalojado é obrigatório' })
-  fl_desalojado: boolean;
+  @IsNotEmpty({ message: 'O campo status_familia é obrigatório' })
+  @IsEnum(StatusFamilia, { message: 'O campo status_familia deve ser um enum válido' })
+  status_familia: StatusFamilia
 }

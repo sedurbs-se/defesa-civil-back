@@ -35,12 +35,8 @@ export class ObterUnidadeController {
         ? { id: planilha.id, type: planilha.type, url: planilha.url }
         : null,
 
-      fl_danificado: housing.fl_danificado,
-      fl_desabrigado: housing.fl_desabrigado,
-      fl_desalojado: housing.fl_desalojado,
-      fl_destroido: housing.fl_destroido,
-      fl_resiliente: housing.fl_resiliente,
-      fl_resistente: housing.fl_resistente,
+      status_familia: housing.status_familia,
+      status_habitacao: housing.status_habitacao,
     };
   }
 }

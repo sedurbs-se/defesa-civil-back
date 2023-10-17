@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { UnidadeHabitacional } from '../domain/unidadeHabitacional/unidade-habitacional';
+import { StatusFamilia, StatusHabitacao, UnidadeHabitacional } from '../domain/unidadeHabitacional/unidade-habitacional';
 import { FotosMapper } from './FotoMapper';
 import { AfetadoMapper } from './AfetadoMapper';
 
@@ -39,13 +39,8 @@ export class UnidadeMapper {
       afetados: raw.afetados
         ? raw.afetados.map((a) => AfetadoMapper.toDomain(a))
         : [],
-      fl_danificado: raw.fl_danificado,
-      fl_desabrigado: raw.fl_desabrigado,
-      fl_desalojado: raw.fl_desalojado,
-      fl_destroido: raw.fl_destroido,
-      fl_resiliente: raw.fl_resiliente,
-      fl_resistente: raw.fl_resistente,
-
+      status_habitacao: raw.status_habitacao as StatusHabitacao,
+      status_familia: raw.status_familia as StatusFamilia,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     });
@@ -62,13 +57,8 @@ export class UnidadeMapper {
       afetados: raw.afetados
         ? raw.afetados.map((a) => AfetadoMapper.toDomain(a))
         : [],
-      fl_danificado: raw.fl_danificado,
-      fl_desabrigado: raw.fl_desabrigado,
-      fl_desalojado: raw.fl_desalojado,
-      fl_destroido: raw.fl_destroido,
-      fl_resiliente: raw.fl_resiliente,
-      fl_resistente: raw.fl_resistente,
-
+      status_habitacao: raw.status_habitacao as StatusHabitacao,
+      status_familia: raw.status_familia as StatusFamilia,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     });
@@ -85,13 +75,8 @@ export class UnidadeMapper {
       fotos: housingUnit.fotos
         ? housingUnit.fotos.map((p) => FotosMapper.toPersistence(p))
         : [],
-
-      fl_danificado: housingUnit.fl_danificado,
-      fl_desabrigado: housingUnit.fl_desabrigado,
-      fl_desalojado: housingUnit.fl_desalojado,
-      fl_destroido: housingUnit.fl_destroido,
-      fl_resiliente: housingUnit.fl_resiliente,
-      fl_resistente: housingUnit.fl_resistente,
+        status_habitacao: housingUnit.status_habitacao,
+        status_familia: housingUnit.status_familia,
     };
   }
 }

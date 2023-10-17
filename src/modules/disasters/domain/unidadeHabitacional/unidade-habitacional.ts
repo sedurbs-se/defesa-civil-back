@@ -14,13 +14,20 @@ interface UnidadeHabitacionalProps {
   afetados?: Afetado[];
   createdAt?: Date;
   updatedAt?: Date;
+  status_habitacao: StatusHabitacao;
+  status_familia: StatusFamilia;
+}
 
-  fl_resistente: boolean;
-  fl_danificado: boolean;
-  fl_destroido: boolean;
-  fl_resiliente: boolean;
-  fl_desabrigado: boolean;
-  fl_desalojado: boolean;
+export enum StatusHabitacao {
+  RESISTENTE = 'RESISTENTE',
+  DANIFICADO = 'DANIFICADO',
+  DESTRUIDO = 'DESTRUIDO',
+}
+
+export enum StatusFamilia {
+  RESILIENTE = 'RESILIENTE',
+  DESABRIGADO = 'DESABRIGADO',
+  DESALOJADO = 'DESALOJADO',
 }
 
 class UnidadeHabitacional extends Entity<UnidadeHabitacionalProps> {
@@ -56,23 +63,15 @@ class UnidadeHabitacional extends Entity<UnidadeHabitacionalProps> {
     return this.props.afetados;
   }
 
-  get fl_resistente() {
-    return this.props.fl_resistente;
+  get status_familia() {
+    return this.props.status_familia;
   }
-  get fl_danificado() {
-    return this.props.fl_danificado;
+
+  get status_habitacao() {
+    return this.props.status_habitacao;
   }
-  get fl_destroido() {
-    return this.props.fl_destroido;
-  }
-  get fl_resiliente() {
-    return this.props.fl_resiliente;
-  }
-  get fl_desabrigado() {
-    return this.props.fl_desabrigado;
-  }
-  get fl_desalojado() {
-    return this.props.fl_desalojado;
+  get createdAt() {
+    return this.props.createdAt;
   }
 }
 

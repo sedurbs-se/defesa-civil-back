@@ -37,10 +37,12 @@ class PrismaAlteracaoRepository implements AlteracaoRepository {
       buildQuery(selectedTable, a.novo_id),
     );
 
-    const antigo = await this.prisma.$queryRawUnsafe(
-      buildQuery(selectedTable, a.antigo_id),
-    );
-
+    const antigo = a.antigo_id
+      ? await this.prisma.$queryRawUnsafe(
+          buildQuery(selectedTable, a.antigo_id),
+        )
+      : null;
+      
     return AlteracaoMapper.toDomainWithDetails({
       ...a,
       antigo: antigo?.[0] || null,
@@ -54,14 +56,12 @@ class PrismaAlteracaoRepository implements AlteracaoRepository {
     tabela,
     ...filtros
   }: BuscarTodosFiltrosDTO): Promise<Alteracao[]> {
-
     const selectedTable = AlteracaoTable[tabela];
 
     if (!selectedTable) return null;
 
     const allData: { [key: string]: string | null }[] =
       await this.prisma.$queryRawUnsafe(buildQueryIds(selectedTable, item_id));
-
     const ids = [];
 
     for (const data of allData) {
@@ -72,14 +72,11 @@ class PrismaAlteracaoRepository implements AlteracaoRepository {
         }
       }
     }
-
-    console.log(ids);
-
     const alteracoes = await this.prisma.alteracao.findMany({
       where: {
         item_id: {
           in: ids,
-        }
+        },
       },
       include: {
         usuario: {

@@ -6,6 +6,10 @@ import { AreaAfetadaMapper } from '../../mappers/AreaAfetadaMapper';
 import { AffectedAreaWithDetails } from '../../useCases/ObterArea/ObterArea';
 import { UnidadeMapper } from '../../mappers/UnidadeMapper';
 import { randomUUID } from 'crypto';
+import {
+  StatusFamilia,
+  StatusHabitacao,
+} from '../../domain/unidadeHabitacional/unidade-habitacional';
 
 @Injectable()
 export class PrismaAreaAfetadaRepository implements AreaAfetadaRepository {
@@ -120,14 +124,18 @@ export class PrismaAreaAfetadaRepository implements AreaAfetadaRepository {
 
     const unity_count = unities.reduce(
       (acc, curr) => {
-        if (curr.fl_resiliente) acc.resilientes++;
-        if (curr.fl_desabrigado) acc.desabrigados++;
-        if (curr.fl_desalojado) acc.desalojados++;
+        if (curr.status_familia === StatusFamilia.RESILIENTE) acc.resilientes++;
+        if (curr.status_familia === StatusFamilia.DESABRIGADO)
+          acc.desabrigados++;
+        if (curr.status_familia === StatusFamilia.DESALOJADO) acc.desalojados++;
 
-        if (curr.fl_danificado) acc.danificados++;
-        if (curr.fl_destroido) acc.destruidos++;
-        if (curr.fl_resistente) acc.resistentes++;
-
+        if (curr.status_habitacao === StatusHabitacao.DANIFICADO)
+          acc.danificados++;
+        if (curr.status_habitacao === StatusHabitacao.DESTRUIDO)
+          acc.destruidos++;
+        if (curr.status_habitacao === StatusHabitacao.RESISTENTE)
+          acc.resistentes++;
+        
         acc.count++;
         return acc;
       },

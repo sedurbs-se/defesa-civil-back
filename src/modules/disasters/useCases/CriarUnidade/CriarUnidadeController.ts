@@ -26,12 +26,8 @@ export class CriarUnidadeController {
       affectedAreaId: housingUnit.areaAfetadaId,
       address: housingUnit.endereco,
       coordinates: housingUnit.coordenadas,
-      fl_danificado: housingUnit.fl_danificado,
-      fl_desabrigado: housingUnit.fl_desabrigado,
-      fl_desalojado: housingUnit.fl_desalojado,
-      fl_destroido: housingUnit.fl_destroido,
-      fl_resiliente: housingUnit.fl_resiliente,
-      fl_resistente: housingUnit.fl_resistente,
+      status_familia: housingUnit.status_familia,
+      status_habitacao: housingUnit.status_habitacao,
     };
   }
 }

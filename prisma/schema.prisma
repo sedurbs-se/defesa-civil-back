@@ -52,13 +52,9 @@ model UnidadeHabitacional {
   fotos         FotoUnidade[]
   afetados      Afetado[]
   acoes         Acao[]
-  fl_resistente Boolean
-  fl_danificado Boolean
-  fl_destroido  Boolean
+  status_habitacao String // RESILIENTE, DESABRIGADO, DESALOJADO
+  status_familia String // RESILIENTE, DESABRIGADO, DESALOJADO
 
-  fl_resiliente  Boolean
-  fl_desabrigado Boolean
-  fl_desalojado  Boolean
   createdAt      DateTime  @default(now())
   updatedAt      DateTime? @updatedAt
   deletedAt      DateTime?
@@ -184,7 +180,6 @@ model Usuario {
 
 model Agente {
   id        String   @id @default(uuid())
-  funcao    String
   contato   String
   usuarioId String   @unique @map("usuario_id")
   user      Usuario? @relation(fields: [usuarioId], references: [id])
